@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "jdownloader": {
+      "command": "python",
+      "args": ["-m", "jdownloader_mcp.server"],
+      "cwd": "/ruta/a/proyec_jdw2/src",
+      "env": {
+        "JD_EMAIL": "tu_email@example.com",
+        "JD_PASSWORD": "tu_contraseña",
+        "JD_DEVICE_NAME": "nombre_dispositivo"
+      }
+    }
+  }
+}

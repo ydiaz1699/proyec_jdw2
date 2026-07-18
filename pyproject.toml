@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jdownloader-mcp"
+version = "1.0.0"
+description = "MCP Server for full JDownloader remote control via My.JDownloader API"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "ydiaz1699" },
+]
+keywords = ["jdownloader", "mcp", "model-context-protocol", "download-manager", "automation"]
+
+dependencies = [
+    "myjdapi>=1.1.10",
+    "mcp[cli]>=1.0.0",
+]
+
+[project.optional-dependencies]
+captcha = [
+    "Pillow>=10.0.0",
+    "pytesseract>=0.3.10",
+]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+jdownloader-mcp = "jdownloader_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jdownloader_mcp"]
