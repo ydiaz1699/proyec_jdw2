@@ -7,13 +7,27 @@ Control completo de JDownloader desde cualquier LLM usando el protocolo MCP
 
 ```
 proyec_jdw2/
-├── src/jdownloader_mcp/     # MCP Server (50+ tools)
+├── src/jdownloader_mcp/          # MCP Server (100 tools)
 │   ├── __init__.py
-│   └── server.py
+│   ├── server.py                 # Servidor MCP principal
+│   └── captcha_solver/           # Módulo auto-solver
+│       ├── __init__.py
+│       ├── base.py               # Clases base (CaptchaType, BaseSolver)
+│       ├── router.py             # Enrutador por tipo de captcha
+│       ├── daemon.py             # Auto-solver background daemon
+│       ├── preprocessing/
+│       │   └── image_processor.py # Pipeline de procesamiento de imagen
+│       ├── solvers/
+│       │   ├── ocr_solver.py     # Tesseract + EasyOCR
+│       │   ├── ml_solver.py      # CNN PyTorch propio
+│       │   ├── nopecha_solver.py # NopeCHA API HTTP client
+│       │   └── darknet_solver.py # cracker0dks/YOLO integration
+│       └── models/
+│           └── cnn_model.py      # Arquitectura CNN para training
 ├── skill/
-│   └── jdownloader.md       # Kiro Skill (referencia completa de la API)
-├── mcp_config.json          # Config de ejemplo para clientes MCP
-├── pyproject.toml            # Instalacion como paquete Python
+│   └── jdownloader.md            # Kiro Skill (referencia completa)
+├── mcp_config.json               # Config para clientes MCP
+├── pyproject.toml
 ├── requirements.txt
 ├── .env.example
 └── README.md
@@ -117,21 +131,77 @@ de leer la documentacion original de myjdapi.
 
 ## Captcha Auto-Solving (futuro)
 
-El servidor incluye las tools basicas para captcha (`list`, `get`, `solve`).
-Para auto-resolver captchas sin intervencion humana, se planea integrar:
+El servidor incluye un módulo completo de auto-resolución de captchas
+que funciona sin intervención humana:
 
-- [NopeCHA](https://github.com/NopeCHALLC/nopecha-scripts) - Extension anti-captcha
-- [Buster](https://github.com/dessant/buster) - Solver de reCAPTCHA por audio
-- [NopeCHA Extension](https://github.com/NopeCHALLC/nopecha-extension)
-- [CAPTCHA ML](https://github.com/Jimut123/CAPTCHA) - Modelos ML para captchas
-- [go-captcha](https://github.com/wenlng/go-captcha) - Captcha behavior generation
-- [cap](https://github.com/tiagozip/cap) - Captcha solver
+### Arquitectura
 
-El flujo seria:
-1. JDownloader detecta un captcha y lo envia via la API
-2. El MCP server lo recibe con `jd_captcha_list` + `jd_captcha_get`
-3. Se procesa con el solver elegido (OCR, ML, servicio externo)
-4. Se envia la solucion con `jd_captcha_solve`
+```
+JDownloader detecta captcha
+        │
+        ▼
+MCP Server (jd_captcha_auto_solve_start)
+        │
+        ▼
+┌─ AutoSolverDaemon (polling loop) ─┐
+│                                    │
+│  CaptchaRouter → detecta tipo      │
+│       │                            │
+│       ├─ DarkNet/YOLO (prioridad 10)
+│       │   └─ cracker0dks integration
+│       │                            │
+│       ├─ ML CNN propio (prioridad 20)
+│       │   └─ modelo entrenado .pth │
+│       │                            │
+│       ├─ OCR local (prioridad 30)  │
+│       │   ├─ Tesseract             │
+│       │   └─ EasyOCR               │
+│       │                            │
+│       └─ NopeCHA API (prioridad 50)│
+│           └─ reCAPTCHA/hCaptcha/   │
+│              Turnstile/FunCAPTCHA  │
+│                                    │
+│  device.captcha.solve(id, answer)  │
+└────────────────────────────────────┘
+```
+
+### Componentes (auto-contenidos, sin dependencias externas):
+
+| Solver | Tipo de captcha | Dependencia |
+|--------|----------------|-------------|
+| `DarkNetSolver` | Texto 6-digitos, geometrico (k2s, filejoker) | Node.js + darknet binary |
+| `MLSolver` | Texto custom (entrenable) | PyTorch |
+| `OCRSolver` | Texto/imagen generico | Tesseract y/o EasyOCR |
+| `NopeCHASolver` | reCAPTCHA, hCaptcha, Turnstile, AWS WAF | requests (HTTP) |
+
+### MCP Tools del auto-solver:
+
+```
+jd_captcha_auto_solve_start   # Iniciar daemon
+jd_captcha_auto_solve_stop    # Detener daemon
+jd_captcha_auto_solve_status  # Ver estadísticas
+jd_captcha_auto_solve_reset   # Resetear stats/cache
+```
+
+### Instalación rápida:
+
+```bash
+# Mínimo (OCR + NopeCHA):
+pip install Pillow pytesseract requests
+
+# Con ML training:
+pip install torch torchvision numpy
+
+# Con EasyOCR (mejor para texto distorsionado):
+pip install easyocr
+```
+
+### Integración cracker0dks/CaptchaSolver:
+
+Para hosters como keep2share, fileboom, filejoker:
+1. Descargar: https://github.com/cracker0dks/CaptchaSolver/releases
+2. Extraer en tu carpeta de JDownloader
+3. El solver lo detecta automáticamente en modo "integrated"
 
 ## Requisitos
 

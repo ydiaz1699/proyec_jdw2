@@ -28,6 +28,7 @@ logger = logging.getLogger("jdownloader-mcp")
 # ---------------------------------------------------------------------------
 _jd: Optional[myjdapi.Myjdapi] = None
 _device = None
+_auto_solver = None  # AutoSolverDaemon instance
 
 
 
@@ -1712,6 +1713,172 @@ def jd_linkgrabber_get_download_urls(
     except Exception as e:
         return f"Error getting download URLs: {e}"
 
+
+
+# ===========================================================================
+# CAPTCHA AUTO-SOLVER TOOLS
+# ===========================================================================
+
+@mcp.tool()
+def jd_captcha_auto_solve_start(
+    poll_interval: float = 3.0,
+    max_retries: int = 2,
+    nopecha_api_key: Optional[str] = None,
+    ocr_engine: str = "auto",
+    ocr_char_whitelist: str = "",
+    ocr_expected_length: int = 0,
+    darknet_mode: str = "integrated",
+    darknet_path: str = "",
+    ml_model_path: str = "",
+) -> str:
+    """
+    Start the captcha auto-solver daemon. It polls JDownloader for pending
+    captchas and solves them automatically using multiple strategies:
+    - OCR (Tesseract/EasyOCR) for text captchas
+    - ML CNN model for trained hosters
+    - NopeCHA API for reCAPTCHA/hCaptcha/Turnstile
+    - DarkNet/YOLO for geometric captchas (cracker0dks integration)
+
+    Args:
+        poll_interval: Seconds between captcha checks (default: 3.0)
+        max_retries: Max solve attempts per captcha (default: 2)
+        nopecha_api_key: NopeCHA API key (optional, free tier: 100/day)
+        ocr_engine: OCR engine: "tesseract", "easyocr", "both", "auto"
+        ocr_char_whitelist: Limit OCR to these characters (e.g., "0123456789")
+        ocr_expected_length: Expected captcha length (0 = any)
+        darknet_mode: "integrated" (uses JD's CaptchaSolver) or "standalone"
+        darknet_path: Path to darknet binary (standalone mode)
+        ml_model_path: Path to trained .pth model (optional)
+    """
+    global _auto_solver
+    device = _ensure_connected()
+
+    if _auto_solver and _auto_solver.is_running:
+        return "Auto-solver is already running. Stop it first with jd_captcha_auto_solve_stop."
+
+    try:
+        from .captcha_solver import CaptchaRouter, AutoSolverDaemon
+        from .captcha_solver.solvers import OCRSolver, MLSolver, NopeCHASolver, DarkNetSolver
+
+        # Build router with solvers
+        router = CaptchaRouter()
+
+        # 1. DarkNet/YOLO (highest priority for supported hosters)
+        darknet_config = {"mode": darknet_mode}
+        if darknet_path:
+            darknet_config["darknet_path"] = darknet_path
+        darknet = DarkNetSolver(config=darknet_config)
+        if darknet.enabled:
+            router.register_solver(darknet, priority=10)
+
+        # 2. ML model (if trained model available)
+        if ml_model_path:
+            ml = MLSolver(config={"model_path": ml_model_path})
+            if ml.enabled:
+                router.register_solver(ml, priority=20)
+
+        # 3. OCR local (for text captchas)
+        ocr_config = {
+            "engine": ocr_engine,
+            "char_whitelist": ocr_char_whitelist,
+            "expected_length": ocr_expected_length,
+            "preprocessing": "hoster",
+        }
+        ocr = OCRSolver(config=ocr_config)
+        if ocr.engine != "none":
+            router.register_solver(ocr, priority=30)
+
+        # 4. NopeCHA API (for token-based captchas, lowest priority)
+        nopecha_key = nopecha_api_key or os.environ.get("NOPECHA_API_KEY", "")
+        nopecha = NopeCHASolver(config={"api_key": nopecha_key})
+        router.register_solver(nopecha, priority=50)
+
+        # Create and start daemon
+        _auto_solver = AutoSolverDaemon(
+            device=device,
+            router=router,
+            poll_interval=poll_interval,
+            max_retries=max_retries,
+        )
+
+        result = _auto_solver.start()
+
+        solvers_info = ", ".join(
+            f"{s['name']}({'ON' if s['enabled'] else 'OFF'})"
+            for s in router.solvers
+        )
+        return f"{result}\nSolvers: [{solvers_info}]\nPoll interval: {poll_interval}s"
+
+    except ImportError as e:
+        return f"Error: Missing dependency — {e}. Install with: pip install Pillow"
+    except Exception as e:
+        return f"Error starting auto-solver: {e}"
+
+
+@mcp.tool()
+def jd_captcha_auto_solve_stop() -> str:
+    """Stop the captcha auto-solver daemon."""
+    global _auto_solver
+
+    if _auto_solver is None:
+        return "Auto-solver was never started"
+    if not _auto_solver.is_running:
+        return "Auto-solver is not running"
+
+    result = _auto_solver.stop()
+    return result
+
+
+@mcp.tool()
+def jd_captcha_auto_solve_status() -> str:
+    """Get status and statistics of the captcha auto-solver daemon."""
+    global _auto_solver
+
+    if _auto_solver is None:
+        return "Auto-solver not initialized. Start it with jd_captcha_auto_solve_start."
+
+    status = _auto_solver.status()
+
+    result = "=== Captcha Auto-Solver Status ===\n\n"
+    result += f"Running: {'YES' if status['running'] else 'NO'}\n"
+
+    if status['uptime_seconds']:
+        mins = int(status['uptime_seconds'] // 60)
+        secs = int(status['uptime_seconds'] % 60)
+        result += f"Uptime: {mins}m {secs}s\n"
+
+    result += f"Poll interval: {status['poll_interval']}s\n\n"
+
+    stats = status['stats']
+    result += f"Detected: {stats['total_detected']}\n"
+    result += f"Solved: {stats['total_solved']}\n"
+    result += f"Failed: {stats['total_failed']}\n"
+    result += f"Errors: {stats['errors']}\n"
+
+    if stats['total_detected'] > 0:
+        rate = stats['total_solved'] / stats['total_detected'] * 100
+        result += f"Success rate: {rate:.1f}%\n"
+
+    result += f"\nSolvers:\n"
+    for s in status['solvers']:
+        result += f"  - {s['name']}: {s['success_rate']} "
+        result += f"({s['attempts']} attempts) "
+        result += f"[{'enabled' if s['enabled'] else 'DISABLED'}]\n"
+
+    return result
+
+
+@mcp.tool()
+def jd_captcha_auto_solve_reset() -> str:
+    """Reset auto-solver statistics and retry cache."""
+    global _auto_solver
+
+    if _auto_solver is None:
+        return "Auto-solver not initialized"
+
+    _auto_solver.reset_stats()
+    _auto_solver.clear_attempted()
+    return "Statistics and retry cache cleared"
 
 
 # ===========================================================================

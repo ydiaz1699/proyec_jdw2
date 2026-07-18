@@ -17,12 +17,22 @@ keywords = ["jdownloader", "mcp", "model-context-protocol", "download-manager", 
 dependencies = [
     "myjdapi>=1.1.10",
     "mcp[cli]>=1.0.0",
+    "requests>=2.28.0",
+    "Pillow>=10.0.0",
 ]
 
 [project.optional-dependencies]
-captcha = [
-    "Pillow>=10.0.0",
+ocr = [
     "pytesseract>=0.3.10",
+    "easyocr>=1.7.0",
+]
+ml = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "numpy>=1.24.0",
+]
+all = [
+    "jdownloader-mcp[ocr,ml]",
 ]
 dev = [
     "pytest>=7.0",

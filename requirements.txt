@@ -1,8 +1,16 @@
 # Core dependencies
 myjdapi>=1.1.10
 mcp[cli]>=1.0.0
+requests>=2.28.0
 
-# Optional: for captcha auto-solving
-# Pillow>=10.0.0
-# pytesseract>=0.3.10
-# easyocr>=1.7.0
+# Captcha auto-solver: image preprocessing (required for captcha module)
+Pillow>=10.0.0
+
+# Captcha auto-solver: OCR engines (install at least one)
+# pytesseract>=0.3.10    # Also needs: apt install tesseract-ocr
+# easyocr>=1.7.0         # PyTorch-based, better for distorted text
+
+# Captcha auto-solver: ML model training/inference
+# torch>=2.0.0
+# torchvision>=0.15.0
+# numpy>=1.24.0
