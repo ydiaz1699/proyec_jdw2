@@ -1715,6 +1715,492 @@ def jd_linkgrabber_get_download_urls(
 
 
 # ===========================================================================
+# EXTRACTION TOOLS (not in myjdapi, using device.action directly)
+# ===========================================================================
+
+@mcp.tool()
+def jd_extraction_get_archive_info(
+    link_ids: Optional[str] = None,
+    package_ids: Optional[str] = None
+) -> str:
+    """
+    Get archive information for links/packages (extraction status, passwords, etc.).
+
+    Args:
+        link_ids: Comma-separated link UUIDs (optional)
+        package_ids: Comma-separated package UUIDs (optional)
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")] if link_ids else []
+        pids = [int(x.strip()) for x in package_ids.split(",")] if package_ids else []
+        result = device.action("/extraction/getArchiveInfo", [lids, pids])
+        if not result:
+            return "No archive info found"
+        output = "Archive info:\n"
+        if isinstance(result, list):
+            for arch in result:
+                output += f"  - ID: {arch.get('archiveId', '?')}\n"
+                output += f"    Name: {arch.get('name', '?')}\n"
+                output += f"    Type: {arch.get('type', '?')}\n"
+                output += f"    Status: {arch.get('controllerStatus', 'N/A')}\n"
+                output += f"    Password protected: {arch.get('passwordProtected', False)}\n"
+        else:
+            output += json.dumps(result, indent=2, ensure_ascii=False)
+        return output
+    except Exception as e:
+        return f"Error getting archive info: {e}"
+
+
+@mcp.tool()
+def jd_extraction_get_queue() -> str:
+    """Get the current extraction queue."""
+    device = _ensure_connected()
+    try:
+        result = device.action("/extraction/getQueue")
+        if not result:
+            return "Extraction queue is empty"
+        output = f"Extraction queue ({len(result)} item(s)):\n"
+        for item in result:
+            output += f"  - {item.get('archiveId', '?')}: {item.get('name', '?')} [{item.get('controllerStatus', '?')}]\n"
+        return output
+    except Exception as e:
+        return f"Error getting extraction queue: {e}"
+
+
+@mcp.tool()
+def jd_extraction_cancel(controller_id: str) -> str:
+    """
+    Cancel an ongoing extraction.
+
+    Args:
+        controller_id: Archive controller ID to cancel
+    """
+    device = _ensure_connected()
+    try:
+        result = device.action("/extraction/cancelExtraction", [controller_id])
+        return f"Extraction cancelled: {controller_id}"
+    except Exception as e:
+        return f"Error cancelling extraction: {e}"
+
+
+@mcp.tool()
+def jd_extraction_add_archive_password(password: str) -> str:
+    """
+    Add a password to JDownloader's extraction password list.
+
+    Args:
+        password: Password to add
+    """
+    device = _ensure_connected()
+    try:
+        device.action("/extraction/addArchivePassword", [password])
+        return f"Archive password added"
+    except Exception as e:
+        return f"Error adding archive password: {e}"
+
+
+@mcp.tool()
+def jd_extraction_set_archive_passwords(archive_id: str, passwords: str) -> str:
+    """
+    Set passwords for a specific archive.
+
+    Args:
+        archive_id: Archive ID
+        passwords: Comma-separated list of passwords to try
+    """
+    device = _ensure_connected()
+    try:
+        pwd_list = [p.strip() for p in passwords.split(",")]
+        device.action("/extraction/setArchivePasswords", [archive_id, pwd_list])
+        return f"Passwords set for archive {archive_id}"
+    except Exception as e:
+        return f"Error setting archive passwords: {e}"
+
+
+@mcp.tool()
+def jd_extraction_start(
+    link_ids: Optional[str] = None,
+    package_ids: Optional[str] = None
+) -> str:
+    """
+    Start extraction for specified links/packages.
+
+    Args:
+        link_ids: Comma-separated link UUIDs (optional)
+        package_ids: Comma-separated package UUIDs (optional)
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")] if link_ids else []
+        pids = [int(x.strip()) for x in package_ids.split(",")] if package_ids else []
+        device.action("/extraction/startExtractionNow", [lids, pids])
+        return "Extraction started"
+    except Exception as e:
+        return f"Error starting extraction: {e}"
+
+
+# ===========================================================================
+# CAPTCHA FORWARD TOOLS (not in myjdapi)
+# ===========================================================================
+
+@mcp.tool()
+def jd_captcha_forward_create_job(
+    hoster: str,
+    captcha_type: str,
+    data: str
+) -> str:
+    """
+    Create a captcha forwarding job (send captcha to external solver).
+
+    Args:
+        hoster: Hoster name that generated the captcha
+        captcha_type: Type of captcha (e.g., 'image', 'recaptchav2', 'hcaptcha')
+        data: Captcha data (base64 image or site key depending on type)
+    """
+    device = _ensure_connected()
+    try:
+        result = device.action("/captchaforward/createJobRecaptchaV2", [hoster, captcha_type, data])
+        return f"Captcha forward job created: {result}"
+    except Exception as e:
+        return f"Error creating captcha forward job: {e}"
+
+
+@mcp.tool()
+def jd_captcha_forward_get_result(job_id: int) -> str:
+    """
+    Get the result of a captcha forwarding job.
+
+    Args:
+        job_id: Job ID returned by create_job
+    """
+    device = _ensure_connected()
+    try:
+        result = device.action("/captchaforward/getResult", [job_id])
+        if result:
+            return f"Captcha forward result: {result}"
+        return f"No result yet for job {job_id} (still processing)"
+    except Exception as e:
+        return f"Error getting captcha forward result: {e}"
+
+
+# ===========================================================================
+# LINK CRAWLER TOOLS (not in myjdapi)
+# ===========================================================================
+
+@mcp.tool()
+def jd_linkcrawler_is_crawling() -> str:
+    """Check if the link crawler is currently active/crawling."""
+    device = _ensure_connected()
+    try:
+        result = device.action("/linkcrawler/isCrawling")
+        if result:
+            return "Link crawler is active (crawling)"
+        return "Link crawler is idle"
+    except Exception as e:
+        return f"Error checking crawler status: {e}"
+
+
+# ===========================================================================
+# DOWNLOADS V2 EXTRA METHODS (not in myjdapi)
+# ===========================================================================
+
+@mcp.tool()
+def jd_downloads_set_comment(
+    comment: str,
+    link_ids: Optional[str] = None,
+    package_ids: Optional[str] = None
+) -> str:
+    """
+    Set a comment on download links or packages.
+
+    Args:
+        comment: Comment text to set
+        link_ids: Comma-separated link UUIDs (optional)
+        package_ids: Comma-separated package UUIDs (optional)
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")] if link_ids else []
+        pids = [int(x.strip()) for x in package_ids.split(",")] if package_ids else []
+        device.action("/downloadsV2/setComment", [comment, lids, pids])
+        return f"Comment set: '{comment}'"
+    except Exception as e:
+        return f"Error setting comment: {e}"
+
+
+@mcp.tool()
+def jd_downloads_set_priority(
+    priority: str,
+    link_ids: Optional[str] = None,
+    package_ids: Optional[str] = None
+) -> str:
+    """
+    Set priority of links or packages in the download list.
+
+    Args:
+        priority: Priority level: HIGHEST, HIGHER, HIGH, DEFAULT, LOWER
+        link_ids: Comma-separated link UUIDs (optional)
+        package_ids: Comma-separated package UUIDs (optional)
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")] if link_ids else []
+        pids = [int(x.strip()) for x in package_ids.split(",")] if package_ids else []
+        device.action("/downloadsV2/setPriority", [priority, lids, pids])
+        return f"Download priority set to {priority}"
+    except Exception as e:
+        return f"Error setting priority: {e}"
+
+
+@mcp.tool()
+def jd_downloads_rename_link(link_id: str, new_name: str) -> str:
+    """
+    Rename a link (file) in the download list.
+
+    Args:
+        link_id: Link UUID to rename
+        new_name: New filename
+    """
+    device = _ensure_connected()
+    try:
+        device.action("/downloadsV2/renameLink", [int(link_id), new_name])
+        return f"Download link {link_id} renamed to: '{new_name}'"
+    except Exception as e:
+        return f"Error renaming download link: {e}"
+
+
+@mcp.tool()
+def jd_downloads_rename_package(package_id: str, new_name: str) -> str:
+    """
+    Rename a package in the download list.
+
+    Args:
+        package_id: Package UUID to rename
+        new_name: New package name
+    """
+    device = _ensure_connected()
+    try:
+        device.action("/downloadsV2/renamePackage", [int(package_id), new_name])
+        return f"Download package {package_id} renamed to: '{new_name}'"
+    except Exception as e:
+        return f"Error renaming download package: {e}"
+
+
+@mcp.tool()
+def jd_downloads_set_download_password(
+    link_ids: str,
+    password: str
+) -> str:
+    """
+    Set download password for links.
+
+    Args:
+        link_ids: Comma-separated link UUIDs
+        password: Download password
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")]
+        device.action("/downloadsV2/setDownloadPassword", [lids, password])
+        return f"Download password set for {len(lids)} link(s)"
+    except Exception as e:
+        return f"Error setting download password: {e}"
+
+
+@mcp.tool()
+def jd_downloads_move_links(
+    link_ids: str,
+    after_link_id: str = "",
+    dest_package_id: str = ""
+) -> str:
+    """
+    Move links within the download list (reorder or move between packages).
+
+    Args:
+        link_ids: Comma-separated link UUIDs to move
+        after_link_id: Link UUID after which to place (empty for beginning)
+        dest_package_id: Destination package UUID
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")]
+        after = int(after_link_id) if after_link_id else -1
+        dest = int(dest_package_id) if dest_package_id else -1
+        device.action("/downloadsV2/moveLinks", [lids, after, dest])
+        return f"Moved {len(lids)} link(s)"
+    except Exception as e:
+        return f"Error moving links: {e}"
+
+
+@mcp.tool()
+def jd_downloads_move_packages(
+    package_ids: str,
+    after_package_id: str = ""
+) -> str:
+    """
+    Move/reorder packages in the download list.
+
+    Args:
+        package_ids: Comma-separated package UUIDs to move
+        after_package_id: Package UUID after which to place (empty for beginning)
+    """
+    device = _ensure_connected()
+    try:
+        pids = [int(x.strip()) for x in package_ids.split(",")]
+        after = int(after_package_id) if after_package_id else -1
+        device.action("/downloadsV2/movePackages", [pids, after])
+        return f"Moved {len(pids)} package(s)"
+    except Exception as e:
+        return f"Error moving packages: {e}"
+
+
+# ===========================================================================
+# LINKGRABBER V2 EXTRA METHODS (not in myjdapi)
+# ===========================================================================
+
+@mcp.tool()
+def jd_linkgrabber_set_comment(
+    comment: str,
+    link_ids: Optional[str] = None,
+    package_ids: Optional[str] = None
+) -> str:
+    """
+    Set a comment on links or packages in the LinkCollector.
+
+    Args:
+        comment: Comment text to set
+        link_ids: Comma-separated link UUIDs (optional)
+        package_ids: Comma-separated package UUIDs (optional)
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")] if link_ids else []
+        pids = [int(x.strip()) for x in package_ids.split(",")] if package_ids else []
+        device.action("/linkgrabberv2/setComment", [comment, lids, pids])
+        return f"Comment set: '{comment}'"
+    except Exception as e:
+        return f"Error setting comment: {e}"
+
+
+@mcp.tool()
+def jd_linkgrabber_set_download_directory(
+    directory: str,
+    package_ids: str
+) -> str:
+    """
+    Set download directory for packages in the LinkCollector.
+
+    Args:
+        directory: Full path to download directory
+        package_ids: Comma-separated package UUIDs
+    """
+    device = _ensure_connected()
+    try:
+        pids = [int(x.strip()) for x in package_ids.split(",")]
+        device.action("/linkgrabberv2/setDownloadDirectory", [directory, pids])
+        return f"Download directory set to: {directory}"
+    except Exception as e:
+        return f"Error setting download directory: {e}"
+
+
+@mcp.tool()
+def jd_linkgrabber_set_download_password(
+    link_ids: str,
+    password: str
+) -> str:
+    """
+    Set download password for links in the LinkCollector.
+
+    Args:
+        link_ids: Comma-separated link UUIDs
+        password: Download password
+    """
+    device = _ensure_connected()
+    try:
+        lids = [int(x.strip()) for x in link_ids.split(",")]
+        device.action("/linkgrabberv2/setDownloadPassword", [lids, password])
+        return f"Download password set for {len(lids)} link(s) in LinkCollector"
+    except Exception as e:
+        return f"Error setting download password: {e}"
+
+
+# ===========================================================================
+# JD NAMESPACE EXTRA METHODS (not in myjdapi)
+# ===========================================================================
+
+@mcp.tool()
+def jd_get_uptime() -> str:
+    """Get JDownloader uptime in milliseconds."""
+    device = _ensure_connected()
+    try:
+        uptime = device.action("/jd/uptime")
+        if uptime:
+            seconds = uptime / 1000
+            hours = int(seconds // 3600)
+            minutes = int((seconds % 3600) // 60)
+            return f"JDownloader uptime: {hours}h {minutes}m ({uptime}ms)"
+        return "Unable to get uptime"
+    except Exception as e:
+        return f"Error getting uptime: {e}"
+
+
+@mcp.tool()
+def jd_get_timestamp() -> str:
+    """Get current timestamp from JDownloader."""
+    device = _ensure_connected()
+    try:
+        ts = device.action("/jd/timestamp")
+        return f"JDownloader timestamp: {ts}"
+    except Exception as e:
+        return f"Error getting timestamp: {e}"
+
+
+@mcp.tool()
+def jd_do_refresh_plugins() -> str:
+    """Force refresh of all JDownloader plugins (hoster/decrypter plugins)."""
+    device = _ensure_connected()
+    try:
+        device.action("/jd/doRefreshPlugins")
+        return "Plugins refreshed"
+    except Exception as e:
+        return f"Error refreshing plugins: {e}"
+
+
+# ===========================================================================
+# RAW API TOOL (for any endpoint not covered above)
+# ===========================================================================
+
+@mcp.tool()
+def jd_raw_api_call(
+    endpoint: str,
+    params_json: str = "null"
+) -> str:
+    """
+    Make a raw API call to any JDownloader endpoint.
+    Use this for endpoints not covered by specific tools.
+
+    Args:
+        endpoint: API path (e.g., '/downloadsV2/queryLinks', '/extraction/getQueue')
+        params_json: JSON string with parameters (e.g., '[[1234], [5678]]' or 'null')
+    """
+    device = _ensure_connected()
+    try:
+        if params_json and params_json != "null":
+            params = json.loads(params_json)
+        else:
+            params = None
+        result = device.action(endpoint, params)
+        if result is None:
+            return f"Call to {endpoint} returned null/void"
+        return f"Result from {endpoint}:\n{json.dumps(result, indent=2, ensure_ascii=False)}"
+    except json.JSONDecodeError as e:
+        return f"Error: params_json must be valid JSON - {e}"
+    except Exception as e:
+        return f"Error calling {endpoint}: {e}"
+
+
+# ===========================================================================
 # ENTRY POINT
 # ===========================================================================
 

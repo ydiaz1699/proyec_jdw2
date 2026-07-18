@@ -712,3 +712,159 @@ Add to your MCP configuration:
 | Toolbar | jd_toolbar_status, jd_speed_limit_enable, jd_speed_limit_disable |
 | Update | jd_update_check, jd_update_restart |
 | Misc | jd_reconnect, jd_get_version, jd_get_overview |
+
+
+
+---
+
+## Extended API (not in myjdapi, use device.action() directly)
+
+The following namespaces exist in the official JDownloader API but are NOT
+implemented in the `myjdapi` Python library. Access them using `device.action()`:
+
+### 14. Extraction
+
+Archive extraction control. Endpoint: `/extraction`
+
+```python
+# Get archive info for links/packages
+info = device.action("/extraction/getArchiveInfo", [[link_ids], [pkg_ids]])
+# Returns: [{"archiveId": "...", "name": "...", "type": "RAR", 
+#            "passwordProtected": true, "controllerStatus": "..."}]
+
+# Get extraction queue
+queue = device.action("/extraction/getQueue")
+
+# Start extraction now
+device.action("/extraction/startExtractionNow", [[link_ids], [pkg_ids]])
+
+# Cancel an extraction
+device.action("/extraction/cancelExtraction", [controller_id])
+
+# Add password to global extraction password list
+device.action("/extraction/addArchivePassword", ["my_password"])
+
+# Set passwords for a specific archive
+device.action("/extraction/setArchivePasswords", [archive_id, ["pass1", "pass2"]])
+
+# Get archive settings
+settings = device.action("/extraction/getArchiveSettings", [[archive_ids]])
+```
+
+---
+
+### 15. CaptchaForward
+
+Forward captchas to external solving services. Endpoint: `/captchaforward`
+
+```python
+# Create a recaptcha v2 forwarding job
+job_id = device.action("/captchaforward/createJobRecaptchaV2", 
+    [hoster, captcha_type, site_key])
+
+# Get result
+result = device.action("/captchaforward/getResult", [job_id])
+```
+
+---
+
+### 16. LinkCrawler
+
+```python
+# Check if crawler is active
+is_crawling = device.action("/linkcrawler/isCrawling")
+```
+
+---
+
+### 17. DownloadsV2 Extra Methods
+
+```python
+# Set comment on downloads
+device.action("/downloadsV2/setComment", ["my comment", [link_ids], [pkg_ids]])
+
+# Set priority
+device.action("/downloadsV2/setPriority", ["HIGH", [link_ids], [pkg_ids]])
+
+# Rename link
+device.action("/downloadsV2/renameLink", [link_id, "new_name.mp4"])
+
+# Rename package
+device.action("/downloadsV2/renamePackage", [pkg_id, "New Package Name"])
+
+# Set download password
+device.action("/downloadsV2/setDownloadPassword", [[link_ids], "password"])
+
+# Move links (reorder)
+device.action("/downloadsV2/moveLinks", [[link_ids], after_link_id, dest_pkg_id])
+
+# Move packages (reorder)
+device.action("/downloadsV2/movePackages", [[pkg_ids], after_pkg_id])
+```
+
+---
+
+### 18. LinkgrabberV2 Extra Methods
+
+```python
+# Set comment
+device.action("/linkgrabberv2/setComment", ["my comment", [link_ids], [pkg_ids]])
+
+# Set download directory
+device.action("/linkgrabberv2/setDownloadDirectory", ["/path/to/dir", [pkg_ids]])
+
+# Set download password
+device.action("/linkgrabberv2/setDownloadPassword", [[link_ids], "password"])
+```
+
+---
+
+### 19. JD Namespace Extra
+
+```python
+# Get uptime (milliseconds)
+uptime = device.action("/jd/uptime")
+
+# Get server timestamp
+ts = device.action("/jd/timestamp")
+
+# Refresh all plugins
+device.action("/jd/doRefreshPlugins")
+```
+
+---
+
+### 20. Raw API Call Pattern
+
+For any endpoint not covered above:
+
+```python
+# Generic pattern
+result = device.action("/namespace/method", [param1, param2, ...])
+
+# Example: Get captcha list
+captchas = device.action("/captcha/list", [])
+
+# Example: Answer a dialog
+device.action("/dialogs/answer", [dialog_id, {"response": "value"}])
+```
+
+**Known namespaces in the official API:**
+- `/accountsV2` - Premium accounts (14 methods)
+- `/captcha` - Captcha handling (7 methods)
+- `/captchaforward` - External captcha forwarding (2 methods)
+- `/config` - Advanced settings (8 methods)
+- `/downloadcontroller` - Download engine control (6 methods)
+- `/downloadsV2` - Download list management (26 methods)
+- `/dialogs` - UI dialogs (4 methods)
+- `/extensions` - Extensions/plugins (5 methods)
+- `/extraction` - Archive extraction (7 methods)
+- `/jd` - JD info/system (6 methods)
+- `/linkcrawler` - Link crawler (1 method)
+- `/linkgrabberv2` - LinkCollector (30 methods)
+- `/reconnect` - Internet reconnect (1 method)
+- `/system` - OS operations (7 methods)
+- `/toolbar` - Speed limit/status (2 methods)
+- `/update` - Update management (3 methods)
+
+Total: ~130+ API methods available.
