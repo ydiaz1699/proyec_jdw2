@@ -1,286 +1,244 @@
 """
-NopeCHA API Solver - Token-based captcha solver via NopeCHA's HTTP API.
-========================================================================
-Self-contained HTTP client — does NOT depend on NopeCHA's Python/Node library.
-Implements the Recognition and Token API endpoints directly.
+NopeCHA Solver
+==============
+Solves captchas using the NopeCHA API (self-hosted or cloud).
+Supports: reCAPTCHA v2/v3, hCaptcha, Turnstile, text/image captchas.
 
-Supports:
-- reCAPTCHA v2/v3
-- hCaptcha
-- Cloudflare Turnstile
-- FunCAPTCHA
-- AWS WAF
-- Text/image captchas (as fallback)
-
-Usage:
-    solver = NopeCHASolver(config={"api_key": "your_key"})
-    solution = solver.solve(challenge)
-
-API docs: https://developers.nopecha.com/
-Free tier: 100 requests/day without API key (IP-based)
+NopeCHA is an AI-based captcha solving service with optional self-hosted client.
 """
 
-import json
-import time
+import base64
 import logging
+import time
 from typing import Optional
 
 import requests
 
-from ..base import BaseSolver, CaptchaChallenge, CaptchaSolution, CaptchaType
+from ..base import (
+    BaseSolver,
+    CaptchaChallenge,
+    CaptchaSolution,
+    CaptchaType,
+)
 
 logger = logging.getLogger("captcha-solver.nopecha")
 
 NOPECHA_API_URL = "https://api.nopecha.com"
-NOPECHA_RECOGNITION_URL = f"{NOPECHA_API_URL}/recognition"
-NOPECHA_TOKEN_URL = f"{NOPECHA_API_URL}/token"
+TIMEOUT_DEFAULT = 120
+POLL_INTERVAL = 3
 
 
 class NopeCHASolver(BaseSolver):
     """
-    Solves captchas via the NopeCHA API.
-
-    Config options:
-        api_key: NopeCHA API key (optional, free tier uses IP-based limits)
-        timeout: Request timeout in seconds (default: 120)
-        poll_interval: Seconds between polling for result (default: 5)
-        max_polls: Maximum poll attempts (default: 24 = 2 minutes)
-
-    Supports all token-based captchas (reCAPTCHA, hCaptcha, Turnstile)
-    and image recognition captchas.
+    Solver that uses the NopeCHA API to solve various captcha types.
+    Supports self-hosted inference endpoints.
     """
 
-    name = "nopecha_api"
+    name = "nopecha"
     supported_types = [
+        CaptchaType.TEXT_IMAGE,
         CaptchaType.RECAPTCHA_V2,
         CaptchaType.RECAPTCHA_V3,
         CaptchaType.HCAPTCHA,
         CaptchaType.TURNSTILE,
-        CaptchaType.FUNCAPTCHA,
-        CaptchaType.AWS_WAF,
-        CaptchaType.TEXT_IMAGE,
     ]
 
     def __init__(self, config: Optional[dict] = None):
         super().__init__(config)
-
         self.api_key = self.config.get("api_key", "")
-        self.timeout = self.config.get("timeout", 120)
-        self.poll_interval = self.config.get("poll_interval", 5)
-        self.max_polls = self.config.get("max_polls", 24)
+        self.api_url = self.config.get("api_url", NOPECHA_API_URL)
+        self.timeout = self.config.get("timeout", TIMEOUT_DEFAULT)
+        self.poll_interval = self.config.get("poll_interval", POLL_INTERVAL)
 
         if not self.api_key:
-            logger.info(
-                "NopeCHA solver: No API key set. Using free tier (100 req/day by IP). "
-                "Set config['api_key'] for higher limits."
-            )
+            logger.warning("NopeCHA API key not configured - solver disabled")
+            self.enabled = False
 
     def solve(self, challenge: CaptchaChallenge) -> CaptchaSolution:
-        """Route to the appropriate NopeCHA endpoint based on captcha type."""
+        """Solve a captcha challenge via NopeCHA API."""
         try:
-            if challenge.captcha_type in (
-                CaptchaType.RECAPTCHA_V2,
-                CaptchaType.RECAPTCHA_V3,
-                CaptchaType.HCAPTCHA,
-                CaptchaType.TURNSTILE,
-                CaptchaType.FUNCAPTCHA,
-                CaptchaType.AWS_WAF,
-            ):
+            if challenge.captcha_type == CaptchaType.TEXT_IMAGE:
+                return self._solve_image(challenge)
+            else:
                 return self._solve_token(challenge)
-            elif challenge.captcha_type == CaptchaType.TEXT_IMAGE:
-                return self._solve_recognition(challenge)
+
+        except Exception as e:
+            logger.error(f"NopeCHA error: {e}")
+            return CaptchaSolution(
+                success=False,
+                solver_name=self.name,
+                error=str(e),
+            )
+
+    def _solve_image(self, challenge: CaptchaChallenge) -> CaptchaSolution:
+        """Solve a text/image captcha using NopeCHA recognition."""
+        image_b64 = challenge.image_base64
+        if not image_b64 and challenge.image_data:
+            image_b64 = base64.b64encode(challenge.image_data).decode()
+
+        if not image_b64:
+            return CaptchaSolution(
+                success=False,
+                solver_name=self.name,
+                error="No image data provided",
+            )
+
+        payload = {
+            "key": self.api_key,
+            "type": "textcaptcha",
+            "image_data": [image_b64],
+        }
+
+        try:
+            resp = requests.post(
+                f"{self.api_url}/",
+                json=payload,
+                timeout=30,
+            )
+            data = resp.json()
+
+            if data.get("error"):
+                return CaptchaSolution(
+                    success=False,
+                    solver_name=self.name,
+                    error=f"NopeCHA error: {data.get('message', data.get('error'))}",
+                )
+
+            answers = data.get("data", [])
+            if answers:
+                solution_text = str(answers[0])
+                return CaptchaSolution(
+                    success=True,
+                    solution=solution_text,
+                    solver_name=self.name,
+                    confidence=0.90,
+                )
             else:
                 return CaptchaSolution(
                     success=False,
                     solver_name=self.name,
-                    error=f"Unsupported type: {challenge.captcha_type.value}",
+                    error="NopeCHA returned no answers",
                 )
-        except requests.exceptions.RequestException as e:
+
+        except requests.RequestException as e:
             return CaptchaSolution(
                 success=False,
                 solver_name=self.name,
-                error=f"Network error: {e}",
-            )
-        except Exception as e:
-            return CaptchaSolution(
-                success=False,
-                solver_name=self.name,
-                error=f"NopeCHA error: {e}",
+                error=f"NopeCHA request failed: {e}",
             )
 
     def _solve_token(self, challenge: CaptchaChallenge) -> CaptchaSolution:
-        """
-        Solve token-based captchas (reCAPTCHA, hCaptcha, Turnstile, etc.).
-        Uses the /token endpoint with polling.
-        """
-        # Map our types to NopeCHA type names
+        """Solve a token-based captcha (reCAPTCHA, hCaptcha, Turnstile)."""
         type_map = {
             CaptchaType.RECAPTCHA_V2: "recaptcha2",
             CaptchaType.RECAPTCHA_V3: "recaptcha3",
             CaptchaType.HCAPTCHA: "hcaptcha",
             CaptchaType.TURNSTILE: "turnstile",
-            CaptchaType.FUNCAPTCHA: "funcaptcha",
-            CaptchaType.AWS_WAF: "awscaptcha",
         }
 
-        captcha_type = type_map.get(challenge.captcha_type, "recaptcha2")
+        task_type = type_map.get(challenge.captcha_type)
+        if not task_type:
+            return CaptchaSolution(
+                success=False,
+                solver_name=self.name,
+                error=f"Unsupported type: {challenge.captcha_type}",
+            )
 
-        # Build request payload
         payload = {
-            "type": captcha_type,
+            "key": self.api_key,
+            "type": task_type,
             "sitekey": challenge.site_key or "",
             "url": challenge.page_url or "",
         }
 
-        if self.api_key:
-            payload["key"] = self.api_key
-
-        # Additional fields for specific types
         if challenge.captcha_type == CaptchaType.RECAPTCHA_V3:
             payload["action"] = challenge.extra.get("action", "verify")
-            payload["min_score"] = challenge.extra.get("min_score", 0.5)
+            payload["min_score"] = challenge.extra.get("min_score", 0.3)
 
-        # Submit task
-        logger.debug(f"NopeCHA token request: type={captcha_type}")
-        response = requests.post(
-            NOPECHA_TOKEN_URL,
-            json=payload,
-            timeout=30,
-        )
+        try:
+            # Submit task
+            resp = requests.post(
+                f"{self.api_url}/token",
+                json=payload,
+                timeout=30,
+            )
+            data = resp.json()
 
-        data = response.json()
+            if data.get("error"):
+                return CaptchaSolution(
+                    success=False,
+                    solver_name=self.name,
+                    error=f"NopeCHA error: {data.get('message', data.get('error'))}",
+                )
 
-        if "error" in data:
+            # If we got a token directly
+            token = data.get("data")
+            if token:
+                return CaptchaSolution(
+                    success=True,
+                    solution=str(token),
+                    solver_name=self.name,
+                    confidence=0.92,
+                )
+
+            # If we got a job ID, poll for result
+            job_id = data.get("id")
+            if job_id:
+                return self._poll_token_result(job_id)
+
             return CaptchaSolution(
                 success=False,
                 solver_name=self.name,
-                error=f"NopeCHA error: {data['error']}",
+                error="NopeCHA returned unexpected response",
             )
 
-        # If we got a token directly
-        if "data" in data and data["data"]:
-            return CaptchaSolution(
-                success=True,
-                solution=data["data"],
-                solver_name=self.name,
-                confidence=0.9,
-            )
-
-        # Poll for result if we got a job ID
-        job_id = data.get("data") or data.get("id")
-        if not job_id:
+        except requests.RequestException as e:
             return CaptchaSolution(
                 success=False,
                 solver_name=self.name,
-                error="No job ID or token returned",
+                error=f"NopeCHA request failed: {e}",
             )
 
-        return self._poll_result(job_id)
-
-    def _solve_recognition(self, challenge: CaptchaChallenge) -> CaptchaSolution:
-        """
-        Solve image recognition captchas using the /recognition endpoint.
-        Sends the image and receives the text answer.
-        """
-        if not challenge.image_base64:
-            return CaptchaSolution(
-                success=False,
-                solver_name=self.name,
-                error="No image data for recognition",
-            )
-
-        payload = {
-            "type": "textcaptcha",
-            "image_data": [challenge.image_base64],
-        }
-
-        if self.api_key:
-            payload["key"] = self.api_key
-
-        response = requests.post(
-            NOPECHA_RECOGNITION_URL,
-            json=payload,
-            timeout=30,
-        )
-
-        data = response.json()
-
-        if "error" in data:
-            return CaptchaSolution(
-                success=False,
-                solver_name=self.name,
-                error=f"NopeCHA recognition error: {data['error']}",
-            )
-
-        # Recognition returns the answer directly
-        answers = data.get("data", [])
-        if answers and isinstance(answers, list) and answers[0]:
-            return CaptchaSolution(
-                success=True,
-                solution=answers[0],
-                solver_name=self.name,
-                confidence=0.85,
-            )
-
-        return CaptchaSolution(
-            success=False,
-            solver_name=self.name,
-            error="NopeCHA returned empty recognition result",
-        )
-
-    def _poll_result(self, job_id: str) -> CaptchaSolution:
+    def _poll_token_result(self, job_id: str) -> CaptchaSolution:
         """Poll NopeCHA for a token result."""
-        for attempt in range(self.max_polls):
+        deadline = time.time() + self.timeout
+
+        while time.time() < deadline:
             time.sleep(self.poll_interval)
 
             try:
-                payload = {"id": job_id}
-                if self.api_key:
-                    payload["key"] = self.api_key
-
-                response = requests.get(
-                    f"{NOPECHA_TOKEN_URL}",
-                    params=payload,
+                resp = requests.get(
+                    f"{self.api_url}/token",
+                    params={"key": self.api_key, "id": job_id},
                     timeout=30,
                 )
-                data = response.json()
+                data = resp.json()
 
-                if "error" in data:
-                    if "processing" in str(data["error"]).lower():
-                        continue  # Still working
+                if data.get("error"):
+                    error_msg = data.get("message", data.get("error"))
+                    if "processing" in str(error_msg).lower():
+                        continue
                     return CaptchaSolution(
                         success=False,
                         solver_name=self.name,
-                        error=f"NopeCHA poll error: {data['error']}",
+                        error=f"NopeCHA error: {error_msg}",
                     )
 
-                if "data" in data and data["data"]:
+                token = data.get("data")
+                if token:
                     return CaptchaSolution(
                         success=True,
-                        solution=data["data"],
+                        solution=str(token),
                         solver_name=self.name,
-                        confidence=0.9,
+                        confidence=0.92,
                     )
 
-            except requests.exceptions.RequestException:
+            except requests.RequestException as e:
+                logger.debug(f"NopeCHA poll error: {e}")
                 continue
 
         return CaptchaSolution(
             success=False,
             solver_name=self.name,
-            error=f"Timeout after {self.max_polls * self.poll_interval}s",
+            error=f"NopeCHA job {job_id} timed out",
         )
-
-    def get_balance(self) -> dict:
-        """Check NopeCHA API credit balance."""
-        if not self.api_key:
-            return {"error": "No API key set", "plan": "free (100/day by IP)"}
-        try:
-            response = requests.get(
-                f"{NOPECHA_API_URL}/status",
-                params={"key": self.api_key},
-                timeout=10,
-            )
-            return response.json()
-        except Exception as e:
-            return {"error": str(e)}

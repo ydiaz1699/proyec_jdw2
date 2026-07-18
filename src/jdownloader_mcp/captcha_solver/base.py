@@ -14,15 +14,15 @@ logger = logging.getLogger("captcha-solver")
 
 class CaptchaType(Enum):
     """Types of captchas that JDownloader can encounter."""
-    TEXT_IMAGE = "text_image"           # Simple text in image (4-6 chars)
-    GEOMETRIC = "geometric"             # Geometric shapes (keep2share new)
-    RECAPTCHA_V2 = "recaptcha_v2"       # Google reCAPTCHA v2
-    RECAPTCHA_V3 = "recaptcha_v3"       # Google reCAPTCHA v3 (invisible)
-    HCAPTCHA = "hcaptcha"               # hCaptcha image selection
-    TURNSTILE = "turnstile"             # Cloudflare Turnstile
-    FUNCAPTCHA = "funcaptcha"           # FunCAPTCHA / Arkose Labs
-    AWS_WAF = "aws_waf"                 # AWS WAF CAPTCHA
-    UNKNOWN = "unknown"                 # Unrecognized type
+    TEXT_IMAGE = "text_image"
+    GEOMETRIC = "geometric"
+    RECAPTCHA_V2 = "recaptcha_v2"
+    RECAPTCHA_V3 = "recaptcha_v3"
+    HCAPTCHA = "hcaptcha"
+    TURNSTILE = "turnstile"
+    FUNCAPTCHA = "funcaptcha"
+    AWS_WAF = "aws_waf"
+    UNKNOWN = "unknown"
 
 
 @dataclass
@@ -31,10 +31,10 @@ class CaptchaChallenge:
     captcha_id: int
     hoster: str = ""
     captcha_type: CaptchaType = CaptchaType.UNKNOWN
-    image_data: Optional[bytes] = None   # Raw image bytes (for image captchas)
-    image_base64: Optional[str] = None   # Base64 encoded image
-    site_key: Optional[str] = None       # Site key (for reCAPTCHA/hCaptcha)
-    page_url: Optional[str] = None       # Page URL (for token-based captchas)
+    image_data: Optional[bytes] = None
+    image_base64: Optional[str] = None
+    site_key: Optional[str] = None
+    page_url: Optional[str] = None
     extra: dict = field(default_factory=dict)
 
 
@@ -42,10 +42,10 @@ class CaptchaChallenge:
 class CaptchaSolution:
     """Result from a solver attempt."""
     success: bool
-    solution: Optional[str] = None       # The answer text or token
-    solver_name: str = ""                # Which solver produced this
-    confidence: float = 0.0              # 0.0 to 1.0
-    error: Optional[str] = None          # Error message if failed
+    solution: Optional[str] = None
+    solver_name: str = ""
+    confidence: float = 0.0
+    error: Optional[str] = None
 
 
 class BaseSolver(ABC):
@@ -61,24 +61,13 @@ class BaseSolver(ABC):
 
     @abstractmethod
     def solve(self, challenge: CaptchaChallenge) -> CaptchaSolution:
-        """
-        Attempt to solve a captcha challenge.
-
-        Args:
-            challenge: The captcha challenge to solve
-
-        Returns:
-            CaptchaSolution with the result
-        """
         pass
 
     def can_solve(self, challenge: CaptchaChallenge) -> bool:
-        """Check if this solver can handle the given challenge type."""
         return challenge.captcha_type in self.supported_types
 
     @property
     def success_rate(self) -> float:
-        """Get the solver's success rate."""
         total = self._stats["attempts"]
         if total == 0:
             return 0.0
@@ -86,7 +75,6 @@ class BaseSolver(ABC):
 
     @property
     def stats(self) -> dict:
-        """Get solver statistics."""
         return {
             "name": self.name,
             "enabled": self.enabled,
@@ -97,7 +85,6 @@ class BaseSolver(ABC):
         }
 
     def _record_attempt(self, solution: CaptchaSolution):
-        """Record an attempt for statistics."""
         self._stats["attempts"] += 1
         if solution.success:
             self._stats["successes"] += 1

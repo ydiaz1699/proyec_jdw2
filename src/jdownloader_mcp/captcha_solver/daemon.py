@@ -26,13 +26,6 @@ logger = logging.getLogger("captcha-solver.daemon")
 class AutoSolverDaemon:
     """
     Background daemon that monitors JDownloader for captchas and solves them.
-
-    Features:
-    - Configurable poll interval
-    - Automatic retry on failure
-    - Rate limiting to avoid API abuse
-    - Statistics tracking
-    - Thread-safe start/stop
     """
 
     def __init__(
@@ -43,14 +36,6 @@ class AutoSolverDaemon:
         max_retries: int = 2,
         cooldown_after_solve: float = 1.0,
     ):
-        """
-        Args:
-            device: myjdapi device instance (must be connected)
-            router: CaptchaRouter with registered solvers
-            poll_interval: Seconds between captcha checks
-            max_retries: Max retry attempts per captcha
-            cooldown_after_solve: Seconds to wait after solving one
-        """
         self.device = device
         self.router = router
         self.poll_interval = poll_interval
@@ -61,7 +46,6 @@ class AutoSolverDaemon:
         self._thread: Optional[threading.Thread] = None
         self._lock = threading.Lock()
 
-        # Stats
         self._stats = {
             "started_at": None,
             "total_detected": 0,
@@ -72,11 +56,9 @@ class AutoSolverDaemon:
             "errors": 0,
         }
 
-        # Track already-attempted captcha IDs to avoid infinite retries
-        self._attempted: dict = {}  # {captcha_id: attempt_count}
+        self._attempted: dict = {}
 
     def start(self) -> str:
-        """Start the auto-solver daemon in a background thread."""
         with self._lock:
             if self._running:
                 return "Daemon already running"
@@ -94,26 +76,26 @@ class AutoSolverDaemon:
             return "Auto-solver daemon started"
 
     def stop(self) -> str:
-        """Stop the auto-solver daemon."""
         with self._lock:
             if not self._running:
                 return "Daemon not running"
 
             self._running = False
-            if self._thread:
-                self._thread.join(timeout=10)
-                self._thread = None
+            thread = self._thread
+            self._thread = None
 
-            logger.info("Auto-solver daemon stopped")
-            return "Auto-solver daemon stopped"
+        # Join outside the lock to avoid deadlocking with the loop thread
+        if thread:
+            thread.join(timeout=10)
+
+        logger.info("Auto-solver daemon stopped")
+        return "Auto-solver daemon stopped"
 
     @property
     def is_running(self) -> bool:
-        """Check if daemon is currently running."""
         return self._running
 
     def status(self) -> dict:
-        """Get current daemon status and statistics."""
         uptime = None
         if self._stats["started_at"] and self._running:
             uptime = time.time() - self._stats["started_at"]
@@ -128,7 +110,6 @@ class AutoSolverDaemon:
         }
 
     def _run_loop(self):
-        """Main daemon loop — runs in background thread."""
         logger.info(
             f"Daemon loop started (poll every {self.poll_interval}s, "
             f"max retries: {self.max_retries})"
@@ -140,14 +121,12 @@ class AutoSolverDaemon:
             except Exception as e:
                 self._stats["errors"] += 1
                 logger.error(f"Daemon loop error: {e}")
-                # Don't crash — wait and retry
                 time.sleep(self.poll_interval * 2)
                 continue
 
             time.sleep(self.poll_interval)
 
     def _check_and_solve(self):
-        """Check for pending captchas and attempt to solve them."""
         try:
             captchas = self.device.captcha.list()
         except Exception as e:
@@ -165,7 +144,6 @@ class AutoSolverDaemon:
             if captcha_id is None:
                 continue
 
-            # Check if we've already exhausted retries
             attempts = self._attempted.get(captcha_id, 0)
             if attempts >= self.max_retries:
                 continue
@@ -179,22 +157,18 @@ class AutoSolverDaemon:
                 f"attempt={attempts + 1}/{self.max_retries}"
             )
 
-            # Build challenge
             challenge = self._build_challenge(captcha_info)
             if challenge is None:
-                self._attempted[captcha_id] = self.max_retries  # Skip
+                self._attempted[captcha_id] = self.max_retries
                 continue
 
-            # Solve
             solution = self.router.solve(challenge)
 
             if solution.success and solution.solution:
-                # Submit solution to JDownloader
                 try:
                     self.device.captcha.solve(captcha_id, solution.solution)
                     self._stats["total_solved"] += 1
                     self._stats["last_solve_at"] = time.time()
-                    # Remove from attempted (solved)
                     self._attempted.pop(captcha_id, None)
                     logger.info(
                         f"Captcha #{captcha_id} solved: "
@@ -204,7 +178,6 @@ class AutoSolverDaemon:
                     logger.error(f"Failed to submit solution: {e}")
                     self._attempted[captcha_id] = attempts + 1
 
-                # Cooldown between solves
                 time.sleep(self.cooldown_after_solve)
             else:
                 self._stats["total_failed"] += 1
@@ -214,11 +187,9 @@ class AutoSolverDaemon:
                 )
 
     def _build_challenge(self, captcha_info: dict) -> Optional[CaptchaChallenge]:
-        """Build a CaptchaChallenge from JDownloader's captcha info."""
         captcha_id = captcha_info.get("id")
 
         try:
-            # Get the captcha image from JDownloader
             image_b64 = self.device.captcha.get(captcha_id)
         except Exception as e:
             logger.error(f"Failed to get captcha image #{captcha_id}: {e}")
@@ -227,7 +198,6 @@ class AutoSolverDaemon:
         if not image_b64:
             return None
 
-        # Decode image
         try:
             image_data = base64.b64decode(image_b64)
         except Exception:
@@ -244,7 +214,6 @@ class AutoSolverDaemon:
         return challenge
 
     def reset_stats(self):
-        """Reset all statistics."""
         self._stats = {
             "started_at": self._stats.get("started_at"),
             "total_detected": 0,
@@ -257,5 +226,4 @@ class AutoSolverDaemon:
         self._attempted.clear()
 
     def clear_attempted(self):
-        """Clear the attempted captcha cache (allows re-solving)."""
         self._attempted.clear()

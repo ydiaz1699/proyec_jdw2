@@ -1,302 +1,206 @@
 """
-ML Solver - Deep Learning captcha solver using custom CNN.
-===========================================================
-Uses a self-trained CNN model for recognizing captcha characters.
-Does NOT depend on any external service — runs completely offline.
+ML Solver
+=========
+Solves text/image captchas using a custom-trained CNN model.
+Uses PyTorch for inference with a pre-trained captcha recognition model.
 
-The model can be trained on captcha samples collected from specific hosters.
-
-Usage:
-    solver = MLSolver(config={
-        "model_path": "./models/k2s_model.pth",
-        "charset": "0123456789ABCDEF",
-        "expected_length": 6,
-    })
-    solution = solver.solve(challenge)
-
-Training new models:
-    solver = MLSolver()
-    stats = solver.train(
-        data_dir="./data/k2s_chars/",
-        save_path="./models/k2s_model.pth",
-        epochs=20,
-    )
+Requires:
+- torch >= 2.0.0
+- torchvision >= 0.15.0
+- numpy >= 1.24.0
 """
 
-import os
+import base64
+import io
 import logging
+import os
 from typing import Optional
 
-from ..base import BaseSolver, CaptchaChallenge, CaptchaSolution, CaptchaType
-from ..preprocessing import ImageProcessor
+from ..base import (
+    BaseSolver,
+    CaptchaChallenge,
+    CaptchaSolution,
+    CaptchaType,
+)
 
 logger = logging.getLogger("captcha-solver.ml")
 
+
+# Try to import ML dependencies
+_torch_available = False
+
 try:
     import torch
-    HAS_TORCH = True
+    import numpy as np
+    _torch_available = True
 except ImportError:
-    HAS_TORCH = False
+    pass
+
+# Character set for captcha decoding
+DEFAULT_CHARSET = "0123456789abcdefghijklmnopqrstuvwxyz"
+DEFAULT_CAPTCHA_LENGTH = 6
+DEFAULT_IMAGE_WIDTH = 160
+DEFAULT_IMAGE_HEIGHT = 60
 
 
 class MLSolver(BaseSolver):
     """
-    Solves text/image captchas using a custom-trained CNN model.
-
-    Config options:
-        model_path: Path to trained .pth model file
-        charset: Character set the model was trained on
-        expected_length: Expected captcha length (0 = auto from segmentation)
-        img_size: Model input size (default: 32)
-        confidence_threshold: Minimum confidence to accept (default: 0.5)
-        preprocessing: "auto", "default", "hoster"
+    Solver that uses a custom-trained CNN model to recognize
+    text captchas. Faster and more accurate than OCR for known
+    captcha types when properly trained.
     """
 
-    name = "ml_cnn"
-    supported_types = [CaptchaType.TEXT_IMAGE, CaptchaType.GEOMETRIC]
+    name = "ml"
+    supported_types = [CaptchaType.TEXT_IMAGE]
 
     def __init__(self, config: Optional[dict] = None):
         super().__init__(config)
-
         self.model_path = self.config.get("model_path", "")
-        self.charset = self.config.get("charset", "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-        self.expected_length = self.config.get("expected_length", 0)
-        self.img_size = self.config.get("img_size", 32)
-        self.confidence_threshold = self.config.get("confidence_threshold", 0.5)
-        self.preprocessing_mode = self.config.get("preprocessing", "auto")
+        self.charset = self.config.get("charset", DEFAULT_CHARSET)
+        self.captcha_length = self.config.get(
+            "captcha_length", DEFAULT_CAPTCHA_LENGTH
+        )
+        self.image_width = self.config.get("image_width", DEFAULT_IMAGE_WIDTH)
+        self.image_height = self.config.get(
+            "image_height", DEFAULT_IMAGE_HEIGHT
+        )
+        self.confidence_threshold = self.config.get(
+            "confidence_threshold", 0.5
+        )
 
         self._model = None
+        self._device = None
 
-        if not HAS_TORCH:
-            logger.warning("PyTorch not available. ML solver disabled.")
+        if not _torch_available:
+            logger.warning("PyTorch not available - ML solver disabled")
             self.enabled = False
-            return
-
-        # Try to load model
-        if self.model_path and os.path.exists(self.model_path):
-            self._load_model()
-        else:
-            logger.info(
-                f"ML Solver: No model at '{self.model_path}'. "
-                f"Train one with solver.train() or provide a valid path."
+        elif self.model_path and not os.path.exists(self.model_path):
+            logger.warning(
+                f"Model file not found: {self.model_path} - "
+                "ML solver disabled"
             )
             self.enabled = False
+
 
     def _load_model(self):
-        """Load the CNN model."""
-        try:
-            from ..models.cnn_model import CaptchaCNN
-
-            self._model = CaptchaCNN(
-                num_classes=len(self.charset),
-                img_size=self.img_size,
-                charset=self.charset,
-                model_path=self.model_path,
-            )
-            self.enabled = True
-            logger.info(f"ML model loaded: {self.model_path}")
-        except Exception as e:
-            logger.error(f"Failed to load ML model: {e}")
-            self.enabled = False
-
-    def solve(self, challenge: CaptchaChallenge) -> CaptchaSolution:
-        """Solve a captcha using the trained CNN model."""
-        if self._model is None:
-            return CaptchaSolution(
-                success=False,
-                solver_name=self.name,
-                error="No model loaded. Train one first.",
-            )
-
-        # Get image
-        img = self._get_image(challenge)
-        if img is None:
-            return CaptchaSolution(
-                success=False,
-                solver_name=self.name,
-                error="Failed to load captcha image",
-            )
-
-        try:
-            # Predict full captcha
-            text, confidence = self._model.predict_captcha(
-                img, num_chars=self.expected_length
-            )
-
-            # Check confidence threshold
-            if confidence < self.confidence_threshold:
-                return CaptchaSolution(
-                    success=False,
-                    solver_name=self.name,
-                    confidence=confidence,
-                    error=f"Low confidence: {confidence:.2%} < {self.confidence_threshold:.2%}",
-                )
-
-            if not text:
-                return CaptchaSolution(
-                    success=False,
-                    solver_name=self.name,
-                    error="Model returned empty prediction",
-                )
-
-            return CaptchaSolution(
-                success=True,
-                solution=text,
-                solver_name=self.name,
-                confidence=confidence,
-            )
-
-        except Exception as e:
-            return CaptchaSolution(
-                success=False,
-                solver_name=self.name,
-                error=f"Prediction error: {e}",
-            )
-
-    def train(
-        self,
-        data_dir: str,
-        save_path: Optional[str] = None,
-        epochs: int = 20,
-        batch_size: int = 64,
-        learning_rate: float = 0.001,
-    ) -> dict:
-        """
-        Train a new model on captcha character data.
-
-        Args:
-            data_dir: Directory with character images organized as:
-                      data_dir/0/img1.png, data_dir/A/img2.png, etc.
-            save_path: Where to save the trained model (default: self.model_path)
-            epochs: Training epochs
-            batch_size: Batch size
-            learning_rate: Learning rate
-
-        Returns:
-            Training statistics dict
-        """
-        if not HAS_TORCH:
-            return {"error": "PyTorch not installed. Run: pip install torch torchvision"}
+        """Lazy-load the ML model."""
+        if self._model is not None:
+            return
 
         from ..models.cnn_model import CaptchaCNN
 
-        save_path = save_path or self.model_path or "./models/captcha_cnn.pth"
-
-        # Create and train model
-        model = CaptchaCNN(
-            num_classes=len(self.charset),
-            img_size=self.img_size,
-            charset=self.charset,
+        self._device = torch.device(
+            "cuda" if torch.cuda.is_available() else "cpu"
         )
 
-        stats = model.train_on_dataset(
-            data_dir=data_dir,
-            epochs=epochs,
-            batch_size=batch_size,
-            learning_rate=learning_rate,
-            save_path=save_path,
+        num_classes = len(self.charset)
+        self._model = CaptchaCNN(
+            num_classes=num_classes,
+            captcha_length=self.captcha_length,
+            image_height=self.image_height,
+            image_width=self.image_width,
         )
 
-        if "error" not in stats:
-            # Reload the trained model
-            self.model_path = save_path
-            self._model = model
-            self.enabled = True
-            logger.info(f"Training complete. Model saved to: {save_path}")
+        if self.model_path and os.path.exists(self.model_path):
+            state_dict = torch.load(
+                self.model_path,
+                map_location=self._device,
+                weights_only=True,
+            )
+            self._model.load_state_dict(state_dict)
+            logger.info(f"Loaded model from {self.model_path}")
 
-        return stats
+        self._model.to(self._device)
+        self._model.eval()
 
-    def _get_image(self, challenge: CaptchaChallenge):
-        """Extract PIL Image from challenge."""
+    def solve(self, challenge: CaptchaChallenge) -> CaptchaSolution:
+        """Solve a text/image captcha using the trained CNN."""
+        try:
+            self._load_model()
+
+            image = self._load_image(challenge)
+            if image is None:
+                return CaptchaSolution(
+                    success=False,
+                    solver_name=self.name,
+                    error="Failed to load captcha image",
+                )
+
+            tensor = self._preprocess(image)
+            text, confidence = self._predict(tensor)
+
+            if confidence >= self.confidence_threshold:
+                return CaptchaSolution(
+                    success=True,
+                    solution=text,
+                    solver_name=self.name,
+                    confidence=confidence,
+                )
+            else:
+                return CaptchaSolution(
+                    success=False,
+                    solver_name=self.name,
+                    error=(
+                        f"Low confidence: {confidence:.2f} "
+                        f"(threshold: {self.confidence_threshold})"
+                    ),
+                )
+
+        except Exception as e:
+            logger.error(f"ML solver error: {e}")
+            return CaptchaSolution(
+                success=False,
+                solver_name=self.name,
+                error=str(e),
+            )
+
+
+    def _load_image(self, challenge: CaptchaChallenge):
+        """Load image from challenge data."""
+        from PIL import Image
+
         if challenge.image_data:
-            return ImageProcessor.from_bytes(challenge.image_data)
+            return Image.open(io.BytesIO(challenge.image_data))
         elif challenge.image_base64:
-            return ImageProcessor.from_base64(challenge.image_base64)
+            image_data = base64.b64decode(challenge.image_base64)
+            return Image.open(io.BytesIO(image_data))
         return None
 
-    @staticmethod
-    def generate_training_data(
-        captcha_images_dir: str,
-        output_dir: str,
-        labels_file: Optional[str] = None,
-    ) -> dict:
-        """
-        Helper to prepare training data from full captcha images.
+    def _preprocess(self, image):
+        """Preprocess image for the CNN model."""
+        from torchvision import transforms
 
-        Takes a folder of captcha images with known labels and segments
-        them into individual character images organized by class.
+        transform = transforms.Compose([
+            transforms.Grayscale(num_output_channels=1),
+            transforms.Resize((self.image_height, self.image_width)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.5], std=[0.5]),
+        ])
 
-        Args:
-            captcha_images_dir: Folder with captcha images
-            output_dir: Output folder for segmented characters
-            labels_file: Optional file mapping filename → label text
-                         (one per line: "img001.png,ABC123")
-                         If None, filename prefix is used as label.
+        tensor = transform(image)
+        # Add batch dimension
+        tensor = tensor.unsqueeze(0).to(self._device)
+        return tensor
 
-        Returns:
-            Stats about generated data
-        """
-        if not HAS_PIL:
-            return {"error": "Pillow not installed"}
+    @torch.no_grad()
+    def _predict(self, tensor) -> tuple:
+        """Run prediction and return (text, confidence)."""
+        outputs = self._model(tensor)
+        # outputs shape: (batch, captcha_length, num_classes)
 
-        from PIL import Image as PILImage
+        probabilities = torch.softmax(outputs, dim=2)
+        max_probs, predictions = torch.max(probabilities, dim=2)
 
-        os.makedirs(output_dir, exist_ok=True)
-        stats = {"total_images": 0, "total_chars": 0, "errors": 0}
+        # Decode predictions to text
+        pred_indices = predictions[0].cpu().numpy()
+        char_probs = max_probs[0].cpu().numpy()
 
-        # Load labels
-        labels = {}
-        if labels_file and os.path.exists(labels_file):
-            with open(labels_file, "r") as f:
-                for line in f:
-                    line = line.strip()
-                    if "," in line:
-                        fname, label = line.split(",", 1)
-                        labels[fname.strip()] = label.strip()
+        text = ""
+        for idx in pred_indices:
+            if idx < len(self.charset):
+                text += self.charset[idx]
 
-        # Process each image
-        for fname in sorted(os.listdir(captcha_images_dir)):
-            if not fname.lower().endswith((".png", ".jpg", ".jpeg", ".bmp")):
-                continue
+        # Average confidence across all characters
+        confidence = float(np.mean(char_probs))
 
-            # Determine label
-            if fname in labels:
-                label = labels[fname]
-            else:
-                # Use filename prefix (before first dot or underscore)
-                label = fname.split(".")[0].split("_")[0]
-
-            if not label:
-                continue
-
-            try:
-                img_path = os.path.join(captcha_images_dir, fname)
-                img = PILImage.open(img_path)
-
-                # Preprocess and segment
-                processed = ImageProcessor.full_pipeline(img, scale_factor=1.0)
-                chars = ImageProcessor.segment_characters(processed, len(label))
-
-                if len(chars) != len(label):
-                    stats["errors"] += 1
-                    continue
-
-                # Save each character
-                for i, (char_img, char_label) in enumerate(zip(chars, label)):
-                    char_dir = os.path.join(output_dir, char_label.upper())
-                    os.makedirs(char_dir, exist_ok=True)
-
-                    char_path = os.path.join(
-                        char_dir,
-                        f"{fname.split('.')[0]}_{i}.png"
-                    )
-                    char_img.save(char_path)
-                    stats["total_chars"] += 1
-
-                stats["total_images"] += 1
-
-            except Exception as e:
-                logger.debug(f"Error processing {fname}: {e}")
-                stats["errors"] += 1
-
-        return stats
+        return text, confidence

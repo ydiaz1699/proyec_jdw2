@@ -7,7 +7,9 @@
       "env": {
         "JD_EMAIL": "tu_email@example.com",
         "JD_PASSWORD": "tu_contraseña",
-        "JD_DEVICE_NAME": "nombre_dispositivo"
+        "JD_DEVICE_NAME": "nombre_dispositivo",
+        "NOPECHA_API_KEY": "",
+        "TWOCAPTCHA_API_KEY": ""
       }
     }
   }
