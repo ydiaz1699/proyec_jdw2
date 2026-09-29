@@ -1,6 +1,6 @@
 # Core dependencies
 myjdapi>=1.1.10
-mcp[cli]>=1.0.0
+mcp[cli]>=1.0.0,<2   # <2: la 2.x renombró FastMCP→MCPServer y rompe este código (API v1)
 requests>=2.28.0
 
 # Captcha auto-solver: image preprocessing (required for captcha module)

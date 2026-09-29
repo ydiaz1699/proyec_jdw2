@@ -16,7 +16,7 @@ keywords = ["jdownloader", "mcp", "model-context-protocol", "download-manager", 
 
 dependencies = [
     "myjdapi>=1.1.10",
-    "mcp[cli]>=1.0.0",
+    "mcp[cli]>=1.0.0,<2",
     "requests>=2.28.0",
     "Pillow>=10.0.0",
 ]
