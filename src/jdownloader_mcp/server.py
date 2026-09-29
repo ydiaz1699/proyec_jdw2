@@ -34,6 +34,7 @@ class JDState:
     device: Optional[object] = None
     connected: bool = False
     email: str = ""
+    password: str = ""          # guardada para reconexión lazy automática
     device_name: str = ""
     captcha_router: CaptchaRouter = field(default_factory=CaptchaRouter)
     captcha_daemon: Optional[AutoSolverDaemon] = None
@@ -42,11 +43,53 @@ class JDState:
 state = JDState()
 
 
+def _has_env_credentials() -> bool:
+    """True si hay credenciales disponibles (en el state o en el entorno)."""
+    email = state.email or os.environ.get("JD_EMAIL", "")
+    password = state.password or os.environ.get("JD_PASSWORD", "")
+    device_name = state.device_name or os.environ.get("JD_DEVICE_NAME", "")
+    return bool(email and password and device_name)
+
+
+def _auto_connect_from_env() -> bool:
+    """Intenta conectar leyendo JD_EMAIL / JD_PASSWORD / JD_DEVICE_NAME del entorno.
+
+    Devuelve True si quedó conectado. Es el mecanismo que hace el MCP "lazy":
+    no exige jd_connect() manual — la primera tool que necesite el device
+    dispara la conexión sola si las credenciales están en el entorno.
+    """
+    email = state.email or os.environ.get("JD_EMAIL", "")
+    password = state.password or os.environ.get("JD_PASSWORD", "")
+    device_name = state.device_name or os.environ.get("JD_DEVICE_NAME", "")
+    if not (email and password and device_name):
+        return False
+    jd_connect(email, password, device_name)
+    return state.connected
+
+
 def _require_device():
-    """Raise if not connected to a device."""
-    if not state.connected or state.device is None:
-        raise RuntimeError("Not connected to JDownloader. Use jd_connect() first.")
-    return state.device
+    """Devuelve el device conectado, conectando de forma lazy si hace falta.
+
+    Comportamiento tipo nextdns ("solo cuando se necesita"):
+      1. Si ya hay conexión → la devuelve.
+      2. Si no → intenta auto-conectar desde el entorno (lazy).
+      3. Distingue "sin credenciales" (hay que definir env o usar jd_connect)
+         de "credenciales presentes pero el login falló" (revisar datos/red).
+    """
+    if state.connected and state.device is not None:
+        return state.device
+    if _auto_connect_from_env():
+        return state.device
+    if _has_env_credentials():
+        raise RuntimeError(
+            "No se pudo conectar a My.JDownloader con las credenciales del "
+            "entorno. Revisa JD_EMAIL / JD_PASSWORD / JD_DEVICE_NAME y que el "
+            "dispositivo esté online; reintenta con jd_reconnect()."
+        )
+    raise RuntimeError(
+        "No conectado a JDownloader y sin credenciales en el entorno. "
+        "Define JD_EMAIL / JD_PASSWORD / JD_DEVICE_NAME, o usa jd_connect()."
+    )
 
 
 
@@ -67,6 +110,7 @@ def jd_connect(email: str, password: str, device_name: str) -> str:
         state.device = device
         state.connected = True
         state.email = email
+        state.password = password    # guardada para reconexión lazy
         state.device_name = device_name
         return f"Connected to device '{device_name}'"
     except Exception as e:
@@ -953,15 +997,20 @@ def main():
         format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
     )
 
-    # Auto-connect if environment variables are set
-    email = os.environ.get("JD_EMAIL", "")
-    password = os.environ.get("JD_PASSWORD", "")
-    device_name = os.environ.get("JD_DEVICE_NAME", "")
-
-    if email and password and device_name:
-        logger.info(f"Auto-connecting to device '{device_name}'...")
-        result = jd_connect(email, password, device_name)
-        logger.info(result)
+    # Warm-up opcional: si hay credenciales en el entorno, intenta conectar al
+    # arrancar para fallar rápido y avisar en logs. Si MyJDownloader está lento o
+    # caído aquí, NO es fatal: la conexión lazy en _require_device() reintenta en
+    # la primera tool. El servidor arranca igual.
+    if os.environ.get("JD_EMAIL") and os.environ.get("JD_PASSWORD") \
+            and os.environ.get("JD_DEVICE_NAME"):
+        logger.info("Warm-up: intentando conectar desde el entorno...")
+        if _auto_connect_from_env():
+            logger.info(f"Conectado a '{state.device_name}'.")
+        else:
+            logger.warning(
+                "Warm-up sin conexión; se reintentará de forma lazy en la "
+                "primera tool que la necesite."
+            )
 
     mcp.run()
 
