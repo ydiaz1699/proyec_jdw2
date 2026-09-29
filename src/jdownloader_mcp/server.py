@@ -21,7 +21,7 @@ logger = logging.getLogger("jdownloader-mcp")
 
 mcp = FastMCP(
     "JDownloader MCP Server",
-    description="Full remote control of JDownloader via My.JDownloader API",
+    instructions="Full remote control of JDownloader via My.JDownloader API",
 )
 
 
