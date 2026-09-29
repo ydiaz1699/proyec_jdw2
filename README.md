@@ -72,6 +72,13 @@ Agregar en tu configuracion de MCP:
 }
 ```
 
+> **Conexión lazy ("solo cuando se necesita").** Si defines `JD_EMAIL`,
+> `JD_PASSWORD` y `JD_DEVICE_NAME` en el `env`, NO necesitas llamar `jd_connect`
+> manualmente: la primera tool que requiera el dispositivo dispara la conexión
+> sola leyendo esas variables. Si al arrancar My.JDownloader está lento o caído,
+> el servidor arranca igual y reintenta la conexión en la primera tool. `jd_connect`
+> sigue disponible para conectar a mano o cambiar de credenciales/dispositivo.
+
 ### Con Claude Desktop
 
 Agregar en `~/Library/Application Support/Claude/claude_desktop_config.json` (Mac)
