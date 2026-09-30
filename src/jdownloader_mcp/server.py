@@ -182,7 +182,7 @@ def jd_add_links(links: str, package_name: str = "", download_path: str = "",
     if extract_password:
         params["extractPassword"] = extract_password
     try:
-        result = device.linkgrabber.add_links(params)
+        result = device.linkgrabber.add_links([params])
         return json.dumps(result) if result else "Links added to LinkCollector"
     except Exception as e:
         return f"Error adding links: {e}"
@@ -193,7 +193,7 @@ def jd_query_links(status: bool = True, availability: bool = True) -> str:
     device = _require_device()
     params = {"bytesTotal": True, "status": status, "availability": availability, "url": True, "enabled": True, "packageUUIDs": []}
     try:
-        links = device.linkgrabber.query_links(params)
+        links = device.linkgrabber.query_links([params])
         return json.dumps(links, indent=2) if links else "No links in collector"
     except Exception as e:
         return f"Error querying links: {e}"
@@ -204,7 +204,7 @@ def jd_query_packages_linkgrabber() -> str:
     device = _require_device()
     params = {"bytesTotal": True, "childCount": True, "status": True, "saveTo": True, "availableOfflineCount": True, "availableOnlineCount": True}
     try:
-        pkgs = device.linkgrabber.query_packages(params)
+        pkgs = device.linkgrabber.query_packages([params])
         return json.dumps(pkgs, indent=2) if pkgs else "No packages in collector"
     except Exception as e:
         return f"Error: {e}"
@@ -366,7 +366,7 @@ def jd_query_downloads(status: bool = True, speed: bool = True, eta: bool = True
     device = _require_device()
     params = {"bytesLoaded": True, "bytesTotal": True, "speed": speed, "eta": eta, "status": status, "finished": finished, "enabled": True, "running": True, "url": True}
     try:
-        links = device.downloads.query_links(params)
+        links = device.downloads.query_links([params])
         return json.dumps(links, indent=2) if links else "No downloads"
     except Exception as e:
         return f"Error: {e}"
@@ -377,7 +377,7 @@ def jd_query_packages_downloads() -> str:
     device = _require_device()
     params = {"bytesLoaded": True, "bytesTotal": True, "childCount": True, "speed": True, "eta": True, "status": True, "finished": True, "enabled": True, "saveTo": True}
     try:
-        pkgs = device.downloads.query_packages(params)
+        pkgs = device.downloads.query_packages([params])
         return json.dumps(pkgs, indent=2) if pkgs else "No packages"
     except Exception as e:
         return f"Error: {e}"
@@ -415,59 +415,46 @@ def jd_enable_links(enable: bool, link_ids: list = None, package_ids: list = Non
 @mcp.tool()
 def jd_move_links(link_ids: list, after_link_id: int, dest_package_id: int) -> str:
     """Move links within the download list."""
-    device = _require_device()
-    try:
-        device.downloads.move_links(link_ids, after_link_id, dest_package_id)
-        return "Links moved"
-    except Exception as e:
-        return f"Error: {e}"
+    _require_device()
+    # myjdapi 1.1.11 no expone downloads.move_links; usar jd_move_to_new_package
+    # para reagrupar. Ver auditoría pendiente de la API en el README.
+    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.move_links no existe). "
+            "Usa jd_move_to_new_package para reagrupar enlaces.")
 
 @mcp.tool()
 def jd_move_packages(package_ids: list, after_package_id: int) -> str:
     """Move packages within the download list."""
-    device = _require_device()
-    try:
-        device.downloads.move_packages(package_ids, after_package_id)
-        return "Packages moved"
-    except Exception as e:
-        return f"Error: {e}"
+    _require_device()
+    # myjdapi 1.1.11 no expone downloads.move_packages. Ver auditoría pendiente.
+    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.move_packages no existe).")
 
 @mcp.tool()
 def jd_rename_link_downloads(link_id: int, new_name: str) -> str:
     """Rename a link in the download list."""
-    device = _require_device()
-    try:
-        device.downloads.rename_link(link_id, new_name)
-        return f"Link {link_id} renamed to '{new_name}'"
-    except Exception as e:
-        return f"Error: {e}"
+    _require_device()
+    # myjdapi 1.1.11 no expone downloads.rename_link. Ver auditoría pendiente.
+    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.rename_link no existe).")
 
 @mcp.tool()
 def jd_rename_package_downloads(package_id: int, new_name: str) -> str:
     """Rename a package in the download list."""
-    device = _require_device()
-    try:
-        device.downloads.rename_package(package_id, new_name)
-        return f"Package {package_id} renamed to '{new_name}'"
-    except Exception as e:
-        return f"Error: {e}"
+    _require_device()
+    # myjdapi 1.1.11 no expone downloads.rename_package. Ver auditoría pendiente.
+    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.rename_package no existe).")
 
 @mcp.tool()
 def jd_set_priority_downloads(link_ids: list, package_ids: list, priority: str) -> str:
     """Set priority in download list (HIGHEST, HIGH, DEFAULT, LOW, LOWEST)."""
-    device = _require_device()
-    try:
-        device.downloads.set_priority(priority, link_ids, package_ids)
-        return f"Priority set to {priority}"
-    except Exception as e:
-        return f"Error: {e}"
+    _require_device()
+    # myjdapi 1.1.11 no expone downloads.set_priority. Ver auditoría pendiente.
+    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.set_priority no existe).")
 
 @mcp.tool()
 def jd_set_download_directory(package_ids: list, directory: str) -> str:
     """Set download directory for packages."""
     device = _require_device()
     try:
-        device.downloads.set_download_directory(directory, package_ids)
+        device.downloads.set_dl_location(directory, package_ids)
         return f"Directory set to '{directory}'"
     except Exception as e:
         return f"Error: {e}"
