@@ -1,0 +1,19 @@
+# No metemos basura en la imagen.
+.git
+.gitignore
+.github
+.env
+.env.example
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+env/
+.idea/
+.vscode/
+skill/
+README.md
+mcp_config.json

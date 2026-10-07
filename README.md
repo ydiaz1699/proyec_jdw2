@@ -48,7 +48,52 @@ cp .env.example .env
 # Editar .env con tus credenciales de My.JDownloader
 ```
 
-## Uso como MCP Server
+## Uso con Docker (recomendado — solo configurar JSON)
+
+La imagen se publica automáticamente en GitHub Container Registry (GHCR), así
+que **no hace falta clonar el repo, ni instalar Python, ni `pip install`**. El
+usuario final solo pega este JSON en su cliente MCP y pone sus credenciales:
+
+```json
+{
+  "mcpServers": {
+    "jdownloader": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "JD_EMAIL",
+        "-e", "JD_PASSWORD",
+        "-e", "JD_DEVICE_NAME",
+        "ghcr.io/ydiaz1699/proyec_jdw2:latest"
+      ],
+      "env": {
+        "JD_EMAIL": "tu_email@example.com",
+        "JD_PASSWORD": "tu_password",
+        "JD_DEVICE_NAME": "tu_dispositivo"
+      }
+    }
+  }
+}
+```
+
+Docker descarga la imagen la primera vez y la reutiliza después. Para captcha
+remoto, añade `-e`, `"NOPECHA_API_KEY"` (y/o `TWOCAPTCHA_API_KEY`) al `args` y
+la clave en `env`.
+
+> La imagen se construye y publica sola vía GitHub Actions
+> (`.github/workflows/docker-publish.yml`) en cada push a `main` y en cada tag
+> `vX.Y.Z`. Un tag `v1.2.0` publica `:1.2.0`, `:1.2` y `:latest`.
+
+### Construir la imagen localmente (opcional)
+
+```bash
+git clone https://github.com/ydiaz1699/proyec_jdw2.git
+cd proyec_jdw2
+docker build -t jdownloader-mcp .
+# luego usa  "ghcr.io/ydiaz1699/proyec_jdw2:latest" -> "jdownloader-mcp" en el JSON
+```
+
+## Uso como MCP Server (Python, sin Docker)
 
 ### Con Kiro
 
