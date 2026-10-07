@@ -67,9 +67,57 @@ hacer y espera mi confirmación. No expongas mis credenciales en logs.
 
 ---
 
+## Alternativa sin Docker (Windows u otro SO) — con uv/uvx
+
+Si NO tienes Docker (p. ej. en Windows), usa este prompt en su lugar. `uvx`
+ejecuta el servidor desde el repo de GitHub sin clonar ni `pip install`.
+
+```text
+Quiero instalar y configurar el servidor MCP "jdownloader" en mi cliente MCP
+usando uv/uvx (NO tengo Docker). No quiero clonar el repo ni gestionar venvs.
+
+Datos del servidor:
+- Se ejecuta con: uvx --from git+https://github.com/ydiaz1699/proyec_jdw2.git jdownloader-mcp
+- Transporte: stdio.
+- Credenciales (variables de entorno): JD_EMAIL, JD_PASSWORD, JD_DEVICE_NAME.
+- Opcionales: NOPECHA_API_KEY, TWOCAPTCHA_API_KEY, JD_LOG_LEVEL.
+
+Por favor:
+1) Verifica que tengo `uv` instalado (`uv --version`). Si no, dime cómo
+   instalarlo para mi SO. En Windows (PowerShell):
+   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+   Verifica también que tengo `git` (lo necesita el `git+`).
+2) Dime la ruta exacta del archivo de config MCP de mi cliente (Kiro, Claude
+   Desktop, etc.); pregúntame cuál uso si no lo sabes.
+3) Añade/mergea esta entrada en "mcpServers" (sin borrar lo que ya haya) y
+   sustituye los valores de env por los míos reales:
+
+   {
+     "mcpServers": {
+       "jdownloader": {
+         "command": "uvx",
+         "args": ["--from", "git+https://github.com/ydiaz1699/proyec_jdw2.git", "jdownloader-mcp"],
+         "env": {
+           "JD_EMAIL": "PON_AQUI_MI_EMAIL",
+           "JD_PASSWORD": "PON_AQUI_MI_PASSWORD",
+           "JD_DEVICE_NAME": "PON_AQUI_MI_DISPOSITIVO"
+         }
+       }
+     }
+   }
+
+4) Recuérdame reiniciar el cliente MCP.
+5) Para probar, usa la tool `jd_connection_status` (o `jd_list_devices`). La
+   conexión es lazy: no hace falta `jd_connect` manual si el env está puesto.
+
+Muéstrame el cambio exacto antes de escribir en cualquier archivo y espera mi
+confirmación. No expongas mis credenciales en logs.
+```
+
 ## Notas
 
-- **Requisito único del usuario final:** Docker instalado. Nada de Python/pip.
+- **Con Docker:** requisito único del usuario final = Docker instalado. Nada de Python/pip.
+- **Con uv/uvx (sin Docker):** requisito = `uv` + `git` instalados. Recomendado en Windows.
 - Para fijar una versión concreta en vez de `latest`, usa p. ej.
   `ghcr.io/ydiaz1699/proyec_jdw2:1.1.0`.
 - Si tu LLM/cliente no ejecuta comandos, haz tú los pasos 1–2 y 5 a mano y deja
