@@ -50,6 +50,17 @@ cp .env.example .env
 
 ## Uso con Docker (recomendado — solo configurar JSON)
 
+> **Imagen pública verificada:** `ghcr.io/ydiaz1699/proyec_jdw2`. Compruébalo tú
+> mismo sin autenticarte:
+> ```bash
+> docker logout ghcr.io
+> docker pull ghcr.io/ydiaz1699/proyec_jdw2:latest   # descarga sin login = es pública
+> ```
+> ¿Quieres instalarlo con ayuda de un LLM? Usa el prompt de
+> [`INSTALL_PROMPT.md`](INSTALL_PROMPT.md). Para operarlo, hay una skill de uso
+> en [`skill/jdownloader-usage.md`](skill/jdownloader-usage.md).
+
+
 La imagen se publica automáticamente en GitHub Container Registry (GHCR), así
 que **no hace falta clonar el repo, ni instalar Python, ni `pip install`**. El
 usuario final solo pega este JSON en su cliente MCP y pone sus credenciales:
