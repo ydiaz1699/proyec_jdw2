@@ -104,6 +104,48 @@ docker build -t jdownloader-mcp .
 # luego usa  "ghcr.io/ydiaz1699/proyec_jdw2:latest" -> "jdownloader-mcp" en el JSON
 ```
 
+## Uso con uv / uvx (Windows u otro SO, sin Docker)
+
+Ideal si **no tienes Docker** (p. ej. en Windows). `uvx` descarga el paquete en
+un entorno aislado y efímero directamente desde este repo de GitHub y lo
+ejecuta — **sin clonar, sin `pip install`, sin gestionar venvs**.
+
+### Requisitos
+- [`uv`](https://docs.astral.sh/uv/) instalado. En Windows (PowerShell):
+  ```powershell
+  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+  ```
+- `git` instalado (lo necesita el `git+` de abajo).
+
+### Config MCP
+```json
+{
+  "mcpServers": {
+    "jdownloader": {
+      "command": "uvx",
+      "args": [
+        "--from", "git+https://github.com/ydiaz1699/proyec_jdw2.git",
+        "jdownloader-mcp"
+      ],
+      "env": {
+        "JD_EMAIL": "tu_email@example.com",
+        "JD_PASSWORD": "tu_password",
+        "JD_DEVICE_NAME": "tu_dispositivo"
+      }
+    }
+  }
+}
+```
+
+La primera vez `uvx` resuelve dependencias y construye el entorno (tarda unos
+segundos); después queda cacheado. Para fijar una versión concreta en vez de la
+rama por defecto, añade `@v1.1.0` al final de la URL del `--from`
+(`...proyec_jdw2.git@v1.1.0`).
+
+> No requiere PyPI: `uvx` instala desde el repo de GitHub. (Publicar en PyPI
+> para poder usar el nombre corto `uvx jdownloader-mcp` queda como opción futura;
+> PyPI oficial siempre es público.)
+
 ## Uso como MCP Server (Python, sin Docker)
 
 ### Con Kiro
