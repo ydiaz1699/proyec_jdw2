@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "jdownloader": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "JD_EMAIL",
+        "-e", "JD_PASSWORD",
+        "-e", "JD_DEVICE_NAME",
+        "-e", "NOPECHA_API_KEY",
+        "-e", "TWOCAPTCHA_API_KEY",
+        "ghcr.io/ydiaz1699/proyec_jdw2:latest"
+      ],
+      "env": {
+        "JD_EMAIL": "tu_email@example.com",
+        "JD_PASSWORD": "tu_contraseña",
+        "JD_DEVICE_NAME": "nombre_dispositivo",
+        "NOPECHA_API_KEY": "",
+        "TWOCAPTCHA_API_KEY": ""
+      }
+    }
+  }
+}
