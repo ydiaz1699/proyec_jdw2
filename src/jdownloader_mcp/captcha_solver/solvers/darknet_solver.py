@@ -14,7 +14,14 @@ Requires:
 - torch >= 2.0.0
 - torchvision >= 0.15.0
 - numpy >= 1.24.0
+
+NOTE: este solver es opt-in y no se registra por defecto (ver README). Necesita
+torch y un modelo YOLO (.pt) propio. ``from __future__ import annotations``
+difiere las anotaciones (p.ej. ``-> torch.Tensor``) para que el módulo se pueda
+importar sin torch sin lanzar NameError.
 """
+
+from __future__ import annotations
 
 import base64
 import io
@@ -98,12 +105,17 @@ class DarkNetSolver(BaseSolver):
         else:
             self._classes = ["object"]
 
-        # Load YOLOv5/v8 style model
+        # Load YOLOv5/v8 style model.
+        # weights_only=True evita la ejecución de código arbitrario al cargar un
+        # .pt no confiable (con weights_only=False torch.load puede ejecutar
+        # pickle arbitrario). Si tu modelo requiere objetos personalizados y
+        # CONFÍAS en su origen, pon allow_untrusted_model=True en la config.
         if self.model_path and os.path.exists(self.model_path):
+            weights_only = not bool(self.config.get("allow_untrusted_model", False))
             self._model = torch.load(
                 self.model_path,
                 map_location=self._device,
-                weights_only=False,
+                weights_only=weights_only,
             )
             if isinstance(self._model, dict):
                 self._model = self._model.get("model", self._model)
@@ -191,7 +203,6 @@ class DarkNetSolver(BaseSolver):
 
         return img_tensor
 
-    @torch.no_grad()
     def _detect(
         self, image
     ) -> List[Tuple[float, float, float, float, float, int]]:
@@ -199,8 +210,11 @@ class DarkNetSolver(BaseSolver):
         Run object detection on the image.
         Returns list of (x1, y1, x2, y2, confidence, class_id).
         """
-        tensor = self._preprocess(image)
-        outputs = self._model(tensor)
+        # torch.no_grad() como context manager dentro del método (no decorador a
+        # nivel de clase) para no evaluar torch al importar el módulo.
+        with torch.no_grad():
+            tensor = self._preprocess(image)
+            outputs = self._model(tensor)
 
         # Process raw outputs into detections
         detections = self._process_output(outputs, image.size)

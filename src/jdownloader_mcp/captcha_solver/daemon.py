@@ -17,7 +17,7 @@ import logging
 import threading
 from typing import Optional
 
-from .base import CaptchaChallenge, CaptchaType
+from .base import CaptchaChallenge
 from .router import CaptchaRouter
 
 logger = logging.getLogger("captcha-solver.daemon")
@@ -35,7 +35,13 @@ class AutoSolverDaemon:
         poll_interval: float = 3.0,
         max_retries: int = 2,
         cooldown_after_solve: float = 1.0,
+        device_provider=None,
     ):
+        # ``device`` puede ser un objeto fijo o quedar obsoleto tras un
+        # jd_reconnect(). Para no operar sobre un device muerto, se admite un
+        # ``device_provider`` (callable sin args) que devuelve el device vigente
+        # en cada iteración. Si no se pasa, se usa el device fijo recibido.
+        self._device_provider = device_provider
         self.device = device
         self.router = router
         self.poll_interval = poll_interval
@@ -126,9 +132,21 @@ class AutoSolverDaemon:
 
             time.sleep(self.poll_interval)
 
+    def _current_device(self):
+        """Devuelve el device vigente (fresco si hay provider)."""
+        if self._device_provider is not None:
+            dev = self._device_provider()
+            if dev is not None:
+                self.device = dev
+        return self.device
+
     def _check_and_solve(self):
+        device = self._current_device()
+        if device is None:
+            logger.debug("No device available; skipping captcha poll")
+            return
         try:
-            captchas = self.device.captcha.list()
+            captchas = device.captcha.list()
         except Exception as e:
             logger.debug(f"Failed to list captchas: {e}")
             return
@@ -148,7 +166,10 @@ class AutoSolverDaemon:
             if attempts >= self.max_retries:
                 continue
 
-            self._stats["total_detected"] += 1
+            # Contar cada captcha una sola vez (en su primer intento), no una vez
+            # por reintento: total_detected = captchas distintos vistos.
+            if attempts == 0:
+                self._stats["total_detected"] += 1
             self._stats["last_captcha_at"] = time.time()
 
             logger.info(
@@ -157,7 +178,7 @@ class AutoSolverDaemon:
                 f"attempt={attempts + 1}/{self.max_retries}"
             )
 
-            challenge = self._build_challenge(captcha_info)
+            challenge = self._build_challenge(captcha_info, device)
             if challenge is None:
                 self._attempted[captcha_id] = self.max_retries
                 continue
@@ -166,7 +187,7 @@ class AutoSolverDaemon:
 
             if solution.success and solution.solution:
                 try:
-                    self.device.captcha.solve(captcha_id, solution.solution)
+                    device.captcha.solve(captcha_id, solution.solution)
                     self._stats["total_solved"] += 1
                     self._stats["last_solve_at"] = time.time()
                     self._attempted.pop(captcha_id, None)
@@ -186,11 +207,12 @@ class AutoSolverDaemon:
                     f"Captcha #{captcha_id} failed: {solution.error}"
                 )
 
-    def _build_challenge(self, captcha_info: dict) -> Optional[CaptchaChallenge]:
+    def _build_challenge(self, captcha_info: dict, device=None) -> Optional[CaptchaChallenge]:
         captcha_id = captcha_info.get("id")
+        device = device or self.device
 
         try:
-            image_b64 = self.device.captcha.get(captcha_id)
+            image_b64 = device.captcha.get(captcha_id)
         except Exception as e:
             logger.error(f"Failed to get captcha image #{captcha_id}: {e}")
             return None

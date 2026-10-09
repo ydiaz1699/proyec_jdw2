@@ -698,20 +698,27 @@ Add to your MCP configuration:
 
 ### Available MCP Tools
 
+> Estos son los nombres **reales** de las 76 tools registradas por el servidor
+> (verificados con `mcp.list_tools()` contra myjdapi 1.1.11). No inventes otros.
+
 | Category | Tools |
 |----------|-------|
-| Connection | jd_connect, jd_disconnect, jd_reconnect, jd_list_devices, jd_switch_device |
-| LinkCollector | jd_add_links, jd_linkgrabber_query_packages, jd_linkgrabber_query_links, jd_linkgrabber_move_to_downloadlist, jd_linkgrabber_move_to_new_package, jd_linkgrabber_rename_package, jd_linkgrabber_rename_link, jd_linkgrabber_set_priority, jd_linkgrabber_set_enabled, jd_linkgrabber_get_variants, jd_linkgrabber_cleanup, jd_linkgrabber_clear_list, jd_linkgrabber_remove_links, jd_linkgrabber_add_container, jd_linkgrabber_is_collecting, jd_linkgrabber_get_package_count, jd_linkgrabber_get_download_urls |
-| Downloads | jd_start_downloads, jd_stop_downloads, jd_pause_downloads, jd_get_download_speed, jd_get_download_state, jd_force_download, jd_downloads_query_packages, jd_downloads_query_links, jd_downloads_set_enabled, jd_downloads_force_download, jd_downloads_set_location, jd_downloads_remove_links, jd_downloads_reset_links, jd_downloads_move_to_new_package, jd_downloads_cleanup |
-| Captcha | jd_captcha_list, jd_captcha_get, jd_captcha_solve |
-| Accounts | jd_accounts_list, jd_accounts_add, jd_accounts_remove, jd_accounts_enable, jd_accounts_disable, jd_accounts_refresh, jd_accounts_list_premium_hosters, jd_accounts_add_basic_auth, jd_accounts_list_basic_auth |
-| System | jd_system_get_storage_info, jd_system_restart, jd_system_exit, jd_system_hibernate, jd_system_shutdown, jd_system_standby |
-| Config | jd_config_list, jd_config_get, jd_config_set, jd_config_reset |
-| Extensions | jd_extensions_list, jd_extensions_install, jd_extensions_set_enabled |
-| Dialogs | jd_dialogs_list, jd_dialogs_get, jd_dialogs_answer |
-| Toolbar | jd_toolbar_status, jd_speed_limit_enable, jd_speed_limit_disable |
-| Update | jd_update_check, jd_update_restart |
-| Misc | jd_reconnect, jd_get_version, jd_get_overview |
+| Connection | jd_connect, jd_disconnect, jd_reconnect, jd_connection_status, jd_list_devices |
+| LinkCollector | jd_add_links, jd_query_links, jd_query_packages_linkgrabber, jd_move_to_downloads, jd_remove_links_collector, jd_clear_linkgrabber, jd_rename_link_collector, jd_rename_package_collector, jd_set_priority_collector, jd_add_container |
+| Downloads | jd_start_downloads, jd_stop_downloads, jd_pause_downloads, jd_get_speed, jd_get_download_state, jd_force_download, jd_set_speed_limit, jd_query_downloads, jd_query_packages_downloads, jd_remove_links_downloads, jd_reset_links, jd_enable_links, jd_move_links¹, jd_move_packages¹, jd_rename_link_downloads¹, jd_rename_package_downloads¹, jd_set_priority_downloads¹, jd_set_download_directory, jd_cleanup |
+| Captcha | jd_list_captchas, jd_get_captcha, jd_solve_captcha, jd_skip_captcha, jd_auto_solve_captcha, jd_captcha_daemon_start, jd_captcha_daemon_stop, jd_captcha_daemon_status, jd_captcha_solvers_list |
+| Accounts | jd_list_accounts, jd_add_account, jd_remove_account, jd_enable_account, jd_refresh_accounts, jd_list_premium_hosters |
+| System | jd_system_info, jd_get_storage_info, jd_restart, jd_exit, jd_shutdown_os², jd_hibernate, jd_standby |
+| Config | jd_list_config_entries, jd_get_config_value, jd_set_config_value, jd_reset_config_value, jd_get_default_download_folder, jd_set_default_download_folder |
+| Extensions | jd_list_extensions, jd_enable_extension |
+| Dialogs | jd_list_dialogs, jd_get_dialog, jd_answer_dialog |
+| Toolbar | jd_toolbar_status, jd_speed_limit_toggle |
+| Update | jd_check_update, jd_run_update_check, jd_restart_and_update |
+| Misc / Advanced | jd_call_action, jd_get_session_info, jd_poll_events, jd_subscribe_events |
+
+¹ Implementadas vía `device.action("/downloadsV2/…")`; ruta de API verificada
+pero no probada contra un JD real. ² `jd_shutdown_os` apaga la máquina (el SO);
+para cerrar sólo la app usa `jd_exit`.
 
 
 
