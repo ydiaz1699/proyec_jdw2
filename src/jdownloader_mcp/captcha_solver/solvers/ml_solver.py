@@ -8,7 +8,14 @@ Requires:
 - torch >= 2.0.0
 - torchvision >= 0.15.0
 - numpy >= 1.24.0
+
+NOTE: este solver es opt-in. No se registra por defecto (ver README) y necesita,
+además de torch, un modelo CNN entrenado (.pth) que este repo no incluye. Los
+anotaciones de tipo se difieren con ``from __future__ import annotations`` para
+que el módulo pueda importarse sin torch sin lanzar NameError.
 """
+
+from __future__ import annotations
 
 import base64
 import io
@@ -182,18 +189,21 @@ class MLSolver(BaseSolver):
         tensor = tensor.unsqueeze(0).to(self._device)
         return tensor
 
-    @torch.no_grad()
     def _predict(self, tensor) -> tuple:
         """Run prediction and return (text, confidence)."""
-        outputs = self._model(tensor)
-        # outputs shape: (batch, captcha_length, num_classes)
+        # torch.no_grad() se usa como context manager DENTRO del método, no como
+        # decorador a nivel de clase: un decorador se evalúa al definir la clase
+        # y lanzaría NameError si torch no está instalado al importar el módulo.
+        with torch.no_grad():
+            outputs = self._model(tensor)
+            # outputs shape: (batch, captcha_length, num_classes)
 
-        probabilities = torch.softmax(outputs, dim=2)
-        max_probs, predictions = torch.max(probabilities, dim=2)
+            probabilities = torch.softmax(outputs, dim=2)
+            max_probs, predictions = torch.max(probabilities, dim=2)
 
-        # Decode predictions to text
-        pred_indices = predictions[0].cpu().numpy()
-        char_probs = max_probs[0].cpu().numpy()
+            # Decode predictions to text
+            pred_indices = predictions[0].cpu().numpy()
+            char_probs = max_probs[0].cpu().numpy()
 
         text = ""
         for idx in pred_indices:

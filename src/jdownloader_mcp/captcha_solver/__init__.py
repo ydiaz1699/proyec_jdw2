@@ -19,3 +19,12 @@ __version__ = "1.1.0"
 from .base import BaseSolver, CaptchaChallenge, CaptchaSolution, CaptchaType
 from .router import CaptchaRouter
 from .daemon import AutoSolverDaemon
+
+__all__ = [
+    "BaseSolver",
+    "CaptchaChallenge",
+    "CaptchaSolution",
+    "CaptchaType",
+    "CaptchaRouter",
+    "AutoSolverDaemon",
+]

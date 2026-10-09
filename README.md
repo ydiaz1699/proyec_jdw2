@@ -7,7 +7,7 @@ Control completo de JDownloader desde cualquier LLM usando el protocolo MCP
 
 ```
 proyec_jdw2/
-├── src/jdownloader_mcp/          # MCP Server (100 tools)
+├── src/jdownloader_mcp/          # MCP Server (76 tools)
 │   ├── __init__.py
 │   ├── server.py                 # Servidor MCP principal
 │   └── captcha_solver/           # Módulo auto-solver
@@ -19,9 +19,10 @@ proyec_jdw2/
 │       │   └── image_processor.py # Pipeline de procesamiento de imagen
 │       ├── solvers/
 │       │   ├── ocr_solver.py     # Tesseract + EasyOCR
-│       │   ├── ml_solver.py      # CNN PyTorch propio
+│       │   ├── ml_solver.py      # CNN PyTorch (opt-in, requiere modelo .pth)
 │       │   ├── nopecha_solver.py # NopeCHA API HTTP client
-│       │   └── darknet_solver.py # cracker0dks/YOLO integration
+│       │   ├── twocaptcha_solver.py # 2Captcha API HTTP client
+│       │   └── darknet_solver.py # YOLO/PyTorch (opt-in, requiere modelo .pt)
 │       └── models/
 │           └── cnn_model.py      # Arquitectura CNN para training
 ├── skill/
@@ -216,97 +217,79 @@ Esto le da a Kiro (o cualquier LLM que lea el archivo) toda la referencia
 necesaria para generar codigo que interactue con JDownloader sin necesidad
 de leer la documentacion original de myjdapi.
 
-## Tools Disponibles (50+)
+## Tools Disponibles (76)
+
+> Los nombres de abajo son los **reales** registrados por el servidor (verificados
+> con `mcp.list_tools()` contra myjdapi 1.1.11). Todas empiezan por `jd_`.
 
 | Categoria | Tools |
 |-----------|-------|
-| Conexion | `jd_connect`, `jd_disconnect`, `jd_reconnect`, `jd_list_devices`, `jd_switch_device` |
-| LinkCollector | `jd_add_links`, `jd_linkgrabber_query_packages`, `jd_linkgrabber_query_links`, `jd_linkgrabber_move_to_downloadlist`, `jd_linkgrabber_move_to_new_package`, `jd_linkgrabber_rename_package`, `jd_linkgrabber_rename_link`, `jd_linkgrabber_set_priority`, `jd_linkgrabber_set_enabled`, `jd_linkgrabber_get_variants`, `jd_linkgrabber_cleanup`, `jd_linkgrabber_clear_list`, `jd_linkgrabber_remove_links`, `jd_linkgrabber_add_container`, `jd_linkgrabber_is_collecting`, `jd_linkgrabber_get_package_count`, `jd_linkgrabber_get_download_urls` |
-| Descargas | `jd_start_downloads`, `jd_stop_downloads`, `jd_pause_downloads`, `jd_get_download_speed`, `jd_get_download_state`, `jd_force_download`, `jd_downloads_query_packages`, `jd_downloads_query_links`, `jd_downloads_set_enabled`, `jd_downloads_force_download`, `jd_downloads_set_location`, `jd_downloads_remove_links`, `jd_downloads_reset_links`, `jd_downloads_move_to_new_package`, `jd_downloads_cleanup` |
-| Captcha | `jd_captcha_list`, `jd_captcha_get`, `jd_captcha_solve` |
-| Cuentas | `jd_accounts_list`, `jd_accounts_add`, `jd_accounts_remove`, `jd_accounts_enable`, `jd_accounts_disable`, `jd_accounts_refresh`, `jd_accounts_list_premium_hosters`, `jd_accounts_add_basic_auth`, `jd_accounts_list_basic_auth` |
-| Sistema | `jd_system_get_storage_info`, `jd_system_restart`, `jd_system_exit`, `jd_system_hibernate`, `jd_system_shutdown`, `jd_system_standby` |
-| Config | `jd_config_list`, `jd_config_get`, `jd_config_set`, `jd_config_reset` |
-| Extensiones | `jd_extensions_list`, `jd_extensions_install`, `jd_extensions_set_enabled` |
-| Dialogos | `jd_dialogs_list`, `jd_dialogs_get`, `jd_dialogs_answer` |
-| Toolbar | `jd_toolbar_status`, `jd_speed_limit_enable`, `jd_speed_limit_disable` |
-| Update | `jd_update_check`, `jd_update_restart` |
-| Otros | `jd_reconnect`, `jd_get_version`, `jd_get_overview` |
+| Conexion | `jd_connect`, `jd_disconnect`, `jd_reconnect`, `jd_connection_status`, `jd_list_devices` |
+| LinkCollector | `jd_add_links`, `jd_query_links`, `jd_query_packages_linkgrabber`, `jd_move_to_downloads`, `jd_remove_links_collector`, `jd_clear_linkgrabber`, `jd_rename_link_collector`, `jd_rename_package_collector`, `jd_set_priority_collector`, `jd_add_container` |
+| Descargas | `jd_start_downloads`, `jd_stop_downloads`, `jd_pause_downloads`, `jd_get_speed`, `jd_get_download_state`, `jd_force_download`, `jd_set_speed_limit`, `jd_query_downloads`, `jd_query_packages_downloads`, `jd_remove_links_downloads`, `jd_reset_links`, `jd_enable_links`, `jd_move_links`¹, `jd_move_packages`¹, `jd_rename_link_downloads`¹, `jd_rename_package_downloads`¹, `jd_set_priority_downloads`¹, `jd_set_download_directory`, `jd_cleanup` |
+| Captcha | `jd_list_captchas`, `jd_get_captcha`, `jd_solve_captcha`, `jd_skip_captcha`, `jd_auto_solve_captcha`, `jd_captcha_daemon_start`, `jd_captcha_daemon_stop`, `jd_captcha_daemon_status`, `jd_captcha_solvers_list` |
+| Cuentas | `jd_list_accounts`, `jd_add_account`, `jd_remove_account`, `jd_enable_account`, `jd_refresh_accounts`, `jd_list_premium_hosters` |
+| Sistema | `jd_system_info`, `jd_get_storage_info`, `jd_restart`, `jd_exit`, `jd_shutdown_os`², `jd_hibernate`, `jd_standby` |
+| Config | `jd_list_config_entries`, `jd_get_config_value`, `jd_set_config_value`, `jd_reset_config_value`, `jd_get_default_download_folder`, `jd_set_default_download_folder` |
+| Extensiones | `jd_list_extensions`, `jd_enable_extension` |
+| Dialogos | `jd_list_dialogs`, `jd_get_dialog`, `jd_answer_dialog` |
+| Toolbar | `jd_toolbar_status`, `jd_speed_limit_toggle` |
+| Update | `jd_check_update`, `jd_run_update_check`, `jd_restart_and_update` |
+| Avanzado | `jd_call_action`, `jd_get_session_info`, `jd_poll_events`, `jd_subscribe_events` |
+
+¹ **No probado contra un JD real.** myjdapi 1.1.11 no tiene estos métodos, así
+que se implementan con la acción cruda `device.action("/downloadsV2/…")`. La ruta
+de API está verificada, pero no se ha podido probar end-to-end en esta sesión.
+
+² **`jd_shutdown_os` apaga la MÁQUINA (el SO), no sólo JDownloader.** Para cerrar
+sólo la app usa `jd_exit`.
 
 
-## Captcha Auto-Solving (futuro)
+## Captcha Auto-Solving
 
-El servidor incluye un módulo completo de auto-resolución de captchas
-que funciona sin intervención humana:
+El servidor incluye un módulo de auto-resolución de captchas con un router que
+detecta el tipo y lo envía al solver adecuado, más un daemon que sondea
+JDownloader en segundo plano.
 
-### Arquitectura
+### Estado real de cada solver
 
-```
-JDownloader detecta captcha
-        │
-        ▼
-MCP Server (jd_captcha_auto_solve_start)
-        │
-        ▼
-┌─ AutoSolverDaemon (polling loop) ─┐
-│                                    │
-│  CaptchaRouter → detecta tipo      │
-│       │                            │
-│       ├─ DarkNet/YOLO (prioridad 10)
-│       │   └─ cracker0dks integration
-│       │                            │
-│       ├─ ML CNN propio (prioridad 20)
-│       │   └─ modelo entrenado .pth │
-│       │                            │
-│       ├─ OCR local (prioridad 30)  │
-│       │   ├─ Tesseract             │
-│       │   └─ EasyOCR               │
-│       │                            │
-│       └─ NopeCHA API (prioridad 50)│
-│           └─ reCAPTCHA/hCaptcha/   │
-│              Turnstile/FunCAPTCHA  │
-│                                    │
-│  device.captcha.solve(id, answer)  │
-└────────────────────────────────────┘
-```
+| Solver | Tipo de captcha | Dependencia | ¿Se registra por defecto? |
+|--------|-----------------|-------------|----------------------------|
+| `NopeCHASolver`   | reCAPTCHA v2/v3, hCaptcha, Turnstile, texto/imagen | `requests` (HTTP) | ✅ Sí, si `NOPECHA_API_KEY` está definido |
+| `TwoCaptchaSolver`| reCAPTCHA v2/v3, hCaptcha, Turnstile, FunCaptcha, texto/imagen | `requests` (HTTP) | ✅ Sí, si `TWOCAPTCHA_API_KEY` está definido |
+| `OCRSolver`       | Texto/imagen genérico | Tesseract y/o EasyOCR | ⚠️ Opt-in, **no cableado** |
+| `MLSolver`        | Texto (CNN propio) | PyTorch + **modelo .pth entrenado (no incluido)** | ⚠️ Opt-in, **no cableado** |
+| `DarkNetSolver`   | Geométrico/click (YOLO) | PyTorch + **modelo .pt (no incluido)** | ⚠️ Opt-in, **no cableado** |
 
-### Componentes (auto-contenidos, sin dependencias externas):
+> **Qué funciona hoy sin más:** sólo los solvers de API (NopeCHA / 2Captcha), y
+> únicamente si defines su API key en el entorno. Sin ninguna key, el router
+> queda vacío y las tools de auto-solve lo dicen con claridad en vez de fingir.
+>
+> **OCR/ML/YOLO son opt-in y no se registran automáticamente.** Requieren
+> paquetes extra; además el `MLSolver` necesita un modelo CNN entrenado que este
+> repo **no incluye** (no hay script de entrenamiento), y el `DarkNetSolver`
+> necesita un modelo YOLO `.pt`. Los módulos de torch están protegidos: importar
+> el paquete nunca arrastra torch ni falla si no está instalado.
 
-| Solver | Tipo de captcha | Dependencia |
-|--------|----------------|-------------|
-| `DarkNetSolver` | Texto 6-digitos, geometrico (k2s, filejoker) | Node.js + darknet binary |
-| `MLSolver` | Texto custom (entrenable) | PyTorch |
-| `OCRSolver` | Texto/imagen generico | Tesseract y/o EasyOCR |
-| `NopeCHASolver` | reCAPTCHA, hCaptcha, Turnstile, AWS WAF | requests (HTTP) |
+### Cómo activar el auto-solver (API)
 
-### MCP Tools del auto-solver:
+1. Define la API key en el entorno del MCP (`env` del JSON) — p. ej.
+   `NOPECHA_API_KEY` y/o `TWOCAPTCHA_API_KEY`.
+2. Para Docker, recuerda propagar la variable: añade
+   `"-e", "NOPECHA_API_KEY"` al `args` y la clave en `env`.
+3. Resolver un captcha concreto: `jd_auto_solve_captcha(captcha_id)`.
+4. Modo desatendido: `jd_captcha_daemon_start` / `_status` / `_stop`.
+   `jd_captcha_solvers_list` muestra los solvers registrados y sus stats.
 
-```
-jd_captcha_auto_solve_start   # Iniciar daemon
-jd_captcha_auto_solve_stop    # Detener daemon
-jd_captcha_auto_solve_status  # Ver estadísticas
-jd_captcha_auto_solve_reset   # Resetear stats/cache
-```
-
-### Instalación rápida:
+### Dependencias opcionales (sólo si quieres OCR/ML)
 
 ```bash
-# Mínimo (OCR + NopeCHA):
-pip install Pillow pytesseract requests
-
-# Con ML training:
-pip install torch torchvision numpy
-
-# Con EasyOCR (mejor para texto distorsionado):
-pip install easyocr
+pip install "jdownloader-mcp[ocr]"   # Tesseract/EasyOCR  (recuerda: apt install tesseract-ocr)
+pip install "jdownloader-mcp[ml]"    # torch + numpy (para MLSolver/DarkNetSolver)
 ```
 
-### Integración cracker0dks/CaptchaSolver:
-
-Para hosters como keep2share, fileboom, filejoker:
-1. Descargar: https://github.com/cracker0dks/CaptchaSolver/releases
-2. Extraer en tu carpeta de JDownloader
-3. El solver lo detecta automáticamente en modo "integrated"
+> El `MLSolver` seguirá deshabilitado hasta que le pases un `model_path` a un
+> `.pth` entrenado. El entrenamiento del CNN queda fuera de este repo.
 
 ## Requisitos
 

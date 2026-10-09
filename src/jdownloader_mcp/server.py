@@ -14,7 +14,6 @@ from jdownloader_mcp.captcha_solver import (
     AutoSolverDaemon,
     CaptchaRouter,
     CaptchaChallenge,
-    CaptchaSolution,
 )
 
 logger = logging.getLogger("jdownloader-mcp")
@@ -41,6 +40,52 @@ class JDState:
 
 
 state = JDState()
+
+
+def _register_solvers() -> None:
+    """Registra los solvers de captcha según las variables de entorno.
+
+    Diseño honesto (ver README): sólo se registran los solvers que funcionan de
+    verdad sin dependencias pesadas ni modelos entrenados, es decir los de API
+    externa (2Captcha y NopeCHA), activados por su API key:
+
+      - ``NOPECHA_API_KEY``   -> NopeCHASolver
+      - ``TWOCAPTCHA_API_KEY`` -> TwoCaptchaSolver
+
+    Los solvers OCR/ML/YOLO quedan como opt-in NO cableados aquí: requieren
+    paquetes extra (torch/tesseract) y, en el caso del CNN, un modelo entrenado
+    que este repo no incluye. Importarlos a nivel de módulo arrastraría torch,
+    así que ni siquiera se importan si no hacen falta.
+
+    Si no hay ninguna API key, el router queda vacío y las tools de auto-solve
+    responden con un mensaje claro en vez de fingir que resuelven.
+    """
+    nopecha_key = os.environ.get("NOPECHA_API_KEY", "").strip()
+    twocaptcha_key = os.environ.get("TWOCAPTCHA_API_KEY", "").strip()
+
+    if nopecha_key:
+        from jdownloader_mcp.captcha_solver.solvers.nopecha_solver import (
+            NopeCHASolver,
+        )
+        solver = NopeCHASolver({"api_key": nopecha_key})
+        if solver.enabled:
+            # Prioridad 50: gratis/más barato primero.
+            state.captcha_router.register_solver(solver, priority=50)
+
+    if twocaptcha_key:
+        from jdownloader_mcp.captcha_solver.solvers.twocaptcha_solver import (
+            TwoCaptchaSolver,
+        )
+        solver = TwoCaptchaSolver({"api_key": twocaptcha_key})
+        if solver.enabled:
+            # Prioridad 60: servicio de pago, como respaldo.
+            state.captcha_router.register_solver(solver, priority=60)
+
+    if not state.captcha_router.solvers:
+        logger.info(
+            "Auto-solver sin solvers registrados. Define NOPECHA_API_KEY y/o "
+            "TWOCAPTCHA_API_KEY para habilitar la resolución automática."
+        )
 
 
 def _has_env_credentials() -> bool:
@@ -90,6 +135,20 @@ def _require_device():
         "No conectado a JDownloader y sin credenciales en el entorno. "
         "Define JD_EMAIL / JD_PASSWORD / JD_DEVICE_NAME, o usa jd_connect()."
     )
+
+
+def _ids(value) -> list:
+    """Normaliza un parámetro de IDs a una lista.
+
+    myjdapi espera listas (sus defaults son ``[]``); si una tool recibe ``None``
+    y lo pasa tal cual, se rompe el default y la llamada puede fallar. Esta
+    función convierte ``None`` → ``[]`` y envuelve un escalar suelto en lista.
+    """
+    if value is None:
+        return []
+    if isinstance(value, (list, tuple)):
+        return list(value)
+    return [value]
 
 
 
@@ -149,18 +208,31 @@ def jd_reconnect() -> str:
 
 @mcp.tool()
 def jd_list_devices() -> str:
-    """List all available JDownloader devices."""
+    """List all available JDownloader devices.
+
+    Dispara la conexión lazy: si no hay sesión aún pero hay credenciales en el
+    entorno, conecta sola antes de listar (útil como primera tool de prueba).
+    """
     if not state.jd:
-        return "Not connected. Use jd_connect() first."
+        _auto_connect_from_env()
+    if not state.jd:
+        return ("Not connected. Define JD_EMAIL / JD_PASSWORD / JD_DEVICE_NAME "
+                "o usa jd_connect() first.")
     try:
         state.jd.update_devices()
-        return json.dumps(state.jd.list_devices(), indent=2)
+        return json.dumps(state.jd.list_devices(), indent=2, default=str)
     except Exception as e:
         return f"Error listing devices: {e}"
 
 @mcp.tool()
 def jd_connection_status() -> str:
-    """Get current connection status."""
+    """Get current connection status.
+
+    Intenta la conexión lazy desde el entorno si aún no está conectado, de forma
+    que esta tool refleje el estado real tras un arranque sin warm-up.
+    """
+    if not state.connected:
+        _auto_connect_from_env()
     return json.dumps({"connected": state.connected, "email": state.email, "device_name": state.device_name})
 
 
@@ -214,7 +286,7 @@ def jd_move_to_downloads(link_ids: list = None, package_ids: list = None) -> str
     """Move links/packages from LinkCollector to download list."""
     device = _require_device()
     try:
-        device.linkgrabber.move_to_downloadlist(link_ids, package_ids)
+        device.linkgrabber.move_to_downloadlist(_ids(link_ids), _ids(package_ids))
         return "Moved to download list"
     except Exception as e:
         return f"Error: {e}"
@@ -224,7 +296,7 @@ def jd_remove_links_collector(link_ids: list = None, package_ids: list = None) -
     """Remove links/packages from LinkCollector."""
     device = _require_device()
     try:
-        device.linkgrabber.remove_links(link_ids, package_ids)
+        device.linkgrabber.remove_links(_ids(link_ids), _ids(package_ids))
         return "Removed from LinkCollector"
     except Exception as e:
         return f"Error: {e}"
@@ -264,7 +336,7 @@ def jd_set_priority_collector(link_ids: list, package_ids: list, priority: str) 
     """Set priority for links/packages in LinkCollector (HIGHEST, HIGH, DEFAULT, LOW, LOWEST)."""
     device = _require_device()
     try:
-        device.linkgrabber.set_priority(priority, link_ids, package_ids)
+        device.linkgrabber.set_priority(priority, _ids(link_ids), _ids(package_ids))
         return f"Priority set to {priority}"
     except Exception as e:
         return f"Error: {e}"
@@ -336,11 +408,22 @@ def jd_get_download_state() -> str:
 
 @mcp.tool()
 def jd_set_speed_limit(limit_bytes: int) -> str:
-    """Set download speed limit in bytes/s (0 = unlimited)."""
+    """Set download speed limit in bytes/s (0 = unlimited).
+
+    myjdapi 1.1.11 no tiene toolbar.set_download_speed_limit; el límite se
+    aplica por configuración: se fija DownloadSpeedLimit y se activa/desactiva
+    con DownloadSpeedLimitEnabled (0 bytes = sin límite => deshabilitado).
+    """
     device = _require_device()
+    iface = "org.jdownloader.settings.GeneralSettings"
     try:
-        device.toolbar.set_download_speed_limit(limit_bytes)
-        return f"Speed limit set to {limit_bytes} bytes/s"
+        if limit_bytes and limit_bytes > 0:
+            device.config.set(iface, "null", "DownloadSpeedLimit", limit_bytes)
+            device.config.set(iface, "null", "DownloadSpeedLimitEnabled", True)
+            return f"Speed limit set to {limit_bytes} bytes/s"
+        else:
+            device.config.set(iface, "null", "DownloadSpeedLimitEnabled", False)
+            return "Speed limit disabled (unlimited)"
     except Exception as e:
         return f"Error: {e}"
 
@@ -349,7 +432,7 @@ def jd_force_download(link_ids: list = None, package_ids: list = None) -> str:
     """Force download of specific links/packages (bypass wait times)."""
     device = _require_device()
     try:
-        device.downloadcontroller.force_download(link_ids, package_ids)
+        device.downloadcontroller.force_download(_ids(link_ids), _ids(package_ids))
         return "Force download triggered"
     except Exception as e:
         return f"Error: {e}"
@@ -387,7 +470,7 @@ def jd_remove_links_downloads(link_ids: list = None, package_ids: list = None) -
     """Remove links/packages from the download list."""
     device = _require_device()
     try:
-        device.downloads.remove_links(link_ids, package_ids)
+        device.downloads.remove_links(_ids(link_ids), _ids(package_ids))
         return "Removed from download list"
     except Exception as e:
         return f"Error: {e}"
@@ -397,7 +480,7 @@ def jd_reset_links(link_ids: list = None, package_ids: list = None) -> str:
     """Reset failed/completed links for retry."""
     device = _require_device()
     try:
-        device.downloads.reset_links(link_ids, package_ids)
+        device.downloads.reset_links(_ids(link_ids), _ids(package_ids))
         return "Links reset"
     except Exception as e:
         return f"Error: {e}"
@@ -407,54 +490,89 @@ def jd_enable_links(enable: bool, link_ids: list = None, package_ids: list = Non
     """Enable or disable links/packages in download list."""
     device = _require_device()
     try:
-        device.downloads.set_enabled(enable, link_ids, package_ids)
+        device.downloads.set_enabled(enable, _ids(link_ids), _ids(package_ids))
         return f"Links {'enabled' if enable else 'disabled'}"
     except Exception as e:
         return f"Error: {e}"
 
+# NOTA: myjdapi 1.1.11 no expone estos métodos en la clase Downloads, así que
+# se implementan con la acción cruda device.action() contra los endpoints
+# /downloadsV2/* de la My.JDownloader API. Las rutas están verificadas contra la
+# especificación de la API, pero NO se han podido probar contra un JDownloader
+# real en esta sesión; por eso el docstring lo indica explícitamente.
+
 @mcp.tool()
 def jd_move_links(link_ids: list, after_link_id: int, dest_package_id: int) -> str:
-    """Move links within the download list."""
-    _require_device()
-    # myjdapi 1.1.11 no expone downloads.move_links; usar jd_move_to_new_package
-    # para reagrupar. Ver auditoría pendiente de la API en el README.
-    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.move_links no existe). "
-            "Usa jd_move_to_new_package para reagrupar enlaces.")
+    """Move links within the download list (vía /downloadsV2/moveLinks).
+
+    Ruta de API verificada; no probada contra un JD real en esta sesión.
+    """
+    device = _require_device()
+    try:
+        device.action("/downloadsV2/moveLinks", [_ids(link_ids), after_link_id, dest_package_id])
+        return "Links moved"
+    except Exception as e:
+        return f"Error: {e}"
 
 @mcp.tool()
 def jd_move_packages(package_ids: list, after_package_id: int) -> str:
-    """Move packages within the download list."""
-    _require_device()
-    # myjdapi 1.1.11 no expone downloads.move_packages. Ver auditoría pendiente.
-    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.move_packages no existe).")
+    """Move packages within the download list (vía /downloadsV2/movePackages).
+
+    Ruta de API verificada; no probada contra un JD real en esta sesión.
+    """
+    device = _require_device()
+    try:
+        device.action("/downloadsV2/movePackages", [_ids(package_ids), after_package_id])
+        return "Packages moved"
+    except Exception as e:
+        return f"Error: {e}"
 
 @mcp.tool()
 def jd_rename_link_downloads(link_id: int, new_name: str) -> str:
-    """Rename a link in the download list."""
-    _require_device()
-    # myjdapi 1.1.11 no expone downloads.rename_link. Ver auditoría pendiente.
-    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.rename_link no existe).")
+    """Rename a link in the download list (vía /downloadsV2/renameLink).
+
+    Ruta de API verificada; no probada contra un JD real en esta sesión.
+    """
+    device = _require_device()
+    try:
+        device.action("/downloadsV2/renameLink", [link_id, new_name])
+        return f"Link {link_id} renamed to '{new_name}'"
+    except Exception as e:
+        return f"Error: {e}"
 
 @mcp.tool()
 def jd_rename_package_downloads(package_id: int, new_name: str) -> str:
-    """Rename a package in the download list."""
-    _require_device()
-    # myjdapi 1.1.11 no expone downloads.rename_package. Ver auditoría pendiente.
-    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.rename_package no existe).")
+    """Rename a package in the download list (vía /downloadsV2/renamePackage).
+
+    Ruta de API verificada; no probada contra un JD real en esta sesión.
+    """
+    device = _require_device()
+    try:
+        device.action("/downloadsV2/renamePackage", [package_id, new_name])
+        return f"Package {package_id} renamed to '{new_name}'"
+    except Exception as e:
+        return f"Error: {e}"
 
 @mcp.tool()
 def jd_set_priority_downloads(link_ids: list, package_ids: list, priority: str) -> str:
-    """Set priority in download list (HIGHEST, HIGH, DEFAULT, LOW, LOWEST)."""
-    _require_device()
-    # myjdapi 1.1.11 no expone downloads.set_priority. Ver auditoría pendiente.
-    return ("ERROR: no soportado en myjdapi 1.1.11 (downloads.set_priority no existe).")
+    """Set priority in download list (HIGHEST, HIGH, DEFAULT, LOW, LOWEST).
+
+    Vía /downloadsV2/setPriority. Ruta de API verificada; no probada contra un
+    JD real en esta sesión.
+    """
+    device = _require_device()
+    try:
+        device.action("/downloadsV2/setPriority", [priority, _ids(link_ids), _ids(package_ids)])
+        return f"Priority set to {priority}"
+    except Exception as e:
+        return f"Error: {e}"
 
 @mcp.tool()
 def jd_set_download_directory(package_ids: list, directory: str) -> str:
     """Set download directory for packages."""
     device = _require_device()
     try:
-        device.downloads.set_dl_location(directory, package_ids)
+        device.downloads.set_dl_location(directory, _ids(package_ids))
         return f"Directory set to '{directory}'"
     except Exception as e:
         return f"Error: {e}"
@@ -511,10 +629,15 @@ def jd_solve_captcha(captcha_id: int, solution: str) -> str:
 
 @mcp.tool()
 def jd_skip_captcha(captcha_id: int) -> str:
-    """Skip a captcha challenge."""
+    """Skip a captcha challenge.
+
+    myjdapi 1.1.11 no expone captcha.skip, así que se usa la acción cruda
+    /captcha/skip de la My.JDownloader API. Ruta verificada contra la API; no
+    probada contra un JD real en esta sesión.
+    """
     device = _require_device()
     try:
-        device.captcha.skip(captcha_id)
+        device.action("/captcha/skip", [captcha_id, "single"])
         return f"Captcha {captcha_id} skipped"
     except Exception as e:
         return f"Error: {e}"
@@ -545,7 +668,15 @@ def jd_captcha_daemon_start() -> str:
     device = _require_device()
     if state.captcha_daemon and state.captcha_daemon.is_running:
         return "Daemon already running"
-    state.captcha_daemon = AutoSolverDaemon(device, state.captcha_router)
+    if not state.captcha_router.solvers:
+        return ("No hay solvers de captcha registrados. Define NOPECHA_API_KEY "
+                "y/o TWOCAPTCHA_API_KEY e reinicia el servidor antes de arrancar "
+                "el daemon.")
+    # device_provider: el daemon relee state.device en cada iteración, así no
+    # opera sobre un device obsoleto tras jd_reconnect().
+    state.captcha_daemon = AutoSolverDaemon(
+        device, state.captcha_router, device_provider=lambda: state.device
+    )
     return state.captcha_daemon.start()
 
 @mcp.tool()
@@ -578,8 +709,7 @@ def jd_list_accounts() -> str:
     """List all hoster accounts configured in JDownloader."""
     device = _require_device()
     try:
-        params = {"enabled": True, "valid": True, "trafficLeft": True, "trafficMax": True}
-        accounts = device.accounts.query_accounts(params)
+        accounts = device.accounts.list_accounts()
         return json.dumps(accounts, indent=2) if accounts else "No accounts configured"
     except Exception as e:
         return f"Error: {e}"
@@ -609,7 +739,10 @@ def jd_enable_account(account_id: int, enabled: bool) -> str:
     """Enable or disable a hoster account."""
     device = _require_device()
     try:
-        device.accounts.set_enabled(enabled, [account_id])
+        if enabled:
+            device.accounts.enable_accounts([account_id])
+        else:
+            device.accounts.disable_accounts([account_id])
         return f"Account {account_id} {'enabled' if enabled else 'disabled'}"
     except Exception as e:
         return f"Error: {e}"
@@ -642,10 +775,14 @@ def jd_list_premium_hosters() -> str:
 
 @mcp.tool()
 def jd_system_info() -> str:
-    """Get JDownloader system information."""
+    """Get JDownloader storage/disk information.
+
+    Nota: myjdapi 1.1.11 no expone un 'system infos' general; el dato de sistema
+    disponible es el de almacenamiento (get_storage_info).
+    """
     device = _require_device()
     try:
-        return json.dumps(device.system.get_system_infos(), indent=2)
+        return json.dumps(device.system.get_storage_info(), indent=2, default=str)
     except Exception as e:
         return f"Error: {e}"
 
@@ -660,12 +797,26 @@ def jd_restart() -> str:
         return f"Error: {e}"
 
 @mcp.tool()
-def jd_shutdown() -> str:
-    """Shutdown JDownloader."""
+def jd_exit() -> str:
+    """Close the JDownloader application (does NOT power off the machine)."""
     device = _require_device()
     try:
-        device.system.shutdown_os(False)
-        return "JDownloader shutdown triggered"
+        device.system.exit_jd()
+        return "JDownloader exit triggered"
+    except Exception as e:
+        return f"Error: {e}"
+
+@mcp.tool()
+def jd_shutdown_os(force: bool = False) -> str:
+    """DANGER: power off the whole machine running JDownloader (the OS).
+
+    This shuts down the host computer, not just JDownloader. To only close the
+    JDownloader app, use jd_exit(). Confirm with the user before calling this.
+    """
+    device = _require_device()
+    try:
+        device.system.shutdown_os(force)
+        return "OS shutdown triggered"
     except Exception as e:
         return f"Error: {e}"
 
@@ -694,7 +845,7 @@ def jd_get_storage_info() -> str:
     """Get storage/disk space info."""
     device = _require_device()
     try:
-        return json.dumps(device.system.get_storage_infos(), indent=2)
+        return json.dumps(device.system.get_storage_info(), indent=2, default=str)
     except Exception as e:
         return f"Error: {e}"
 
@@ -720,8 +871,9 @@ def jd_get_config_value(interface_name: str, key: str) -> str:
     """Get a specific config value."""
     device = _require_device()
     try:
-        value = device.config.get(interface_name, key)
-        return json.dumps({"interface": interface_name, "key": key, "value": value})
+        # myjdapi: get(interface_name, storage, key); 'null' = storage por defecto
+        value = device.config.get(interface_name, "null", key)
+        return json.dumps({"interface": interface_name, "key": key, "value": value}, default=str)
     except Exception as e:
         return f"Error: {e}"
 
@@ -730,7 +882,8 @@ def jd_set_config_value(interface_name: str, key: str, value: str) -> str:
     """Set a specific config value."""
     device = _require_device()
     try:
-        device.config.set(interface_name, key, value)
+        # myjdapi: set(interface_name, storage, key, value)
+        device.config.set(interface_name, "null", key, value)
         return f"Config set: {interface_name}.{key} = {value}"
     except Exception as e:
         return f"Error: {e}"
@@ -740,7 +893,8 @@ def jd_reset_config_value(interface_name: str, key: str) -> str:
     """Reset a config value to its default."""
     device = _require_device()
     try:
-        device.config.reset(interface_name, key)
+        # myjdapi: reset(interfaceName, storage, key)
+        device.config.reset(interface_name, "null", key)
         return f"Config reset: {interface_name}.{key}"
     except Exception as e:
         return f"Error: {e}"
@@ -750,7 +904,9 @@ def jd_get_default_download_folder() -> str:
     """Get the default download folder."""
     device = _require_device()
     try:
-        value = device.config.get("org.jdownloader.settings.GeneralSettings", "DefaultDownloadFolder")
+        value = device.config.get(
+            "org.jdownloader.settings.GeneralSettings", "null", "DefaultDownloadFolder"
+        )
         return f"Default download folder: {value}"
     except Exception as e:
         return f"Error: {e}"
@@ -760,7 +916,9 @@ def jd_set_default_download_folder(path: str) -> str:
     """Set the default download folder."""
     device = _require_device()
     try:
-        device.config.set("org.jdownloader.settings.GeneralSettings", "DefaultDownloadFolder", path)
+        device.config.set(
+            "org.jdownloader.settings.GeneralSettings", "null", "DefaultDownloadFolder", path
+        )
         return f"Default download folder set to: {path}"
     except Exception as e:
         return f"Error: {e}"
@@ -787,7 +945,7 @@ def jd_enable_extension(class_name: str, enabled: bool) -> str:
     """Enable or disable an extension by its class name."""
     device = _require_device()
     try:
-        device.extensions.set_enabled(class_name, enabled)
+        device.extensions.setEnabled(class_name, enabled)
         return f"Extension {class_name} {'enabled' if enabled else 'disabled'}"
     except Exception as e:
         return f"Error: {e}"
@@ -840,47 +998,24 @@ def jd_toolbar_status() -> str:
     """Get current toolbar status (speed limit, clipboard, reconnect, premium, etc.)."""
     device = _require_device()
     try:
-        return json.dumps(device.toolbar.get_status(), indent=2)
+        return json.dumps(device.toolbar.get_status(), indent=2, default=str)
     except Exception as e:
         return f"Error: {e}"
 
 @mcp.tool()
-def jd_toggle_clipboard(enabled: bool) -> str:
-    """Enable/disable clipboard monitoring."""
-    device = _require_device()
-    try:
-        device.toolbar.set_clipboard_monitoring(enabled)
-        return f"Clipboard monitoring {'enabled' if enabled else 'disabled'}"
-    except Exception as e:
-        return f"Error: {e}"
+def jd_speed_limit_toggle(enabled: bool) -> str:
+    """Enable or disable the download speed limit (toolbar toggle).
 
-@mcp.tool()
-def jd_toggle_reconnect(enabled: bool) -> str:
-    """Enable/disable auto-reconnect."""
+    Usa los métodos reales de myjdapi (enable/disable_downloadSpeedLimit). Para
+    fijar el VALOR del límite en bytes/s usa jd_set_speed_limit.
+    """
     device = _require_device()
     try:
-        device.toolbar.set_auto_reconnect(enabled)
-        return f"Auto-reconnect {'enabled' if enabled else 'disabled'}"
-    except Exception as e:
-        return f"Error: {e}"
-
-@mcp.tool()
-def jd_toggle_premium(enabled: bool) -> str:
-    """Enable/disable use of premium accounts."""
-    device = _require_device()
-    try:
-        device.toolbar.set_premium(enabled)
-        return f"Premium {'enabled' if enabled else 'disabled'}"
-    except Exception as e:
-        return f"Error: {e}"
-
-@mcp.tool()
-def jd_toggle_stopafter_current(enabled: bool) -> str:
-    """Enable/disable stop-after-current-download."""
-    device = _require_device()
-    try:
-        device.toolbar.set_stop_after_current_download(enabled)
-        return f"Stop-after-current {'enabled' if enabled else 'disabled'}"
+        if enabled:
+            device.toolbar.enable_downloadSpeedLimit()
+        else:
+            device.toolbar.disable_downloadSpeedLimit()
+        return f"Speed limit {'enabled' if enabled else 'disabled'}"
     except Exception as e:
         return f"Error: {e}"
 
@@ -900,12 +1035,16 @@ def jd_check_update() -> str:
         return f"Error: {e}"
 
 @mcp.tool()
-def jd_run_update() -> str:
-    """Run JDownloader update (will restart)."""
+def jd_run_update_check() -> str:
+    """Trigger an update check in JDownloader.
+
+    myjdapi 1.1.11 expone run_update_check (no run_update). Para instalar y
+    reiniciar con la actualización, usa jd_restart_and_update.
+    """
     device = _require_device()
     try:
-        device.update.run_update()
-        return "Update started. JDownloader will restart."
+        device.update.run_update_check()
+        return "Update check triggered."
     except Exception as e:
         return f"Error: {e}"
 
@@ -983,6 +1122,10 @@ def main():
         level=getattr(logging, log_level, logging.INFO),
         format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
     )
+
+    # Registrar los solvers de captcha según las API keys del entorno. Si no hay
+    # ninguna, el auto-solver queda vacío y lo dice con claridad.
+    _register_solvers()
 
     # Warm-up opcional: si hay credenciales en el entorno, intenta conectar al
     # arrancar para fallar rápido y avisar en logs. Si MyJDownloader está lento o
