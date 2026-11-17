@@ -1,0 +1,72 @@
+{
+  "projectRoot": "C:/Users/Alex/Desktop/1-Github/proyec_jdw2",
+  "batchFiles": [
+    {
+      "path": "cli_youtube.py",
+      "language": "python",
+      "sizeLines": 166,
+      "fileCategory": "code"
+    },
+    {
+      "path": "skill/jdownloader-usage.md",
+      "language": "markdown",
+      "sizeLines": 169,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "skill/jdownloader.md",
+      "language": "markdown",
+      "sizeLines": 877,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "src/jdownloader_mcp/__init__.py",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/models/__init__.py",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "language": "python",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "language": "python",
+      "sizeLines": 172,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/__init__.py",
+      "language": "python",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "cli_youtube.py": [],
+    "skill/jdownloader-usage.md": [],
+    "skill/jdownloader.md": [],
+    "src/jdownloader_mcp/__init__.py": [],
+    "src/jdownloader_mcp/captcha_solver/models/__init__.py": [],
+    "src/jdownloader_mcp/captcha_solver/models/cnn_model.py": [],
+    "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py": [
+      "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py": [],
+    "src/jdownloader_mcp/captcha_solver/solvers/__init__.py": []
+  }
+}

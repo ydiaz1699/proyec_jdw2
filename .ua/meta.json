@@ -1,0 +1,13 @@
+{
+  "lastAnalyzedAt": "2026-11-15T16:12:55.769Z",
+  "gitCommitHash": "4903d55c6950524352cb40d74e6271321cd757c2",
+  "version": "1.0.0",
+  "project": {
+    "name": "proyec_jdw2",
+    "filesCount": 41,
+    "nodesCount": 74,
+    "edgesCount": 80,
+    "layersCount": 5,
+    "tourStepsCount": 7
+  }
+}

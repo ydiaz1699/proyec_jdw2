@@ -1,0 +1,106 @@
+2026-09-17 21:49:40,854 [INFO] youtube_extractor: 📺 Canales a procesar: FeZaThreatBlock
+
+2026-09-17 21:49:40,854 [INFO] youtube_extractor: 
+============================================================
+[1/1] Canal: @FeZaThreatBlock
+============================================================
+2026-09-17 21:49:40,855 [INFO] youtube_extractor: 🔍 Buscando canal: @FeZaThreatBlock
+2026-09-17 21:49:41,390 [INFO] youtube_extractor:    Channel ID: UCxr_zuT99nnnMQ5ePfD5aSw
+2026-09-17 21:49:41,390 [INFO] youtube_extractor:    Verificar en: https://www.youtube.com/channel/UCxr_zuT99nnnMQ5ePfD5aSw
+2026-09-17 21:49:41,516 [INFO] youtube_extractor:    Uploads Playlist ID: UUxr_zuT99nnnMQ5ePfD5aSw
+2026-09-17 21:49:41,517 [INFO] youtube_extractor: Descargando items de la playlist UUxr_zuT99nnnMQ5ePfD5aSw...
+2026-09-17 21:49:42,926 [INFO] youtube_extractor:   → 50 videos normales tras filtrar (3 excluidos: shorts/lives)
+2026-09-17 21:49:42,927 [INFO] youtube_extractor: 
+📊 Total de videos encontrados (sin shorts/lives): 50
+2026-09-17 21:49:42,929 [INFO] youtube_extractor: ✅ CSV guardado: outputs\FeZaThreatBlock_videos.csv
+2026-09-17 21:49:42,930 [INFO] youtube_extractor: ✅ Markdown guardado: outputs\FeZaThreatBlock_videos.md
+2026-09-17 21:49:42,931 [INFO] youtube_extractor: ✅ Lista de URLs guardada: outputs\FeZaThreatBlock_urls.txt
+2026-09-17 21:49:42,938 [INFO] youtube_extractor: ✅ JSON guardado: outputs\FeZaThreatBlock_videos.json
+2026-09-17 21:49:42,945 [INFO] youtube_extractor: 
+📋 Top 5 videos más recientes:
+2026-09-17 21:49:42,946 [INFO] youtube_extractor:    pos=50 [2026-09-08] OWASP ZAP en una WEB REAL — DAST, Active Scan y los límites de una auditoría autorizada
+2026-09-17 21:49:42,948 [INFO] youtube_extractor:    pos=49 [2026-09-01] No era un RAT clásico: abuso de telemetría del fabricante (Shalltry + Transsion + Hoffnung)
+2026-09-17 21:49:42,949 [INFO] youtube_extractor:    pos=48 [2026-08-10] ⚕ Olvídate de ChatGPT: ejecuta DeepSeek V4 GRATIS con Hermes Agent
+2026-09-17 21:49:42,950 [INFO] youtube_extractor:    pos=47 [2026-07-27] ⚕ Hermes Agent + Ollama: El nuevo phishing con IA que engaña hasta a los expertos - EN LOCAL
+2026-09-17 21:49:42,965 [INFO] youtube_extractor:    pos=46 [2026-06-30] Privacidad al Máximo: El Pack de 6 Extensiones que Todo Navegador Necesita
+2026-09-17 21:49:42,978 [INFO] youtube_extractor: 
+🔢 Cuota estimada usada hoy: 6/10000 unidades (0.1%)
+2026-09-17 21:50:45,053 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: 'no es iso8601', se asume 0s
+2026-09-17 21:50:45,065 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: None, se asume 0s
+2026-09-17 21:50:45,078 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: '', se asume 0s
+2026-09-17 21:50:45,431 [WARNING] youtube_extractor:   ⚠️  No se pudo leer estado previo (C:\Users\Alex\AppData\Local\Temp\pytest-of-Alex\pytest-0\test_json_invalido_devuelve_va0\corrupto.json): Expecting value: line 1 column 1 (char 0)
+2026-09-17 21:55:51,267 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (100/100). Rotando a la siguiente.
+2026-09-17 21:55:51,279 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 21:55:51,281 [WARNING] youtube_extractor: ⚠️  Key 'k2' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 21:55:51,394 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: 'no es iso8601', se asume 0s
+2026-09-17 21:55:51,396 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: None, se asume 0s
+2026-09-17 21:55:51,397 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: '', se asume 0s
+2026-09-17 21:55:51,449 [WARNING] youtube_extractor:   ⚠️  No se pudo leer estado previo (C:\Users\Alex\AppData\Local\Temp\pytest-of-Alex\pytest-1\test_json_invalido_devuelve_va0\corrupto.json): Expecting value: line 1 column 1 (char 0)
+2026-09-17 21:58:03,182 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (100/100). Rotando a la siguiente.
+2026-09-17 21:58:03,196 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 21:58:03,197 [WARNING] youtube_extractor: ⚠️  Key 'k2' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 21:58:03,282 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: 'no es iso8601', se asume 0s
+2026-09-17 21:58:03,284 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: None, se asume 0s
+2026-09-17 21:58:03,285 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: '', se asume 0s
+2026-09-17 21:58:03,319 [WARNING] youtube_extractor:   ⚠️  No se pudo leer estado previo (C:\Users\Alex\AppData\Local\Temp\pytest-of-Alex\pytest-2\test_json_invalido_devuelve_va0\corrupto.json): Expecting value: line 1 column 1 (char 0)
+2026-09-17 21:58:22,011 [INFO] youtube_extractor: 🔑 Usando múltiples API keys (round-robin con rotación por cuota).
+2026-09-17 21:58:22,012 [INFO] youtube_extractor: Estado de cuota por key:
+  default: 0/10000  🟢 ok
+  key_1: 0/10000  🟢 ok
+  key_2: 0/10000  🟢 ok
+2026-09-17 22:04:12,404 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (100/100). Rotando a la siguiente.
+2026-09-17 22:04:12,415 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 22:04:12,416 [WARNING] youtube_extractor: ⚠️  Key 'k2' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 22:04:12,505 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: 'no es iso8601', se asume 0s
+2026-09-17 22:04:12,507 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: None, se asume 0s
+2026-09-17 22:04:12,508 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: '', se asume 0s
+2026-09-17 22:04:12,542 [WARNING] youtube_extractor:   ⚠️  No se pudo leer estado previo (C:\Users\Alex\AppData\Local\Temp\pytest-of-Alex\pytest-3\test_json_invalido_devuelve_va0\corrupto.json): Expecting value: line 1 column 1 (char 0)
+2026-09-17 22:04:20,996 [INFO] youtube_extractor: ✅ CSV guardado: outputs\_canal_demo\videos.csv
+2026-09-17 22:04:21,004 [INFO] youtube_extractor: ✅ Markdown guardado: outputs\_canal_demo\videos.md
+2026-09-17 22:04:21,008 [INFO] youtube_extractor: ✅ Lista de URLs guardada: outputs\_canal_demo\urls.txt
+2026-09-17 22:04:21,009 [INFO] youtube_extractor: ✅ JSON guardado: outputs\_canal_demo\videos.json
+2026-09-17 22:13:17,820 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (100/100). Rotando a la siguiente.
+2026-09-17 22:13:17,832 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 22:13:17,833 [WARNING] youtube_extractor: ⚠️  Key 'k2' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 22:13:17,937 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: 'no es iso8601', se asume 0s
+2026-09-17 22:13:17,938 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: None, se asume 0s
+2026-09-17 22:13:17,940 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: '', se asume 0s
+2026-09-17 22:13:17,973 [WARNING] youtube_extractor:   ⚠️  No se pudo leer estado previo (C:\Users\Alex\AppData\Local\Temp\pytest-of-Alex\pytest-4\test_json_invalido_devuelve_va0\corrupto.json): Expecting value: line 1 column 1 (char 0)
+2026-09-17 22:14:01,120 [WARNING] youtube_extractor:   ⚠️  Key 'k1' agotó cuota ('quotaExceeded'). Rotando a la siguiente key...
+2026-09-17 22:14:51,578 [WARNING] youtube_extractor:   ⚠️  Key 'k1' agotó cuota ('quotaExceeded'). Rotando a la siguiente key...
+2026-09-17 22:14:51,593 [WARNING] youtube_extractor:   ⚠️  Key 'k1' agotó cuota ('quotaExceeded'). Rotando a la siguiente key...
+2026-09-17 22:14:51,595 [WARNING] youtube_extractor:   ⚠️  Key 'k2' agotó cuota ('quotaExceeded'). Rotando a la siguiente key...
+2026-09-17 22:14:51,662 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (100/100). Rotando a la siguiente.
+2026-09-17 22:14:51,672 [WARNING] youtube_extractor: ⚠️  Key 'k1' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 22:14:51,673 [WARNING] youtube_extractor: ⚠️  Key 'k2' alcanzó el límite estimado (10/10). Rotando a la siguiente.
+2026-09-17 22:14:51,770 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: 'no es iso8601', se asume 0s
+2026-09-17 22:14:51,771 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: None, se asume 0s
+2026-09-17 22:14:51,773 [WARNING] youtube_extractor:   ⚠️  Duración no reconocida: '', se asume 0s
+2026-09-17 22:14:51,808 [WARNING] youtube_extractor:   ⚠️  No se pudo leer estado previo (C:\Users\Alex\AppData\Local\Temp\pytest-of-Alex\pytest-5\test_json_invalido_devuelve_va0\corrupto.json): Expecting value: line 1 column 1 (char 0)
+2026-09-17 22:17:20,426 [INFO] youtube_extractor: 📺 Canales a procesar: gentlemanprogramming
+
+2026-09-17 22:17:20,426 [INFO] youtube_extractor: 
+============================================================
+[1/1] Canal: @gentlemanprogramming
+============================================================
+2026-09-17 22:17:20,426 [INFO] youtube_extractor: 🔍 Buscando canal: @gentlemanprogramming
+2026-09-17 22:17:21,010 [INFO] youtube_extractor:    Channel ID: UCbx_d228PdYwgB4Jz202SIQ
+2026-09-17 22:17:21,010 [INFO] youtube_extractor:    Verificar en: https://www.youtube.com/channel/UCbx_d228PdYwgB4Jz202SIQ
+2026-09-17 22:17:21,339 [INFO] youtube_extractor:    Uploads Playlist ID: UUbx_d228PdYwgB4Jz202SIQ
+2026-09-17 22:17:21,340 [INFO] youtube_extractor: Descargando items de la playlist UUbx_d228PdYwgB4Jz202SIQ...
+2026-09-17 22:17:44,129 [INFO] youtube_extractor:   → 594 videos normales tras filtrar (272 excluidos: shorts/lives)
+2026-09-17 22:17:44,134 [INFO] youtube_extractor: 
+📊 Total de videos encontrados (sin shorts/lives): 594
+2026-09-17 22:17:44,148 [INFO] youtube_extractor: ✅ CSV guardado: outputs\gentlemanprogramming\videos.csv
+2026-09-17 22:17:44,157 [INFO] youtube_extractor: ✅ Markdown guardado: outputs\gentlemanprogramming\videos.md
+2026-09-17 22:17:44,163 [INFO] youtube_extractor: ✅ Lista de URLs guardada: outputs\gentlemanprogramming\urls.txt
+2026-09-17 22:17:44,215 [INFO] youtube_extractor: ✅ JSON guardado: outputs\gentlemanprogramming\videos.json
+2026-09-17 22:17:44,216 [INFO] youtube_extractor: 
+📋 Top 5 videos más recientes:
+2026-09-17 22:17:44,216 [INFO] youtube_extractor:    pos=594 [2026-09-16] Ventana de contexto en inteligencia artificial: por qué llenarla sale mal
+2026-09-17 22:17:44,216 [INFO] youtube_extractor:    pos=593 [2026-09-15] Mí opinión sobre los ARNESES de IA
+2026-09-17 22:17:44,216 [INFO] youtube_extractor:    pos=592 [2026-09-12] Vengo a darte MI opinión Sobre el uso de la IA
+2026-09-17 22:17:44,216 [INFO] youtube_extractor:    pos=591 [2026-09-10] La computadora que no estaba en mis manos
+2026-09-17 22:17:44,216 [INFO] youtube_extractor:    pos=590 [2026-09-09] KV Cache vs. Prompt: la ingeniería detrás de los agentes que vuelan, cap 2
+2026-09-17 22:17:44,232 [INFO] youtube_extractor: 
+🔢 Cuota estimada usada hoy: 46/10000 unidades (0.5%)

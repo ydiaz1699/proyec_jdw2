@@ -1,0 +1,97 @@
+{
+  "projectRoot": "C:/Users/Alex/Desktop/1-Github/proyec_jdw2",
+  "batchFiles": [
+    {
+      "path": "src/jdownloader_mcp/youtube/__init__.py",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/api.py",
+      "language": "python",
+      "sizeLines": 279,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/diff.py",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/export.py",
+      "language": "python",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/filter.py",
+      "language": "python",
+      "sizeLines": 110,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/key_router.py",
+      "language": "python",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/language.py",
+      "language": "python",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/pipeline.py",
+      "language": "python",
+      "sizeLines": 221,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/quota.py",
+      "language": "python",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/utils.py",
+      "language": "python",
+      "sizeLines": 85,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "src/jdownloader_mcp/youtube/__init__.py": [
+      "src/jdownloader_mcp/youtube/filter.py",
+      "src/jdownloader_mcp/youtube/key_router.py",
+      "src/jdownloader_mcp/youtube/language.py",
+      "src/jdownloader_mcp/youtube/pipeline.py"
+    ],
+    "src/jdownloader_mcp/youtube/api.py": [
+      "src/jdownloader_mcp/youtube/key_router.py",
+      "src/jdownloader_mcp/youtube/language.py",
+      "src/jdownloader_mcp/youtube/quota.py",
+      "src/jdownloader_mcp/youtube/utils.py"
+    ],
+    "src/jdownloader_mcp/youtube/diff.py": [],
+    "src/jdownloader_mcp/youtube/export.py": [
+      "src/jdownloader_mcp/youtube/utils.py"
+    ],
+    "src/jdownloader_mcp/youtube/filter.py": [],
+    "src/jdownloader_mcp/youtube/key_router.py": [],
+    "src/jdownloader_mcp/youtube/language.py": [],
+    "src/jdownloader_mcp/youtube/pipeline.py": [
+      "src/jdownloader_mcp/youtube/api.py",
+      "src/jdownloader_mcp/youtube/diff.py",
+      "src/jdownloader_mcp/youtube/export.py",
+      "src/jdownloader_mcp/youtube/filter.py",
+      "src/jdownloader_mcp/youtube/key_router.py",
+      "src/jdownloader_mcp/youtube/language.py",
+      "src/jdownloader_mcp/youtube/utils.py"
+    ],
+    "src/jdownloader_mcp/youtube/quota.py": [],
+    "src/jdownloader_mcp/youtube/utils.py": []
+  }
+}

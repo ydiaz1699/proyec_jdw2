@@ -1,0 +1,2541 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 10,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 10,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "src/jdownloader_mcp/youtube/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/api.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 279,
+      "nonEmptyLines": 234,
+      "functions": [
+        {
+          "name": "_razon_http_error",
+          "startLine": 33,
+          "endLine": 37,
+          "params": [
+            "e"
+          ]
+        },
+        {
+          "name": "with_retries",
+          "startLine": 40,
+          "endLine": 86,
+          "params": [
+            "build_request",
+            "operacion",
+            "router",
+            "youtube"
+          ]
+        },
+        {
+          "name": "get_channel_id",
+          "startLine": 89,
+          "endLine": 101,
+          "params": [
+            "youtube",
+            "channel_handle",
+            "router"
+          ]
+        },
+        {
+          "name": "get_uploads_playlist_id",
+          "startLine": 104,
+          "endLine": 138,
+          "params": [
+            "youtube",
+            "channel_id",
+            "router",
+            "only_videos_tab"
+          ]
+        },
+        {
+          "name": "get_playlist_items",
+          "startLine": 141,
+          "endLine": 172,
+          "params": [
+            "youtube",
+            "playlist_id",
+            "router"
+          ]
+        },
+        {
+          "name": "filtrar_solo_videos",
+          "startLine": 175,
+          "endLine": 230,
+          "params": [
+            "youtube",
+            "items",
+            "router"
+          ]
+        },
+        {
+          "name": "get_all_videos",
+          "startLine": 233,
+          "endLine": 279,
+          "params": [
+            "youtube",
+            "playlist_id",
+            "estado_previo",
+            "router"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_razon_http_error",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "with_retries",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "get_channel_id",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "get_uploads_playlist_id",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "get_playlist_items",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "filtrar_solo_videos",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "get_all_videos",
+          "line": 233,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_razon_http_error",
+          "callee": "json.loads(e.content).get(\"error\", {}).get(\"errors\", [{}])[0].get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "_razon_http_error",
+          "callee": "json.loads(e.content).get(\"error\", {}).get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "_razon_http_error",
+          "callee": "json.loads(e.content).get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "_razon_http_error",
+          "callee": "json.loads",
+          "lineNumber": 35
+        },
+        {
+          "caller": "with_retries",
+          "callee": "range",
+          "lineNumber": 49
+        },
+        {
+          "caller": "with_retries",
+          "callee": "router.get_slot",
+          "lineNumber": 51
+        },
+        {
+          "caller": "with_retries",
+          "callee": "slot.get_client",
+          "lineNumber": 52
+        },
+        {
+          "caller": "with_retries",
+          "callee": "build_request(cliente).execute",
+          "lineNumber": 59
+        },
+        {
+          "caller": "with_retries",
+          "callee": "build_request",
+          "lineNumber": 59
+        },
+        {
+          "caller": "with_retries",
+          "callee": "COSTO_OPERACION.get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "with_retries",
+          "callee": "registrar_uso",
+          "lineNumber": 61
+        },
+        {
+          "caller": "with_retries",
+          "callee": "router.report_cost",
+          "lineNumber": 63
+        },
+        {
+          "caller": "with_retries",
+          "callee": "getattr",
+          "lineNumber": 66
+        },
+        {
+          "caller": "with_retries",
+          "callee": "_razon_http_error",
+          "lineNumber": 67
+        },
+        {
+          "caller": "with_retries",
+          "callee": "logger.warning",
+          "lineNumber": 71
+        },
+        {
+          "caller": "with_retries",
+          "callee": "router.mark_exhausted",
+          "lineNumber": 72
+        },
+        {
+          "caller": "with_retries",
+          "callee": "random.uniform",
+          "lineNumber": 78
+        },
+        {
+          "caller": "with_retries",
+          "callee": "logger.warning",
+          "lineNumber": 79
+        },
+        {
+          "caller": "with_retries",
+          "callee": "time.sleep",
+          "lineNumber": 82
+        },
+        {
+          "caller": "with_retries",
+          "callee": "RuntimeError",
+          "lineNumber": 86
+        },
+        {
+          "caller": "get_channel_id",
+          "callee": "with_retries",
+          "lineNumber": 90
+        },
+        {
+          "caller": "get_channel_id",
+          "callee": "yt.channels().list",
+          "lineNumber": 91
+        },
+        {
+          "caller": "get_channel_id",
+          "callee": "yt.channels",
+          "lineNumber": 91
+        },
+        {
+          "caller": "get_channel_id",
+          "callee": "response.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "get_channel_id",
+          "callee": "ValueError",
+          "lineNumber": 98
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "channel_id.startswith",
+          "lineNumber": 115
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "with_retries",
+          "lineNumber": 118
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "yt.playlistItems().list",
+          "lineNumber": 119
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "yt.playlistItems",
+          "lineNumber": 119
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "logger.info",
+          "lineNumber": 124
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "logger.debug",
+          "lineNumber": 127
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "with_retries",
+          "lineNumber": 129
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "yt.channels().list",
+          "lineNumber": 130
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "yt.channels",
+          "lineNumber": 130
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "response.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "get_uploads_playlist_id",
+          "callee": "ValueError",
+          "lineNumber": 137
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "with_retries",
+          "lineNumber": 146
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "yt.playlistItems().list",
+          "lineNumber": 147
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "yt.playlistItems",
+          "lineNumber": 147
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "response.get",
+          "lineNumber": 158
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "items.append",
+          "lineNumber": 160
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "snippet[\"thumbnails\"].get(\"high\", {}).get",
+          "lineNumber": 165
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "snippet[\"thumbnails\"].get",
+          "lineNumber": 165
+        },
+        {
+          "caller": "get_playlist_items",
+          "callee": "response.get",
+          "lineNumber": 168
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "range",
+          "lineNumber": 180
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "len",
+          "lineNumber": 180
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "with_retries",
+          "lineNumber": 183
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "yt.videos().list",
+          "lineNumber": 184
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "yt.videos",
+          "lineNumber": 184
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "\",\".join",
+          "lineNumber": 186
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "response.get",
+          "lineNumber": 193
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "item[\"snippet\"].get",
+          "lineNumber": 196
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "parse_duration_iso8601",
+          "lineNumber": 198
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "(item[\"snippet\"].get(\"title\", \"\") + item[\"snippet\"].get(\"description\", \"\")).lower",
+          "lineNumber": 201
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "item[\"snippet\"].get",
+          "lineNumber": 201
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "item[\"snippet\"].get",
+          "lineNumber": 201
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "item.get",
+          "lineNumber": 208
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "item.get",
+          "lineNumber": 209
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "int",
+          "lineNumber": 212
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "estadisticas.get",
+          "lineNumber": 212
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "int",
+          "lineNumber": 213
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "estadisticas.get",
+          "lineNumber": 213
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "snippet.get",
+          "lineNumber": 214
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "snippet.get",
+          "lineNumber": 217
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "snippet.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "detect_video_language",
+          "lineNumber": 219
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "video.get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "filtrar_solo_videos",
+          "callee": "videos_filtrados.append",
+          "lineNumber": 228
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "get_playlist_items",
+          "lineNumber": 239
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "filtrar_solo_videos",
+          "lineNumber": 240
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "videos.sort",
+          "lineNumber": 243
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "len",
+          "lineNumber": 244
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "enumerate",
+          "lineNumber": 253
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "sanitize_filename",
+          "lineNumber": 256
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "prev.get",
+          "lineNumber": 263
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "prev.get",
+          "lineNumber": 264
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "prev.get",
+          "lineNumber": 265
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "prev.get",
+          "lineNumber": 266
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "prev.get",
+          "lineNumber": 267
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "prev.get",
+          "lineNumber": 268
+        },
+        {
+          "caller": "get_all_videos",
+          "callee": "videos.reverse",
+          "lineNumber": 278
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/diff.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "comparar_videos",
+          "startLine": 14,
+          "endLine": 29,
+          "params": [
+            "videos_actuales",
+            "videos_anteriores"
+          ]
+        },
+        {
+          "name": "formatear_resumen_diff",
+          "startLine": 32,
+          "endLine": 49,
+          "params": [
+            "diff"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ResultadoDiff",
+          "startLine": 7,
+          "endLine": 11,
+          "methods": [],
+          "properties": [
+            "nuevos",
+            "eliminados",
+            "total_anterior",
+            "total_actual"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ResultadoDiff",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "comparar_videos",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "formatear_resumen_diff",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "comparar_videos",
+          "callee": "len",
+          "lineNumber": 27
+        },
+        {
+          "caller": "comparar_videos",
+          "callee": "len",
+          "lineNumber": 28
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "lineas.append",
+          "lineNumber": 38
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "len",
+          "lineNumber": 38
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "lineas.append",
+          "lineNumber": 40
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "lineas.append",
+          "lineNumber": 42
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "lineas.append",
+          "lineNumber": 45
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "len",
+          "lineNumber": 45
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "lineas.append",
+          "lineNumber": 47
+        },
+        {
+          "caller": "formatear_resumen_diff",
+          "callee": "\"\\n\".join",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/export.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "carpeta_canal",
+          "startLine": 23,
+          "endLine": 26,
+          "params": [
+            "channel_name"
+          ]
+        },
+        {
+          "name": "_ruta_salida",
+          "startLine": 29,
+          "endLine": 30,
+          "params": [
+            "nombre_archivo",
+            "channel_name"
+          ]
+        },
+        {
+          "name": "ruta_json",
+          "startLine": 33,
+          "endLine": 34,
+          "params": [
+            "channel_name"
+          ]
+        },
+        {
+          "name": "save_to_files",
+          "startLine": 37,
+          "endLine": 78,
+          "params": [
+            "videos",
+            "channel_name"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "carpeta_canal",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "_ruta_salida",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "ruta_json",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "save_to_files",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "carpeta_canal",
+          "callee": "os.path.join",
+          "lineNumber": 24
+        },
+        {
+          "caller": "carpeta_canal",
+          "callee": "os.makedirs",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_ruta_salida",
+          "callee": "os.path.join",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_ruta_salida",
+          "callee": "carpeta_canal",
+          "lineNumber": 30
+        },
+        {
+          "caller": "ruta_json",
+          "callee": "_ruta_salida",
+          "lineNumber": 34
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "_ruta_salida",
+          "lineNumber": 39
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "open",
+          "lineNumber": 40
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "csv.DictWriter",
+          "lineNumber": 41
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "writer.writeheader",
+          "lineNumber": 42
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "writer.writerows",
+          "lineNumber": 43
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "_ruta_salida",
+          "lineNumber": 45
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "open",
+          "lineNumber": 46
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "f.write",
+          "lineNumber": 47
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "f.write",
+          "lineNumber": 48
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "len",
+          "lineNumber": 48
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "f.write",
+          "lineNumber": 50
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "f.write",
+          "lineNumber": 51
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get(\"title\", \"\").replace",
+          "lineNumber": 54
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "formatear_duracion",
+          "lineNumber": 56
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "f\"{v.get('views', 0):,}\".replace",
+          "lineNumber": 57
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "f.write",
+          "lineNumber": 58
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "v.get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "_ruta_salida",
+          "lineNumber": 63
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "open",
+          "lineNumber": 64
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "f.write",
+          "lineNumber": 66
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "ruta_json",
+          "lineNumber": 68
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "open",
+          "lineNumber": 69
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "json.dump",
+          "lineNumber": 70
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "logger.info",
+          "lineNumber": 72
+        },
+        {
+          "caller": "save_to_files",
+          "callee": "carpeta_canal",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/filter.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 110,
+      "nonEmptyLines": 89,
+      "functions": [
+        {
+          "name": "classify_youtube_link",
+          "startLine": 12,
+          "endLine": 40,
+          "params": [
+            "name",
+            "url"
+          ]
+        },
+        {
+          "name": "filter_collector_links",
+          "startLine": 43,
+          "endLine": 110,
+          "params": [
+            "device",
+            "links",
+            "is_spanish",
+            "dry_run"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "classify_youtube_link",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "filter_collector_links",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "classify_youtube_link",
+          "callee": "name.lower",
+          "lineNumber": 17
+        },
+        {
+          "caller": "classify_youtube_link",
+          "callee": "os.path.splitext(n)[1].lower",
+          "lineNumber": 18
+        },
+        {
+          "caller": "classify_youtube_link",
+          "callee": "os.path.splitext",
+          "lineNumber": 18
+        },
+        {
+          "caller": "classify_youtube_link",
+          "callee": "any",
+          "lineNumber": 29
+        },
+        {
+          "caller": "classify_youtube_link",
+          "callee": "any",
+          "lineNumber": 37
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "l.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "l.get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "classify_youtube_link",
+          "lineNumber": 69
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "l.get",
+          "lineNumber": 69
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "l.get",
+          "lineNumber": 86
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "kept.append",
+          "lineNumber": 90
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "removed.append",
+          "lineNumber": 92
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "ids_to_remove.append",
+          "lineNumber": 94
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "device.linkgrabber.remove_links",
+          "lineNumber": 98
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "logger.info",
+          "lineNumber": 99
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "len",
+          "lineNumber": 99
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "logger.error",
+          "lineNumber": 101
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "len",
+          "lineNumber": 105
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "len",
+          "lineNumber": 106
+        },
+        {
+          "caller": "filter_collector_links",
+          "callee": "len",
+          "lineNumber": 107
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/key_router.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 194,
+      "nonEmptyLines": 165,
+      "functions": [
+        {
+          "name": "_pacific_today_str",
+          "startLine": 28,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "QuotaExhaustedError",
+          "startLine": 37,
+          "endLine": 38,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "KeySlot",
+          "startLine": 42,
+          "endLine": 61,
+          "methods": [
+            "is_available",
+            "reset",
+            "get_client"
+          ],
+          "properties": [
+            "key",
+            "label",
+            "daily_limit",
+            "consumed",
+            "exhausted",
+            "_client"
+          ]
+        },
+        {
+          "name": "KeyRouter",
+          "startLine": 64,
+          "endLine": 194,
+          "methods": [
+            "__init__",
+            "from_env",
+            "_load_state",
+            "_save_state",
+            "_check_day_rollover_locked",
+            "get_slot",
+            "get_client",
+            "mark_exhausted",
+            "report_cost"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_pacific_today_str",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "QuotaExhaustedError",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "KeySlot",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "KeyRouter",
+          "line": 64,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_pacific_today_str",
+          "callee": "datetime.now(_PACIFIC_TZ).strftime",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_pacific_today_str",
+          "callee": "datetime.now",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_pacific_today_str",
+          "callee": "datetime.now",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_pacific_today_str",
+          "callee": "timedelta",
+          "lineNumber": 33
+        },
+        {
+          "caller": "_pacific_today_str",
+          "callee": "now_pacific.strftime",
+          "lineNumber": 34
+        },
+        {
+          "caller": "get_client",
+          "callee": "build",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__init__",
+          "callee": "ValueError",
+          "lineNumber": 72
+        },
+        {
+          "caller": "__init__",
+          "callee": "enumerate",
+          "lineNumber": 75
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 76
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.slots.append",
+          "lineNumber": 81
+        },
+        {
+          "caller": "__init__",
+          "callee": "KeySlot",
+          "lineNumber": 81
+        },
+        {
+          "caller": "__init__",
+          "callee": "key.strip",
+          "lineNumber": 81
+        },
+        {
+          "caller": "__init__",
+          "callee": "threading.Lock",
+          "lineNumber": 84
+        },
+        {
+          "caller": "__init__",
+          "callee": "Path",
+          "lineNumber": 85
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._load_state",
+          "lineNumber": 86
+        },
+        {
+          "caller": "from_env",
+          "callee": "os.getenv(env_var, \"\").strip",
+          "lineNumber": 90
+        },
+        {
+          "caller": "from_env",
+          "callee": "os.getenv",
+          "lineNumber": 90
+        },
+        {
+          "caller": "from_env",
+          "callee": "k.startswith",
+          "lineNumber": 92
+        },
+        {
+          "caller": "from_env",
+          "callee": "sorted",
+          "lineNumber": 95
+        },
+        {
+          "caller": "from_env",
+          "callee": "os.environ[k].strip",
+          "lineNumber": 96
+        },
+        {
+          "caller": "from_env",
+          "callee": "keys.append",
+          "lineNumber": 98
+        },
+        {
+          "caller": "from_env",
+          "callee": "cls",
+          "lineNumber": 100
+        },
+        {
+          "caller": "from_env",
+          "callee": "ValueError",
+          "lineNumber": 101
+        },
+        {
+          "caller": "from_env",
+          "callee": "p.strip",
+          "lineNumber": 104
+        },
+        {
+          "caller": "from_env",
+          "callee": "raw.replace(\"\\n\", \",\").split",
+          "lineNumber": 104
+        },
+        {
+          "caller": "from_env",
+          "callee": "raw.replace",
+          "lineNumber": 104
+        },
+        {
+          "caller": "from_env",
+          "callee": "p.strip",
+          "lineNumber": 104
+        },
+        {
+          "caller": "from_env",
+          "callee": "cls",
+          "lineNumber": 105
+        },
+        {
+          "caller": "from_env",
+          "callee": "cls",
+          "lineNumber": 107
+        },
+        {
+          "caller": "_load_state",
+          "callee": "self.state_file.is_file",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_load_state",
+          "callee": "_pacific_today_str",
+          "lineNumber": 112
+        },
+        {
+          "caller": "_load_state",
+          "callee": "open",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_load_state",
+          "callee": "json.load",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_load_state",
+          "callee": "data.get",
+          "lineNumber": 116
+        },
+        {
+          "caller": "_load_state",
+          "callee": "data.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_load_state",
+          "callee": "saved[slot.label].get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "_load_state",
+          "callee": "saved[slot.label].get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_load_state",
+          "callee": "logger.debug",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_save_state",
+          "callee": "_pacific_today_str",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_save_state",
+          "callee": "self.state_file.parent.mkdir",
+          "lineNumber": 131
+        },
+        {
+          "caller": "_save_state",
+          "callee": "self.state_file.with_suffix",
+          "lineNumber": 139
+        },
+        {
+          "caller": "_save_state",
+          "callee": "open",
+          "lineNumber": 140
+        },
+        {
+          "caller": "_save_state",
+          "callee": "json.dump",
+          "lineNumber": 141
+        },
+        {
+          "caller": "_save_state",
+          "callee": "tmp.replace",
+          "lineNumber": 142
+        },
+        {
+          "caller": "_save_state",
+          "callee": "logger.debug",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_check_day_rollover_locked",
+          "callee": "_pacific_today_str",
+          "lineNumber": 147
+        },
+        {
+          "caller": "_check_day_rollover_locked",
+          "callee": "self.state_file.is_file",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_check_day_rollover_locked",
+          "callee": "open",
+          "lineNumber": 151
+        },
+        {
+          "caller": "_check_day_rollover_locked",
+          "callee": "json.load",
+          "lineNumber": 152
+        },
+        {
+          "caller": "_check_day_rollover_locked",
+          "callee": "data.get",
+          "lineNumber": 153
+        },
+        {
+          "caller": "_check_day_rollover_locked",
+          "callee": "slot.reset",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_check_day_rollover_locked",
+          "callee": "self._save_state",
+          "lineNumber": 156
+        },
+        {
+          "caller": "get_slot",
+          "callee": "self._check_day_rollover_locked",
+          "lineNumber": 162
+        },
+        {
+          "caller": "get_slot",
+          "callee": "len",
+          "lineNumber": 163
+        },
+        {
+          "caller": "get_slot",
+          "callee": "range",
+          "lineNumber": 164
+        },
+        {
+          "caller": "get_slot",
+          "callee": "slot.is_available",
+          "lineNumber": 167
+        },
+        {
+          "caller": "get_slot",
+          "callee": "QuotaExhaustedError",
+          "lineNumber": 171
+        },
+        {
+          "caller": "get_slot",
+          "callee": "len",
+          "lineNumber": 172
+        },
+        {
+          "caller": "get_client",
+          "callee": "self.get_slot().get_client",
+          "lineNumber": 176
+        },
+        {
+          "caller": "get_client",
+          "callee": "self.get_slot",
+          "lineNumber": 176
+        },
+        {
+          "caller": "mark_exhausted",
+          "callee": "self._save_state",
+          "lineNumber": 184
+        },
+        {
+          "caller": "report_cost",
+          "callee": "self._save_state",
+          "lineNumber": 194
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/language.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 153,
+      "nonEmptyLines": 133,
+      "functions": [
+        {
+          "name": "normalize_text",
+          "startLine": 49,
+          "endLine": 53,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "detect_language_from_text",
+          "startLine": 56,
+          "endLine": 117,
+          "params": [
+            "title",
+            "description"
+          ]
+        },
+        {
+          "name": "detect_video_language",
+          "startLine": 120,
+          "endLine": 153,
+          "params": [
+            "title",
+            "description",
+            "default_audio_language",
+            "default_language"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "LanguageDetectionResult",
+          "startLine": 42,
+          "endLine": 46,
+          "methods": [],
+          "properties": [
+            "language",
+            "is_spanish",
+            "method",
+            "confidence"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LanguageDetectionResult",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "normalize_text",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "detect_language_from_text",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "detect_video_language",
+          "line": 120,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalize_text",
+          "callee": "unicodedata.normalize(\"NFKD\", text).encode(\"ASCII\", \"ignore\").decode(\"utf-8\").lower",
+          "lineNumber": 53
+        },
+        {
+          "caller": "normalize_text",
+          "callee": "unicodedata.normalize(\"NFKD\", text).encode(\"ASCII\", \"ignore\").decode",
+          "lineNumber": 53
+        },
+        {
+          "caller": "normalize_text",
+          "callee": "unicodedata.normalize(\"NFKD\", text).encode",
+          "lineNumber": 53
+        },
+        {
+          "caller": "normalize_text",
+          "callee": "unicodedata.normalize",
+          "lineNumber": 53
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "f\"{title} {description}\".strip",
+          "lineNumber": 61
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "combined.lower",
+          "lineNumber": 71
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "any",
+          "lineNumber": 72
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "_WORD_RE.findall",
+          "lineNumber": 80
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "sum",
+          "lineNumber": 89
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "sum",
+          "lineNumber": 90
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "round",
+          "lineNumber": 108
+        },
+        {
+          "caller": "detect_language_from_text",
+          "callee": "round",
+          "lineNumber": 116
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "(default_audio_language or \"\").strip().lower",
+          "lineNumber": 131
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "(default_audio_language or \"\").strip",
+          "lineNumber": 131
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "audio_lang.split(\"-\")[0].split",
+          "lineNumber": 133
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "audio_lang.split",
+          "lineNumber": 133
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "(default_language or \"\").strip().lower",
+          "lineNumber": 142
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "(default_language or \"\").strip",
+          "lineNumber": 142
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "snippet_lang.split(\"-\")[0].split",
+          "lineNumber": 144
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "snippet_lang.split",
+          "lineNumber": 144
+        },
+        {
+          "caller": "detect_video_language",
+          "callee": "detect_language_from_text",
+          "lineNumber": 153
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/pipeline.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 221,
+      "nonEmptyLines": 194,
+      "functions": [
+        {
+          "name": "_esperar_links_en_linkgrabber",
+          "startLine": 19,
+          "endLine": 59,
+          "params": [
+            "device",
+            "video_id",
+            "max_espera_segundos",
+            "intervalo_segundos"
+          ]
+        },
+        {
+          "name": "add_youtube_video_smart",
+          "startLine": 62,
+          "endLine": 157,
+          "params": [
+            "device",
+            "url",
+            "package_name",
+            "auto_start",
+            "is_spanish",
+            "max_wait_seconds"
+          ]
+        },
+        {
+          "name": "sync_youtube_channel_to_jd",
+          "startLine": 160,
+          "endLine": 221,
+          "params": [
+            "device",
+            "channel_handle",
+            "max_videos",
+            "auto_start",
+            "pause_seconds"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_esperar_links_en_linkgrabber",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "add_youtube_video_smart",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "sync_youtube_channel_to_jd",
+          "line": 160,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "time.time",
+          "lineNumber": 29
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "time.time",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "device.linkgrabber.query_links",
+          "lineNumber": 41
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "l.get",
+          "lineNumber": 44
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "l.get",
+          "lineNumber": 44
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "time.sleep",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "device.linkgrabber.query_links",
+          "lineNumber": 49
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "l.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "l.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "logger.debug",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_esperar_links_en_linkgrabber",
+          "callee": "time.sleep",
+          "lineNumber": 57
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "extraer_video_id",
+          "lineNumber": 77
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "KeyRouter.from_env",
+          "lineNumber": 85
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "router.get_client",
+          "lineNumber": 86
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "cliente.videos().list(part=\"snippet\", id=vid).execute",
+          "lineNumber": 87
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "cliente.videos().list",
+          "lineNumber": 87
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "cliente.videos",
+          "lineNumber": 87
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "res.get",
+          "lineNumber": 88
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "detect_video_language",
+          "lineNumber": 91
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "snippet.get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "snippet.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "snippet.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "sanitize_filename",
+          "lineNumber": 100
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "snippet.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "logger.info",
+          "lineNumber": 112
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "device.linkgrabber.add_links",
+          "lineNumber": 113
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "logger.info",
+          "lineNumber": 116
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "_esperar_links_en_linkgrabber",
+          "lineNumber": 117
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "links[0].get",
+          "lineNumber": 129
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "detect_language_from_text",
+          "lineNumber": 130
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "filter_collector_links",
+          "lineNumber": 135
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "list",
+          "lineNumber": 140
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "l.get",
+          "lineNumber": 140
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "l.get",
+          "lineNumber": 140
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "device.linkgrabber.move_to_download",
+          "lineNumber": 142
+        },
+        {
+          "caller": "add_youtube_video_smart",
+          "callee": "logger.warning",
+          "lineNumber": 144
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "extraer_handle",
+          "lineNumber": 175
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "KeyRouter.from_env",
+          "lineNumber": 176
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "logger.info",
+          "lineNumber": 178
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "get_channel_id",
+          "lineNumber": 179
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "get_uploads_playlist_id",
+          "lineNumber": 180
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "ruta_json",
+          "lineNumber": 182
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "cargar_estado_previo",
+          "lineNumber": 183
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "open",
+          "lineNumber": 188
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "json.load",
+          "lineNumber": 189
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "get_all_videos",
+          "lineNumber": 193
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "comparar_videos",
+          "lineNumber": 194
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "save_to_files",
+          "lineNumber": 195
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "v.get",
+          "lineNumber": 197
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "enumerate",
+          "lineNumber": 202
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "logger.info",
+          "lineNumber": 203
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "len",
+          "lineNumber": 203
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "v.get",
+          "lineNumber": 203
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "add_youtube_video_smart",
+          "lineNumber": 204
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "v.get",
+          "lineNumber": 207
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "v.get",
+          "lineNumber": 209
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "enviados_report.append",
+          "lineNumber": 211
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "len",
+          "lineNumber": 212
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "time.sleep",
+          "lineNumber": 213
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "len",
+          "lineNumber": 217
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "formatear_resumen_diff",
+          "lineNumber": 218
+        },
+        {
+          "caller": "sync_youtube_channel_to_jd",
+          "callee": "len",
+          "lineNumber": 219
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/quota.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "_leer_cache",
+          "startLine": 22,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "_guardar_cache",
+          "startLine": 38,
+          "endLine": 41,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "registrar_uso",
+          "startLine": 44,
+          "endLine": 63,
+          "params": [
+            "operacion",
+            "limite_diario"
+          ]
+        },
+        {
+          "name": "estado_cuota",
+          "startLine": 66,
+          "endLine": 75,
+          "params": [
+            "limite_diario"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_leer_cache",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "_guardar_cache",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "registrar_uso",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "estado_cuota",
+          "line": 66,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_leer_cache",
+          "callee": "os.path.exists",
+          "lineNumber": 23
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "str",
+          "lineNumber": 24
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "date.today",
+          "lineNumber": 24
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "open",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "json.load",
+          "lineNumber": 28
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "str",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "date.today",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "data.get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "str",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "date.today",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "str",
+          "lineNumber": 33
+        },
+        {
+          "caller": "_leer_cache",
+          "callee": "date.today",
+          "lineNumber": 33
+        },
+        {
+          "caller": "_guardar_cache",
+          "callee": "os.makedirs",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_guardar_cache",
+          "callee": "os.path.dirname",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_guardar_cache",
+          "callee": "open",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_guardar_cache",
+          "callee": "json.dump",
+          "lineNumber": 41
+        },
+        {
+          "caller": "registrar_uso",
+          "callee": "COSTOS.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "registrar_uso",
+          "callee": "_leer_cache",
+          "lineNumber": 46
+        },
+        {
+          "caller": "registrar_uso",
+          "callee": "data.get",
+          "lineNumber": 47
+        },
+        {
+          "caller": "registrar_uso",
+          "callee": "_guardar_cache",
+          "lineNumber": 48
+        },
+        {
+          "caller": "registrar_uso",
+          "callee": "logger.warning",
+          "lineNumber": 54
+        },
+        {
+          "caller": "registrar_uso",
+          "callee": "logger.warning",
+          "lineNumber": 58
+        },
+        {
+          "caller": "estado_cuota",
+          "callee": "_leer_cache",
+          "lineNumber": 67
+        },
+        {
+          "caller": "estado_cuota",
+          "callee": "data.get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "estado_cuota",
+          "callee": "data.get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "estado_cuota",
+          "callee": "str",
+          "lineNumber": 70
+        },
+        {
+          "caller": "estado_cuota",
+          "callee": "date.today",
+          "lineNumber": 70
+        },
+        {
+          "caller": "estado_cuota",
+          "callee": "max",
+          "lineNumber": 73
+        },
+        {
+          "caller": "estado_cuota",
+          "callee": "round",
+          "lineNumber": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/utils.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 85,
+      "nonEmptyLines": 70,
+      "functions": [
+        {
+          "name": "sanitize_filename",
+          "startLine": 12,
+          "endLine": 16,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "parse_duration_iso8601",
+          "startLine": 19,
+          "endLine": 28,
+          "params": [
+            "duracion"
+          ]
+        },
+        {
+          "name": "formatear_duracion",
+          "startLine": 31,
+          "endLine": 37,
+          "params": [
+            "segundos"
+          ]
+        },
+        {
+          "name": "extraer_handle",
+          "startLine": 40,
+          "endLine": 47,
+          "params": [
+            "texto"
+          ]
+        },
+        {
+          "name": "extraer_video_id",
+          "startLine": 50,
+          "endLine": 59,
+          "params": [
+            "url_o_id"
+          ]
+        },
+        {
+          "name": "cargar_estado_previo",
+          "startLine": 62,
+          "endLine": 85,
+          "params": [
+            "archivo_json"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "sanitize_filename",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "parse_duration_iso8601",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "formatear_duracion",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "extraer_handle",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "extraer_video_id",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "cargar_estado_previo",
+          "line": 62,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sanitize_filename",
+          "callee": "re.sub",
+          "lineNumber": 14
+        },
+        {
+          "caller": "sanitize_filename",
+          "callee": "name.replace(\"\\n\", \" \").strip",
+          "lineNumber": 15
+        },
+        {
+          "caller": "sanitize_filename",
+          "callee": "name.replace",
+          "lineNumber": 15
+        },
+        {
+          "caller": "parse_duration_iso8601",
+          "callee": "re.match",
+          "lineNumber": 21
+        },
+        {
+          "caller": "parse_duration_iso8601",
+          "callee": "match.groups",
+          "lineNumber": 24
+        },
+        {
+          "caller": "parse_duration_iso8601",
+          "callee": "int",
+          "lineNumber": 25
+        },
+        {
+          "caller": "parse_duration_iso8601",
+          "callee": "int",
+          "lineNumber": 26
+        },
+        {
+          "caller": "parse_duration_iso8601",
+          "callee": "int",
+          "lineNumber": 27
+        },
+        {
+          "caller": "formatear_duracion",
+          "callee": "divmod",
+          "lineNumber": 33
+        },
+        {
+          "caller": "formatear_duracion",
+          "callee": "divmod",
+          "lineNumber": 34
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.strip",
+          "lineNumber": 42
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.split(\"youtube.com/@\")[1].split(\"/\")[0].split",
+          "lineNumber": 44
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.split(\"youtube.com/@\")[1].split",
+          "lineNumber": 44
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.split",
+          "lineNumber": 44
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.rstrip(\"/\").split(\"/\")[-1].split",
+          "lineNumber": 46
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.rstrip(\"/\").split",
+          "lineNumber": 46
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.rstrip",
+          "lineNumber": 46
+        },
+        {
+          "caller": "extraer_handle",
+          "callee": "texto.lstrip",
+          "lineNumber": 47
+        },
+        {
+          "caller": "extraer_video_id",
+          "callee": "url_o_id.strip",
+          "lineNumber": 52
+        },
+        {
+          "caller": "extraer_video_id",
+          "callee": "len",
+          "lineNumber": 53
+        },
+        {
+          "caller": "extraer_video_id",
+          "callee": "re.match",
+          "lineNumber": 53
+        },
+        {
+          "caller": "extraer_video_id",
+          "callee": "re.search",
+          "lineNumber": 56
+        },
+        {
+          "caller": "extraer_video_id",
+          "callee": "match.group",
+          "lineNumber": 58
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "os.path.exists",
+          "lineNumber": 64
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "open",
+          "lineNumber": 67
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "json.load",
+          "lineNumber": 68
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 71
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 72
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 73
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 76
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "v.get",
+          "lineNumber": 78
+        },
+        {
+          "caller": "cargar_estado_previo",
+          "callee": "logger.warning",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    }
+  ]
+}

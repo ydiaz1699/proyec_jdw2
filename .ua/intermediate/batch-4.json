@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/docker-publish.yml",
+      "type": "pipeline",
+      "name": "docker-publish.yml",
+      "filePath": ".github/workflows/docker-publish.yml",
+      "summary": "Flujo de trabajo de GitHub Actions para construir y publicar automáticamente la imagen Docker en GitHub Container Registry.",
+      "tags": [
+        "ci-cd",
+        "github-actions",
+        "container-registry",
+        "deployment"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "pipeline:.github/workflows/docker-publish.yml",
+      "target": "service:Dockerfile",
+      "type": "deploys",
+      "weight": 0.8
+    }
+  ]
+}

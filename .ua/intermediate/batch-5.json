@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "config:.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": ".env.example",
+      "summary": "Plantilla de variables de entorno para credenciales My.JDownloader, claves YouTube v3 y API keys de solvers externos.",
+      "tags": [
+        "configuration",
+        "environment",
+        "template"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:INSTALL_PROMPT.md",
+      "type": "document",
+      "name": "INSTALL_PROMPT.md",
+      "filePath": "INSTALL_PROMPT.md",
+      "summary": "Instrucciones de configuración paso a paso y prompt asistido para instalar y vincular JDownloader MCP en clientes de IA.",
+      "tags": [
+        "documentation",
+        "installation",
+        "setup-guide"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Documentación principal del proyecto: arquitectura del servidor, lista de 79 herramientas MCP, solvers de captcha y capacidades de YouTube.",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "architecture"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "type": "document",
+      "name": "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "filePath": "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "summary": "Propuesta arquitectónica y funcional detallada para el Sistema de Memoria Audiovisual de YouTube con IA, chunking temporal y búsqueda semántica.",
+      "tags": [
+        "architecture",
+        "specifications",
+        "youtube-rag",
+        "documentation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:mcp_config.docker.json",
+      "type": "config",
+      "name": "mcp_config.docker.json",
+      "filePath": "mcp_config.docker.json",
+      "summary": "Configuración MCP para ejecutar el servidor mediante contenedor Docker.",
+      "tags": [
+        "configuration",
+        "mcp",
+        "docker"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:mcp_config.json",
+      "type": "config",
+      "name": "mcp_config.json",
+      "filePath": "mcp_config.json",
+      "summary": "Configuración global de MCP para el cliente Gemini / Claude ejecutando el servidor desde el entorno virtual local.",
+      "tags": [
+        "configuration",
+        "mcp-client",
+        "local-exec"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:mcp_config.uvx.json",
+      "type": "config",
+      "name": "mcp_config.uvx.json",
+      "filePath": "mcp_config.uvx.json",
+      "summary": "Configuración MCP para ejecución efímera mediante la herramienta uvx de uv.",
+      "tags": [
+        "configuration",
+        "uvx",
+        "runner"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:pyproject.toml",
+      "type": "config",
+      "name": "pyproject.toml",
+      "filePath": "pyproject.toml",
+      "summary": "Definición del paquete Python con dependencias (myjdapi, mcp, google-api-python-client, pillow) y scripts de entrada.",
+      "tags": [
+        "configuration",
+        "packaging",
+        "dependencies",
+        "python"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:requirements.txt",
+      "type": "config",
+      "name": "requirements.txt",
+      "filePath": "requirements.txt",
+      "summary": "Lista estándar de dependencias pip del proyecto para entornos legacy o despliegues en contenedores.",
+      "tags": [
+        "dependencies",
+        "pip",
+        "configuration"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:README.md",
+      "target": "file:src/jdownloader_mcp/server.py",
+      "type": "documents",
+      "weight": 0.9
+    },
+    {
+      "source": "document:SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "target": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "type": "documents",
+      "weight": 0.8
+    },
+    {
+      "source": "document:INSTALL_PROMPT.md",
+      "target": "config:mcp_config.json",
+      "type": "documents",
+      "weight": 0.7
+    },
+    {
+      "source": "config:pyproject.toml",
+      "target": "file:src/jdownloader_mcp/server.py",
+      "type": "configures",
+      "weight": 0.8
+    },
+    {
+      "source": "config:mcp_config.json",
+      "target": "file:src/jdownloader_mcp/server.py",
+      "type": "configures",
+      "weight": 0.8
+    }
+  ]
+}

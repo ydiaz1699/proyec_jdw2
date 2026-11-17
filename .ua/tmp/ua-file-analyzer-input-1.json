@@ -1,0 +1,98 @@
+{
+  "projectRoot": "C:/Users/Alex/Desktop/1-Github/proyec_jdw2",
+  "batchFiles": [
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/__init__.py",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/base.py",
+      "language": "python",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/daemon.py",
+      "language": "python",
+      "sizeLines": 251,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/router.py",
+      "language": "python",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/darknet_solver.py",
+      "language": "python",
+      "sizeLines": 343,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py",
+      "language": "python",
+      "sizeLines": 216,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/nopecha_solver.py",
+      "language": "python",
+      "sizeLines": 244,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py",
+      "language": "python",
+      "sizeLines": 228,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/twocaptcha_solver.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/server.py",
+      "language": "python",
+      "sizeLines": 1225,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "src/jdownloader_mcp/captcha_solver/__init__.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py",
+      "src/jdownloader_mcp/captcha_solver/daemon.py",
+      "src/jdownloader_mcp/captcha_solver/router.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/base.py": [],
+    "src/jdownloader_mcp/captcha_solver/daemon.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py",
+      "src/jdownloader_mcp/captcha_solver/router.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/router.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/darknet_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/nopecha_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/twocaptcha_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/server.py": [
+      "src/jdownloader_mcp/captcha_solver/__init__.py"
+    ]
+  }
+}

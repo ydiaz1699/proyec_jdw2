@@ -1,0 +1,14 @@
+{
+  "projectRoot": "C:/Users/Alex/Desktop/1-Github/proyec_jdw2",
+  "batchFiles": [
+    {
+      "path": ".github/workflows/docker-publish.yml",
+      "language": "yaml",
+      "sizeLines": 62,
+      "fileCategory": "infra"
+    }
+  ],
+  "batchImportData": {
+    ".github/workflows/docker-publish.yml": []
+  }
+}

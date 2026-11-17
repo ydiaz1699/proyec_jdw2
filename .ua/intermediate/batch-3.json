@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "id": "service:Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "Dockerfile",
+      "summary": "Imagen de contenedor Linux optimizada con Python y dependencias para ejecutar el servidor JDownloader MCP en entornos aislados.",
+      "tags": [
+        "containerization",
+        "docker",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.dockerignore",
+      "type": "config",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Reglas de exclusión para la compilación de la imagen Docker (excluye entornos virtuales, cachés y artefactos git).",
+      "tags": [
+        "docker",
+        "configuration",
+        "build-optimization"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:.dockerignore",
+      "target": "service:Dockerfile",
+      "type": "configures",
+      "weight": 0.8
+    }
+  ]
+}

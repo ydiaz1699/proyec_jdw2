@@ -1,0 +1,372 @@
+{
+  "name": "jdownloader-mcp",
+  "description": "Servidor MCP para control total de JDownloader v\u00eda My.JDownloader API con auto-solver de captchas y m\u00f3dulo integrado de extracci\u00f3n y filtrado inteligente de YouTube.",
+  "languages": [
+    "Python",
+    "Docker",
+    "Markdown"
+  ],
+  "frameworks": [
+    "FastMCP",
+    "myjdapi",
+    "googleapiclient",
+    "Pillow"
+  ],
+  "files": [
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "sizeLines": 19,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".env.example",
+      "language": "config",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/workflows/docker-publish.yml",
+      "language": "yaml",
+      "sizeLines": 62,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 33,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "INSTALL_PROMPT.md",
+      "language": "markdown",
+      "sizeLines": 124,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 300,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "language": "markdown",
+      "sizeLines": 209,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "cli_youtube.py",
+      "language": "python",
+      "sizeLines": 166,
+      "fileCategory": "code"
+    },
+    {
+      "path": "mcp_config.docker.json",
+      "language": "json",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_config.json",
+      "language": "json",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_config.uvx.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "requirements.txt",
+      "language": "txt",
+      "sizeLines": 22,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "skill/jdownloader-usage.md",
+      "language": "markdown",
+      "sizeLines": 169,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "skill/jdownloader.md",
+      "language": "markdown",
+      "sizeLines": 877,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "src/jdownloader_mcp/__init__.py",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/__init__.py",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/base.py",
+      "language": "python",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/daemon.py",
+      "language": "python",
+      "sizeLines": 251,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/models/__init__.py",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "language": "python",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "language": "python",
+      "sizeLines": 172,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/router.py",
+      "language": "python",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/__init__.py",
+      "language": "python",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/darknet_solver.py",
+      "language": "python",
+      "sizeLines": 343,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py",
+      "language": "python",
+      "sizeLines": 216,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/nopecha_solver.py",
+      "language": "python",
+      "sizeLines": 244,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py",
+      "language": "python",
+      "sizeLines": 228,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/twocaptcha_solver.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/server.py",
+      "language": "python",
+      "sizeLines": 1225,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/__init__.py",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/api.py",
+      "language": "python",
+      "sizeLines": 279,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/diff.py",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/export.py",
+      "language": "python",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/filter.py",
+      "language": "python",
+      "sizeLines": 110,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/key_router.py",
+      "language": "python",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/language.py",
+      "language": "python",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/pipeline.py",
+      "language": "python",
+      "sizeLines": 221,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/quota.py",
+      "language": "python",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/jdownloader_mcp/youtube/utils.py",
+      "language": "python",
+      "sizeLines": 85,
+      "fileCategory": "code"
+    }
+  ],
+  "totalFiles": 41,
+  "filteredByIgnore": 13,
+  "estimatedComplexity": "moderate",
+  "stats": {
+    "filesScanned": 41,
+    "byCategory": {
+      "infra": 3,
+      "config": 5,
+      "docs": 6,
+      "code": 27
+    },
+    "byLanguage": {
+      "unknown": 1,
+      "config": 1,
+      "yaml": 1,
+      "dockerfile": 1,
+      "markdown": 5,
+      "python": 27,
+      "json": 3,
+      "toml": 1,
+      "txt": 1
+    }
+  },
+  "importMap": {
+    ".dockerignore": [],
+    ".env.example": [],
+    ".github/workflows/docker-publish.yml": [],
+    "Dockerfile": [],
+    "INSTALL_PROMPT.md": [],
+    "README.md": [],
+    "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md": [],
+    "cli_youtube.py": [],
+    "mcp_config.docker.json": [],
+    "mcp_config.json": [],
+    "mcp_config.uvx.json": [],
+    "pyproject.toml": [],
+    "requirements.txt": [],
+    "skill/jdownloader-usage.md": [],
+    "skill/jdownloader.md": [],
+    "src/jdownloader_mcp/__init__.py": [],
+    "src/jdownloader_mcp/captcha_solver/__init__.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py",
+      "src/jdownloader_mcp/captcha_solver/daemon.py",
+      "src/jdownloader_mcp/captcha_solver/router.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/base.py": [],
+    "src/jdownloader_mcp/captcha_solver/daemon.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py",
+      "src/jdownloader_mcp/captcha_solver/router.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/models/__init__.py": [],
+    "src/jdownloader_mcp/captcha_solver/models/cnn_model.py": [],
+    "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py": [
+      "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py": [],
+    "src/jdownloader_mcp/captcha_solver/router.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/__init__.py": [],
+    "src/jdownloader_mcp/captcha_solver/solvers/darknet_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/nopecha_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/captcha_solver/solvers/twocaptcha_solver.py": [
+      "src/jdownloader_mcp/captcha_solver/base.py"
+    ],
+    "src/jdownloader_mcp/server.py": [
+      "src/jdownloader_mcp/captcha_solver/__init__.py"
+    ],
+    "src/jdownloader_mcp/youtube/__init__.py": [
+      "src/jdownloader_mcp/youtube/filter.py",
+      "src/jdownloader_mcp/youtube/key_router.py",
+      "src/jdownloader_mcp/youtube/language.py",
+      "src/jdownloader_mcp/youtube/pipeline.py"
+    ],
+    "src/jdownloader_mcp/youtube/api.py": [
+      "src/jdownloader_mcp/youtube/key_router.py",
+      "src/jdownloader_mcp/youtube/language.py",
+      "src/jdownloader_mcp/youtube/quota.py",
+      "src/jdownloader_mcp/youtube/utils.py"
+    ],
+    "src/jdownloader_mcp/youtube/diff.py": [],
+    "src/jdownloader_mcp/youtube/export.py": [
+      "src/jdownloader_mcp/youtube/utils.py"
+    ],
+    "src/jdownloader_mcp/youtube/filter.py": [],
+    "src/jdownloader_mcp/youtube/key_router.py": [],
+    "src/jdownloader_mcp/youtube/language.py": [],
+    "src/jdownloader_mcp/youtube/pipeline.py": [
+      "src/jdownloader_mcp/youtube/api.py",
+      "src/jdownloader_mcp/youtube/diff.py",
+      "src/jdownloader_mcp/youtube/export.py",
+      "src/jdownloader_mcp/youtube/filter.py",
+      "src/jdownloader_mcp/youtube/key_router.py",
+      "src/jdownloader_mcp/youtube/language.py",
+      "src/jdownloader_mcp/youtube/utils.py"
+    ],
+    "src/jdownloader_mcp/youtube/quota.py": [],
+    "src/jdownloader_mcp/youtube/utils.py": []
+  }
+}

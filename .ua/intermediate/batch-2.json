@@ -1,0 +1,508 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/jdownloader_mcp/youtube/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/jdownloader_mcp/youtube/__init__.py",
+      "summary": "Punto de entrada del paquete youtube; exporta funciones clave del pipeline, enrutador de claves y detección de idioma.",
+      "tags": [
+        "barrel",
+        "exports",
+        "youtube"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/api.py",
+      "type": "file",
+      "name": "api.py",
+      "filePath": "src/jdownloader_mcp/youtube/api.py",
+      "summary": "Cliente oficial de YouTube Data API v3 con soporte para paginación, retries con backoff y extracción de playlists UULF.",
+      "tags": [
+        "api-client",
+        "youtube-api",
+        "networking"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/api.py:get_channel_id",
+      "type": "function",
+      "name": "get_channel_id",
+      "filePath": "src/jdownloader_mcp/youtube/api.py",
+      "summary": "Resuelve el Channel ID de YouTube a partir de un handle (@canal), id directo o URL.",
+      "tags": [
+        "resolver",
+        "youtube-channel",
+        "utility"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        40,
+        75
+      ]
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/api.py:get_uploads_playlist_id",
+      "type": "function",
+      "name": "get_uploads_playlist_id",
+      "filePath": "src/jdownloader_mcp/youtube/api.py",
+      "summary": "Obtiene la playlist de videos largos (UULF...) o subidas directas del canal excluyendo Shorts nativamente.",
+      "tags": [
+        "playlist",
+        "filter-shorts",
+        "youtube-api"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        78,
+        98
+      ]
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/api.py:get_playlist_items",
+      "type": "function",
+      "name": "get_playlist_items",
+      "filePath": "src/jdownloader_mcp/youtube/api.py",
+      "summary": "Descarga todos los items de una playlist mediante paginación exhaustiva con reintentos automáticos.",
+      "tags": [
+        "pagination",
+        "batch-fetch",
+        "youtube-api"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        100,
+        160
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/key_router.py",
+      "type": "file",
+      "name": "key_router.py",
+      "filePath": "src/jdownloader_mcp/youtube/key_router.py",
+      "summary": "Gestor multi-llave para YouTube Data API v3 con rotación automática por cuota agotada y reinicio a medianoche del Pacífico.",
+      "tags": [
+        "key-rotation",
+        "quota-management",
+        "rate-limiting"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/jdownloader_mcp/youtube/key_router.py:KeyRouter",
+      "type": "class",
+      "name": "KeyRouter",
+      "filePath": "src/jdownloader_mcp/youtube/key_router.py",
+      "summary": "Controlador de rotación de claves API que registra cuota por slot y conmuta sin interrupción de servicio.",
+      "tags": [
+        "router",
+        "failover",
+        "api-keys"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        45,
+        190
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/quota.py",
+      "type": "file",
+      "name": "quota.py",
+      "filePath": "src/jdownloader_mcp/youtube/quota.py",
+      "summary": "Persistencia de cuota diaria consumida por API key en archivo local con soporte para zona horaria de California.",
+      "tags": [
+        "persistence",
+        "quota",
+        "cache"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/quota.py:registrar_uso",
+      "type": "function",
+      "name": "registrar_uso",
+      "filePath": "src/jdownloader_mcp/youtube/quota.py",
+      "summary": "Registra unidades de cuota consumidas por llamada a la API en el almacenamiento local.",
+      "tags": [
+        "accounting",
+        "quota",
+        "metrics"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        40,
+        58
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/language.py",
+      "type": "file",
+      "name": "language.py",
+      "filePath": "src/jdownloader_mcp/youtube/language.py",
+      "summary": "Motor heurístico de detección de idioma que combina metadatos oficiales, defaultAudioLanguage y frecuencias léxicas.",
+      "tags": [
+        "nlp",
+        "language-detection",
+        "heuristics"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/jdownloader_mcp/youtube/language.py:LanguageDetectionResult",
+      "type": "class",
+      "name": "LanguageDetectionResult",
+      "filePath": "src/jdownloader_mcp/youtube/language.py",
+      "summary": "Estructura de datos con el idioma detectado, nivel de confianza, método utilizado y banderas de validación.",
+      "tags": [
+        "data-model",
+        "dataclass",
+        "nlp"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        15,
+        30
+      ]
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/language.py:detect_video_language",
+      "type": "function",
+      "name": "detect_video_language",
+      "filePath": "src/jdownloader_mcp/youtube/language.py",
+      "summary": "Determina si un video está en español u otro idioma utilizando análisis multi-fuente de alta precisión.",
+      "tags": [
+        "classification",
+        "language",
+        "nlp"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        90,
+        150
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/filter.py",
+      "type": "file",
+      "name": "filter.py",
+      "filePath": "src/jdownloader_mcp/youtube/filter.py",
+      "summary": "Filtro inteligente de variantes de JDownloader: conserva video MP4/MKV, miniaturas JPG/PNG, descripción y subtítulos SRT en cualquier idioma.",
+      "tags": [
+        "filter",
+        "cleanup",
+        "subtitles-preserve"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/filter.py:classify_youtube_link",
+      "type": "function",
+      "name": "classify_youtube_link",
+      "filePath": "src/jdownloader_mcp/youtube/filter.py",
+      "summary": "Clasifica enlaces del colector en categorías (video, audio, subtítulo, thumbnail, descripción).",
+      "tags": [
+        "classifier",
+        "linkgrabber",
+        "heuristics"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        20,
+        60
+      ]
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/filter.py:filter_collector_links",
+      "type": "function",
+      "name": "filter_collector_links",
+      "filePath": "src/jdownloader_mcp/youtube/filter.py",
+      "summary": "Elimina selectivamente audios sueltos del LinkCollector manteniendo subtítulos (.srt) y video.",
+      "tags": [
+        "filter-execution",
+        "batch-cleanup",
+        "jdownloader"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        65,
+        108
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/diff.py",
+      "type": "file",
+      "name": "diff.py",
+      "filePath": "src/jdownloader_mcp/youtube/diff.py",
+      "summary": "Calcula diferencias incrementales entre la lista actual de videos de un canal y el catálogo local previo.",
+      "tags": [
+        "incremental-diff",
+        "comparator",
+        "synchronization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/jdownloader_mcp/youtube/diff.py:ResultadoDiff",
+      "type": "class",
+      "name": "ResultadoDiff",
+      "filePath": "src/jdownloader_mcp/youtube/diff.py",
+      "summary": "Estructura que categoriza videos nuevos, sin cambios o modificados en la sincronización.",
+      "tags": [
+        "data-model",
+        "diff",
+        "dataclass"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        12,
+        25
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/export.py",
+      "type": "file",
+      "name": "export.py",
+      "filePath": "src/jdownloader_mcp/youtube/export.py",
+      "summary": "Exporta catálogos de videos a archivos JSON organizados por canal, fecha e historial de sincronización.",
+      "tags": [
+        "export",
+        "json",
+        "filesystem"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "type": "file",
+      "name": "pipeline.py",
+      "filePath": "src/jdownloader_mcp/youtube/pipeline.py",
+      "summary": "Orquestador de alto nivel que coordina la extracción, detección de idioma, adición a JDownloader y filtrado de variantes.",
+      "tags": [
+        "pipeline",
+        "orchestration",
+        "workflow"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/pipeline.py:add_youtube_video_smart",
+      "type": "function",
+      "name": "add_youtube_video_smart",
+      "filePath": "src/jdownloader_mcp/youtube/pipeline.py",
+      "summary": "Pipeline completo para un video individual: inyección, espera activa de variantes y filtrado de tracks.",
+      "tags": [
+        "workflow",
+        "pipeline",
+        "smart-add"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        45,
+        120
+      ]
+    },
+    {
+      "id": "function:src/jdownloader_mcp/youtube/pipeline.py:sync_youtube_channel_to_jd",
+      "type": "function",
+      "name": "sync_youtube_channel_to_jd",
+      "filePath": "src/jdownloader_mcp/youtube/pipeline.py",
+      "summary": "Pipeline de sincronización masiva: descarga catálogo de canal, calcula diff, exporta JSON y opcionalmente envía nuevos a JDownloader.",
+      "tags": [
+        "channel-sync",
+        "batch-pipeline",
+        "incremental"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        125,
+        218
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/youtube/utils.py",
+      "type": "file",
+      "name": "utils.py",
+      "filePath": "src/jdownloader_mcp/youtube/utils.py",
+      "summary": "Utilidades auxiliares para normalización de handles, extracción de video IDs, formato de duraciones y sanitización.",
+      "tags": [
+        "utility",
+        "formatting",
+        "helpers"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/jdownloader_mcp/youtube/__init__.py",
+      "target": "file:src/jdownloader_mcp/youtube/filter.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/__init__.py",
+      "target": "file:src/jdownloader_mcp/youtube/key_router.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/__init__.py",
+      "target": "file:src/jdownloader_mcp/youtube/language.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/__init__.py",
+      "target": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/api.py",
+      "target": "function:src/jdownloader_mcp/youtube/api.py:get_channel_id",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/api.py",
+      "target": "function:src/jdownloader_mcp/youtube/api.py:get_uploads_playlist_id",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/api.py",
+      "target": "function:src/jdownloader_mcp/youtube/api.py:get_playlist_items",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/api.py",
+      "target": "file:src/jdownloader_mcp/youtube/key_router.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/api.py",
+      "target": "file:src/jdownloader_mcp/youtube/quota.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/api.py",
+      "target": "file:src/jdownloader_mcp/youtube/language.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/api.py",
+      "target": "file:src/jdownloader_mcp/youtube/utils.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/key_router.py",
+      "target": "class:src/jdownloader_mcp/youtube/key_router.py:KeyRouter",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/quota.py",
+      "target": "function:src/jdownloader_mcp/youtube/quota.py:registrar_uso",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/language.py",
+      "target": "class:src/jdownloader_mcp/youtube/language.py:LanguageDetectionResult",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/language.py",
+      "target": "function:src/jdownloader_mcp/youtube/language.py:detect_video_language",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/filter.py",
+      "target": "function:src/jdownloader_mcp/youtube/filter.py:classify_youtube_link",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/filter.py",
+      "target": "function:src/jdownloader_mcp/youtube/filter.py:filter_collector_links",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/diff.py",
+      "target": "class:src/jdownloader_mcp/youtube/diff.py:ResultadoDiff",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/export.py",
+      "target": "file:src/jdownloader_mcp/youtube/utils.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "function:src/jdownloader_mcp/youtube/pipeline.py:add_youtube_video_smart",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "function:src/jdownloader_mcp/youtube/pipeline.py:sync_youtube_channel_to_jd",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "file:src/jdownloader_mcp/youtube/api.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "file:src/jdownloader_mcp/youtube/filter.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "file:src/jdownloader_mcp/youtube/diff.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "file:src/jdownloader_mcp/youtube/export.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "file:src/jdownloader_mcp/youtube/key_router.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "file:src/jdownloader_mcp/youtube/language.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "target": "file:src/jdownloader_mcp/youtube/utils.py",
+      "type": "imports",
+      "weight": 0.7
+    }
+  ]
+}

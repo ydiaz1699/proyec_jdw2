@@ -1,0 +1,4594 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 10,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 10,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 25,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/base.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 75,
+      "classes": [
+        {
+          "name": "CaptchaType",
+          "startLine": 15,
+          "endLine": 25,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "CaptchaChallenge",
+          "startLine": 29,
+          "endLine": 38,
+          "methods": [],
+          "properties": [
+            "captcha_id",
+            "hoster",
+            "captcha_type",
+            "image_data",
+            "image_base64",
+            "site_key",
+            "page_url",
+            "extra"
+          ]
+        },
+        {
+          "name": "CaptchaSolution",
+          "startLine": 42,
+          "endLine": 48,
+          "methods": [],
+          "properties": [
+            "success",
+            "solution",
+            "solver_name",
+            "confidence",
+            "error"
+          ]
+        },
+        {
+          "name": "BaseSolver",
+          "startLine": 51,
+          "endLine": 92,
+          "methods": [
+            "__init__",
+            "solve",
+            "can_solve",
+            "success_rate",
+            "stats",
+            "_record_attempt"
+          ],
+          "properties": [
+            "name",
+            "supported_types"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CaptchaType",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "CaptchaChallenge",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "CaptchaSolution",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "BaseSolver",
+          "line": 51,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/daemon.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 251,
+      "nonEmptyLines": 208,
+      "classes": [
+        {
+          "name": "AutoSolverDaemon",
+          "startLine": 26,
+          "endLine": 251,
+          "methods": [
+            "__init__",
+            "start",
+            "stop",
+            "is_running",
+            "status",
+            "_run_loop",
+            "_current_device",
+            "_check_and_solve",
+            "_build_challenge",
+            "reset_stats",
+            "clear_attempted"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AutoSolverDaemon",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "threading.Lock",
+          "lineNumber": 53
+        },
+        {
+          "caller": "start",
+          "callee": "time.time",
+          "lineNumber": 73
+        },
+        {
+          "caller": "start",
+          "callee": "threading.Thread",
+          "lineNumber": 74
+        },
+        {
+          "caller": "start",
+          "callee": "self._thread.start",
+          "lineNumber": 79
+        },
+        {
+          "caller": "start",
+          "callee": "logger.info",
+          "lineNumber": 81
+        },
+        {
+          "caller": "stop",
+          "callee": "thread.join",
+          "lineNumber": 95
+        },
+        {
+          "caller": "stop",
+          "callee": "logger.info",
+          "lineNumber": 97
+        },
+        {
+          "caller": "status",
+          "callee": "time.time",
+          "lineNumber": 107
+        },
+        {
+          "caller": "status",
+          "callee": "self._stats.copy",
+          "lineNumber": 113
+        },
+        {
+          "caller": "status",
+          "callee": "len",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_run_loop",
+          "callee": "logger.info",
+          "lineNumber": 119
+        },
+        {
+          "caller": "_run_loop",
+          "callee": "self._check_and_solve",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_run_loop",
+          "callee": "logger.error",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_run_loop",
+          "callee": "time.sleep",
+          "lineNumber": 130
+        },
+        {
+          "caller": "_run_loop",
+          "callee": "time.sleep",
+          "lineNumber": 133
+        },
+        {
+          "caller": "_current_device",
+          "callee": "self._device_provider",
+          "lineNumber": 138
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "self._current_device",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "logger.debug",
+          "lineNumber": 146
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "device.captcha.list",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "logger.debug",
+          "lineNumber": 151
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "captcha_info.get",
+          "lineNumber": 161
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "self._attempted.get",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "time.time",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "logger.info",
+          "lineNumber": 175
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "captcha_info.get",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "self._build_challenge",
+          "lineNumber": 181
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "self.router.solve",
+          "lineNumber": 186
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "device.captcha.solve",
+          "lineNumber": 190
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "time.time",
+          "lineNumber": 192
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "self._attempted.pop",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "logger.info",
+          "lineNumber": 194
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "logger.error",
+          "lineNumber": 199
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "time.sleep",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_check_and_solve",
+          "callee": "logger.warning",
+          "lineNumber": 206
+        },
+        {
+          "caller": "_build_challenge",
+          "callee": "captcha_info.get",
+          "lineNumber": 211
+        },
+        {
+          "caller": "_build_challenge",
+          "callee": "device.captcha.get",
+          "lineNumber": 215
+        },
+        {
+          "caller": "_build_challenge",
+          "callee": "logger.error",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_build_challenge",
+          "callee": "base64.b64decode",
+          "lineNumber": 224
+        },
+        {
+          "caller": "_build_challenge",
+          "callee": "CaptchaChallenge",
+          "lineNumber": 228
+        },
+        {
+          "caller": "_build_challenge",
+          "callee": "captcha_info.get",
+          "lineNumber": 230
+        },
+        {
+          "caller": "reset_stats",
+          "callee": "self._stats.get",
+          "lineNumber": 240
+        },
+        {
+          "caller": "reset_stats",
+          "callee": "self._attempted.clear",
+          "lineNumber": 248
+        },
+        {
+          "caller": "clear_attempted",
+          "callee": "self._attempted.clear",
+          "lineNumber": 251
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/router.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 133,
+      "nonEmptyLines": 111,
+      "classes": [
+        {
+          "name": "CaptchaRouter",
+          "startLine": 36,
+          "endLine": 133,
+          "methods": [
+            "__init__",
+            "register_solver",
+            "unregister_solver",
+            "detect_type",
+            "solve",
+            "solvers",
+            "get_solver"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CaptchaRouter",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "register_solver",
+          "callee": "self._solvers.append",
+          "lineNumber": 47
+        },
+        {
+          "caller": "register_solver",
+          "callee": "self._solvers.sort",
+          "lineNumber": 48
+        },
+        {
+          "caller": "register_solver",
+          "callee": "logger.info",
+          "lineNumber": 49
+        },
+        {
+          "caller": "unregister_solver",
+          "callee": "len",
+          "lineNumber": 53
+        },
+        {
+          "caller": "unregister_solver",
+          "callee": "len",
+          "lineNumber": 55
+        },
+        {
+          "caller": "detect_type",
+          "callee": "challenge.hoster.lower().strip",
+          "lineNumber": 58
+        },
+        {
+          "caller": "detect_type",
+          "callee": "challenge.hoster.lower",
+          "lineNumber": 58
+        },
+        {
+          "caller": "detect_type",
+          "callee": "HOSTER_CAPTCHA_MAP.items",
+          "lineNumber": 59
+        },
+        {
+          "caller": "detect_type",
+          "callee": "str(challenge.extra.get(\"type\", \"\")).lower",
+          "lineNumber": 67
+        },
+        {
+          "caller": "detect_type",
+          "callee": "str",
+          "lineNumber": 67
+        },
+        {
+          "caller": "detect_type",
+          "callee": "challenge.extra.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "solve",
+          "callee": "self.detect_type",
+          "lineNumber": 80
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.info",
+          "lineNumber": 82
+        },
+        {
+          "caller": "solve",
+          "callee": "s.can_solve",
+          "lineNumber": 89
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 93
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.debug",
+          "lineNumber": 100
+        },
+        {
+          "caller": "solve",
+          "callee": "solver.solve",
+          "lineNumber": 101
+        },
+        {
+          "caller": "solve",
+          "callee": "solver._record_attempt",
+          "lineNumber": 102
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.info",
+          "lineNumber": 106
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.debug",
+          "lineNumber": 113
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.error",
+          "lineNumber": 117
+        },
+        {
+          "caller": "solve",
+          "callee": "solver._record_attempt",
+          "lineNumber": 118
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 118
+        },
+        {
+          "caller": "solve",
+          "callee": "str",
+          "lineNumber": 118
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 120
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/darknet_solver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 343,
+      "nonEmptyLines": 274,
+      "classes": [
+        {
+          "name": "DarkNetSolver",
+          "startLine": 53,
+          "endLine": 343,
+          "methods": [
+            "__init__",
+            "_load_model",
+            "solve",
+            "_load_image",
+            "_preprocess",
+            "_detect",
+            "_process_output",
+            "_nms",
+            "_compute_iou",
+            "_format_solution"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DarkNetSolver",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 66
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 66
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 71
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 72
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 73
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 80
+        },
+        {
+          "caller": "__init__",
+          "callee": "os.path.exists",
+          "lineNumber": 82
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 83
+        },
+        {
+          "caller": "_load_model",
+          "callee": "torch.device",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_load_model",
+          "callee": "torch.cuda.is_available",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_load_model",
+          "callee": "os.path.exists",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_load_model",
+          "callee": "open",
+          "lineNumber": 101
+        },
+        {
+          "caller": "_load_model",
+          "callee": "line.strip",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_load_model",
+          "callee": "f.readlines",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_load_model",
+          "callee": "line.strip",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_load_model",
+          "callee": "os.path.exists",
+          "lineNumber": 113
+        },
+        {
+          "caller": "_load_model",
+          "callee": "bool",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_load_model",
+          "callee": "self.config.get",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_load_model",
+          "callee": "torch.load",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_load_model",
+          "callee": "isinstance",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_load_model",
+          "callee": "self._model.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "_load_model",
+          "callee": "hasattr",
+          "lineNumber": 123
+        },
+        {
+          "caller": "_load_model",
+          "callee": "self._model.eval",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_load_model",
+          "callee": "logger.info",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_load_model",
+          "callee": "len",
+          "lineNumber": 128
+        },
+        {
+          "caller": "solve",
+          "callee": "self._load_model",
+          "lineNumber": 134
+        },
+        {
+          "caller": "solve",
+          "callee": "self._load_image",
+          "lineNumber": 136
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 138
+        },
+        {
+          "caller": "solve",
+          "callee": "self._detect",
+          "lineNumber": 144
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 147
+        },
+        {
+          "caller": "solve",
+          "callee": "self._format_solution",
+          "lineNumber": 154
+        },
+        {
+          "caller": "solve",
+          "callee": "float",
+          "lineNumber": 156
+        },
+        {
+          "caller": "solve",
+          "callee": "np.mean",
+          "lineNumber": 157
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 160
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.error",
+          "lineNumber": 168
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 169
+        },
+        {
+          "caller": "solve",
+          "callee": "str",
+          "lineNumber": 172
+        },
+        {
+          "caller": "_load_image",
+          "callee": "Image.open",
+          "lineNumber": 181
+        },
+        {
+          "caller": "_load_image",
+          "callee": "io.BytesIO",
+          "lineNumber": 181
+        },
+        {
+          "caller": "_load_image",
+          "callee": "base64.b64decode",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_load_image",
+          "callee": "Image.open",
+          "lineNumber": 184
+        },
+        {
+          "caller": "_load_image",
+          "callee": "io.BytesIO",
+          "lineNumber": 184
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "image.convert",
+          "lineNumber": 192
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "image.resize",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "np.array(image).astype",
+          "lineNumber": 198
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "np.array",
+          "lineNumber": 198
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "torch.from_numpy(img_array).permute",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "torch.from_numpy",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "img_tensor.unsqueeze(0).to",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "img_tensor.unsqueeze",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_detect",
+          "callee": "torch.no_grad",
+          "lineNumber": 215
+        },
+        {
+          "caller": "_detect",
+          "callee": "self._preprocess",
+          "lineNumber": 216
+        },
+        {
+          "caller": "_detect",
+          "callee": "self._model",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_detect",
+          "callee": "self._process_output",
+          "lineNumber": 220
+        },
+        {
+          "caller": "_detect",
+          "callee": "self._nms",
+          "lineNumber": 223
+        },
+        {
+          "caller": "_process_output",
+          "callee": "isinstance",
+          "lineNumber": 234
+        },
+        {
+          "caller": "_process_output",
+          "callee": "hasattr",
+          "lineNumber": 237
+        },
+        {
+          "caller": "_process_output",
+          "callee": "outputs.cpu().numpy",
+          "lineNumber": 238
+        },
+        {
+          "caller": "_process_output",
+          "callee": "outputs.cpu",
+          "lineNumber": 238
+        },
+        {
+          "caller": "_process_output",
+          "callee": "len",
+          "lineNumber": 244
+        },
+        {
+          "caller": "_process_output",
+          "callee": "int",
+          "lineNumber": 254
+        },
+        {
+          "caller": "_process_output",
+          "callee": "np.argmax",
+          "lineNumber": 254
+        },
+        {
+          "caller": "_process_output",
+          "callee": "detections.append",
+          "lineNumber": 270
+        },
+        {
+          "caller": "_process_output",
+          "callee": "float",
+          "lineNumber": 271
+        },
+        {
+          "caller": "_nms",
+          "callee": "sorted",
+          "lineNumber": 286
+        },
+        {
+          "caller": "_nms",
+          "callee": "detections.pop",
+          "lineNumber": 290
+        },
+        {
+          "caller": "_nms",
+          "callee": "keep.append",
+          "lineNumber": 291
+        },
+        {
+          "caller": "_nms",
+          "callee": "self._compute_iou",
+          "lineNumber": 295
+        },
+        {
+          "caller": "_nms",
+          "callee": "remaining.append",
+          "lineNumber": 297
+        },
+        {
+          "caller": "_compute_iou",
+          "callee": "max",
+          "lineNumber": 308
+        },
+        {
+          "caller": "_compute_iou",
+          "callee": "max",
+          "lineNumber": 309
+        },
+        {
+          "caller": "_compute_iou",
+          "callee": "min",
+          "lineNumber": 310
+        },
+        {
+          "caller": "_compute_iou",
+          "callee": "min",
+          "lineNumber": 311
+        },
+        {
+          "caller": "_compute_iou",
+          "callee": "max",
+          "lineNumber": 313
+        },
+        {
+          "caller": "_compute_iou",
+          "callee": "max",
+          "lineNumber": 313
+        },
+        {
+          "caller": "_format_solution",
+          "callee": "challenge.extra.get",
+          "lineNumber": 329
+        },
+        {
+          "caller": "_format_solution",
+          "callee": "int",
+          "lineNumber": 339
+        },
+        {
+          "caller": "_format_solution",
+          "callee": "int",
+          "lineNumber": 340
+        },
+        {
+          "caller": "_format_solution",
+          "callee": "coordinates.append",
+          "lineNumber": 341
+        },
+        {
+          "caller": "_format_solution",
+          "callee": "\"|\".join",
+          "lineNumber": 343
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 216,
+      "nonEmptyLines": 176,
+      "classes": [
+        {
+          "name": "MLSolver",
+          "startLine": 53,
+          "endLine": 216,
+          "methods": [
+            "__init__",
+            "_load_model",
+            "solve",
+            "_load_image",
+            "_preprocess",
+            "_predict"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MLSolver",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 64
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 64
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 65
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 66
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 71
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 82
+        },
+        {
+          "caller": "__init__",
+          "callee": "os.path.exists",
+          "lineNumber": 84
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_load_model",
+          "callee": "torch.device",
+          "lineNumber": 99
+        },
+        {
+          "caller": "_load_model",
+          "callee": "torch.cuda.is_available",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_load_model",
+          "callee": "len",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_load_model",
+          "callee": "CaptchaCNN",
+          "lineNumber": 104
+        },
+        {
+          "caller": "_load_model",
+          "callee": "os.path.exists",
+          "lineNumber": 111
+        },
+        {
+          "caller": "_load_model",
+          "callee": "torch.load",
+          "lineNumber": 112
+        },
+        {
+          "caller": "_load_model",
+          "callee": "self._model.load_state_dict",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_load_model",
+          "callee": "logger.info",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_load_model",
+          "callee": "self._model.to",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_load_model",
+          "callee": "self._model.eval",
+          "lineNumber": 121
+        },
+        {
+          "caller": "solve",
+          "callee": "self._load_model",
+          "lineNumber": 126
+        },
+        {
+          "caller": "solve",
+          "callee": "self._load_image",
+          "lineNumber": 128
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 130
+        },
+        {
+          "caller": "solve",
+          "callee": "self._preprocess",
+          "lineNumber": 136
+        },
+        {
+          "caller": "solve",
+          "callee": "self._predict",
+          "lineNumber": 137
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 140
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 147
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.error",
+          "lineNumber": 157
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 158
+        },
+        {
+          "caller": "solve",
+          "callee": "str",
+          "lineNumber": 161
+        },
+        {
+          "caller": "_load_image",
+          "callee": "Image.open",
+          "lineNumber": 170
+        },
+        {
+          "caller": "_load_image",
+          "callee": "io.BytesIO",
+          "lineNumber": 170
+        },
+        {
+          "caller": "_load_image",
+          "callee": "base64.b64decode",
+          "lineNumber": 172
+        },
+        {
+          "caller": "_load_image",
+          "callee": "Image.open",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_load_image",
+          "callee": "io.BytesIO",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "transforms.Compose",
+          "lineNumber": 180
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "transforms.Grayscale",
+          "lineNumber": 181
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "transforms.Resize",
+          "lineNumber": 182
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "transforms.ToTensor",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "transforms.Normalize",
+          "lineNumber": 184
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "transform",
+          "lineNumber": 187
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "tensor.unsqueeze(0).to",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "tensor.unsqueeze",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_predict",
+          "callee": "torch.no_grad",
+          "lineNumber": 197
+        },
+        {
+          "caller": "_predict",
+          "callee": "self._model",
+          "lineNumber": 198
+        },
+        {
+          "caller": "_predict",
+          "callee": "torch.softmax",
+          "lineNumber": 201
+        },
+        {
+          "caller": "_predict",
+          "callee": "torch.max",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_predict",
+          "callee": "predictions[0].cpu().numpy",
+          "lineNumber": 205
+        },
+        {
+          "caller": "_predict",
+          "callee": "predictions[0].cpu",
+          "lineNumber": 205
+        },
+        {
+          "caller": "_predict",
+          "callee": "max_probs[0].cpu().numpy",
+          "lineNumber": 206
+        },
+        {
+          "caller": "_predict",
+          "callee": "max_probs[0].cpu",
+          "lineNumber": 206
+        },
+        {
+          "caller": "_predict",
+          "callee": "len",
+          "lineNumber": 210
+        },
+        {
+          "caller": "_predict",
+          "callee": "float",
+          "lineNumber": 214
+        },
+        {
+          "caller": "_predict",
+          "callee": "np.mean",
+          "lineNumber": 214
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/nopecha_solver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 244,
+      "nonEmptyLines": 207,
+      "classes": [
+        {
+          "name": "NopeCHASolver",
+          "startLine": 31,
+          "endLine": 244,
+          "methods": [
+            "__init__",
+            "solve",
+            "_solve_image",
+            "_solve_token",
+            "_poll_token_result"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NopeCHASolver",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 47
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 47
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 49
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 54
+        },
+        {
+          "caller": "solve",
+          "callee": "self._solve_image",
+          "lineNumber": 61
+        },
+        {
+          "caller": "solve",
+          "callee": "self._solve_token",
+          "lineNumber": 63
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.error",
+          "lineNumber": 66
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 67
+        },
+        {
+          "caller": "solve",
+          "callee": "str",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "base64.b64encode(challenge.image_data).decode",
+          "lineNumber": 77
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "base64.b64encode",
+          "lineNumber": 77
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "CaptchaSolution",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "requests.post",
+          "lineNumber": 93
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "resp.json",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "data.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "CaptchaSolution",
+          "lineNumber": 101
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "data.get",
+          "lineNumber": 104
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "data.get",
+          "lineNumber": 104
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "data.get",
+          "lineNumber": 107
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "str",
+          "lineNumber": 109
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "CaptchaSolution",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "CaptchaSolution",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_solve_image",
+          "callee": "CaptchaSolution",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "type_map.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "CaptchaSolution",
+          "lineNumber": 141
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "challenge.extra.get",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "challenge.extra.get",
+          "lineNumber": 156
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "requests.post",
+          "lineNumber": 160
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "resp.json",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "data.get",
+          "lineNumber": 167
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "CaptchaSolution",
+          "lineNumber": 168
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "data.get",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "data.get",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "data.get",
+          "lineNumber": 175
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "CaptchaSolution",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "str",
+          "lineNumber": 179
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "data.get",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "self._poll_token_result",
+          "lineNumber": 187
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "CaptchaSolution",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_solve_token",
+          "callee": "CaptchaSolution",
+          "lineNumber": 196
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "time.time",
+          "lineNumber": 204
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "time.time",
+          "lineNumber": 206
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "time.sleep",
+          "lineNumber": 207
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "requests.get",
+          "lineNumber": 210
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "resp.json",
+          "lineNumber": 215
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "data.get",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "data.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "data.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "str(error_msg).lower",
+          "lineNumber": 219
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "str",
+          "lineNumber": 219
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "CaptchaSolution",
+          "lineNumber": 221
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "data.get",
+          "lineNumber": 227
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "CaptchaSolution",
+          "lineNumber": 229
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "str",
+          "lineNumber": 231
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "logger.debug",
+          "lineNumber": 237
+        },
+        {
+          "caller": "_poll_token_result",
+          "callee": "CaptchaSolution",
+          "lineNumber": 240
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 228,
+      "nonEmptyLines": 186,
+      "classes": [
+        {
+          "name": "OCRSolver",
+          "startLine": 43,
+          "endLine": 228,
+          "methods": [
+            "__init__",
+            "solve",
+            "_load_image",
+            "_preprocess",
+            "_ocr_tesseract",
+            "_ocr_easyocr",
+            "_clean_text",
+            "_estimate_confidence"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OCRSolver",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 53
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 53
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 67
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 74
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 77
+        },
+        {
+          "caller": "solve",
+          "callee": "self._load_image",
+          "lineNumber": 83
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 85
+        },
+        {
+          "caller": "solve",
+          "callee": "self._preprocess",
+          "lineNumber": 92
+        },
+        {
+          "caller": "solve",
+          "callee": "self._ocr_easyocr",
+          "lineNumber": 96
+        },
+        {
+          "caller": "solve",
+          "callee": "self._ocr_tesseract",
+          "lineNumber": 98
+        },
+        {
+          "caller": "solve",
+          "callee": "self._clean_text",
+          "lineNumber": 101
+        },
+        {
+          "caller": "solve",
+          "callee": "self._estimate_confidence",
+          "lineNumber": 104
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 105
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 112
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.error",
+          "lineNumber": 119
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 120
+        },
+        {
+          "caller": "solve",
+          "callee": "str",
+          "lineNumber": 123
+        },
+        {
+          "caller": "_load_image",
+          "callee": "Image.open",
+          "lineNumber": 131
+        },
+        {
+          "caller": "_load_image",
+          "callee": "io.BytesIO",
+          "lineNumber": 131
+        },
+        {
+          "caller": "_load_image",
+          "callee": "base64.b64decode",
+          "lineNumber": 133
+        },
+        {
+          "caller": "_load_image",
+          "callee": "Image.open",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_load_image",
+          "callee": "io.BytesIO",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "image.convert",
+          "lineNumber": 143
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "max",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "image.resize",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "int",
+          "lineNumber": 150
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "int",
+          "lineNumber": 150
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "image.filter",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "self.config.get",
+          "lineNumber": 158
+        },
+        {
+          "caller": "_preprocess",
+          "callee": "image.point",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_ocr_tesseract",
+          "callee": "pytesseract.image_to_string",
+          "lineNumber": 169
+        },
+        {
+          "caller": "_ocr_tesseract",
+          "callee": "\"+\".join",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_ocr_tesseract",
+          "callee": "text.strip",
+          "lineNumber": 174
+        },
+        {
+          "caller": "_ocr_easyocr",
+          "callee": "easyocr.Reader",
+          "lineNumber": 181
+        },
+        {
+          "caller": "_ocr_easyocr",
+          "callee": "np.array",
+          "lineNumber": 187
+        },
+        {
+          "caller": "_ocr_easyocr",
+          "callee": "self._easyocr_reader.readtext",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_ocr_easyocr",
+          "callee": "\" \".join(results).strip",
+          "lineNumber": 195
+        },
+        {
+          "caller": "_ocr_easyocr",
+          "callee": "\" \".join",
+          "lineNumber": 195
+        },
+        {
+          "caller": "_clean_text",
+          "callee": "text.strip",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_clean_text",
+          "callee": "text.replace(\"\\n\", \"\").replace",
+          "lineNumber": 201
+        },
+        {
+          "caller": "_clean_text",
+          "callee": "text.replace",
+          "lineNumber": 201
+        },
+        {
+          "caller": "_clean_text",
+          "callee": "text.replace",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_clean_text",
+          "callee": "\"\".join",
+          "lineNumber": 206
+        },
+        {
+          "caller": "_estimate_confidence",
+          "callee": "len",
+          "lineNumber": 216
+        },
+        {
+          "caller": "_estimate_confidence",
+          "callee": "text.isalnum",
+          "lineNumber": 225
+        },
+        {
+          "caller": "_estimate_confidence",
+          "callee": "min",
+          "lineNumber": 228
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/twocaptcha_solver.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 200,
+      "nonEmptyLines": 167,
+      "classes": [
+        {
+          "name": "TwoCaptchaSolver",
+          "startLine": 31,
+          "endLine": 200,
+          "methods": [
+            "__init__",
+            "solve",
+            "_create_task",
+            "_poll_result",
+            "get_balance"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TwoCaptchaSolver",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 47
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 47
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 49
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.warning",
+          "lineNumber": 53
+        },
+        {
+          "caller": "solve",
+          "callee": "self._create_task",
+          "lineNumber": 59
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 61
+        },
+        {
+          "caller": "solve",
+          "callee": "self._poll_result",
+          "lineNumber": 67
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 69
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 76
+        },
+        {
+          "caller": "solve",
+          "callee": "logger.error",
+          "lineNumber": 83
+        },
+        {
+          "caller": "solve",
+          "callee": "CaptchaSolution",
+          "lineNumber": 84
+        },
+        {
+          "caller": "solve",
+          "callee": "str",
+          "lineNumber": 87
+        },
+        {
+          "caller": "_create_task",
+          "callee": "base64.b64encode(challenge.image_data).decode",
+          "lineNumber": 102
+        },
+        {
+          "caller": "_create_task",
+          "callee": "base64.b64encode",
+          "lineNumber": 102
+        },
+        {
+          "caller": "_create_task",
+          "callee": "challenge.extra.get",
+          "lineNumber": 116
+        },
+        {
+          "caller": "_create_task",
+          "callee": "challenge.extra.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_create_task",
+          "callee": "logger.warning",
+          "lineNumber": 135
+        },
+        {
+          "caller": "_create_task",
+          "callee": "requests.post",
+          "lineNumber": 139
+        },
+        {
+          "caller": "_create_task",
+          "callee": "resp.json",
+          "lineNumber": 140
+        },
+        {
+          "caller": "_create_task",
+          "callee": "data.get",
+          "lineNumber": 142
+        },
+        {
+          "caller": "_create_task",
+          "callee": "str",
+          "lineNumber": 143
+        },
+        {
+          "caller": "_create_task",
+          "callee": "data.get",
+          "lineNumber": 143
+        },
+        {
+          "caller": "_create_task",
+          "callee": "logger.debug",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_create_task",
+          "callee": "logger.error",
+          "lineNumber": 147
+        },
+        {
+          "caller": "_create_task",
+          "callee": "data.get",
+          "lineNumber": 147
+        },
+        {
+          "caller": "_create_task",
+          "callee": "logger.error",
+          "lineNumber": 151
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "time.time",
+          "lineNumber": 163
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "time.time",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "time.sleep",
+          "lineNumber": 166
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "requests.get",
+          "lineNumber": 169
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "resp.json",
+          "lineNumber": 170
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "data.get",
+          "lineNumber": 172
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "str",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "data.get",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "data.get",
+          "lineNumber": 174
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "logger.error",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "data.get",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "logger.error",
+          "lineNumber": 181
+        },
+        {
+          "caller": "_poll_result",
+          "callee": "logger.warning",
+          "lineNumber": 184
+        },
+        {
+          "caller": "get_balance",
+          "callee": "requests.get",
+          "lineNumber": 190
+        },
+        {
+          "caller": "get_balance",
+          "callee": "resp.json",
+          "lineNumber": 195
+        },
+        {
+          "caller": "get_balance",
+          "callee": "data.get",
+          "lineNumber": 196
+        },
+        {
+          "caller": "get_balance",
+          "callee": "float",
+          "lineNumber": 197
+        },
+        {
+          "caller": "get_balance",
+          "callee": "data.get",
+          "lineNumber": 197
+        },
+        {
+          "caller": "get_balance",
+          "callee": "logger.error",
+          "lineNumber": 199
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/server.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1225,
+      "nonEmptyLines": 1043,
+      "functions": [
+        {
+          "name": "_register_solvers",
+          "startLine": 45,
+          "endLine": 88,
+          "params": []
+        },
+        {
+          "name": "_has_env_credentials",
+          "startLine": 91,
+          "endLine": 96,
+          "params": []
+        },
+        {
+          "name": "_auto_connect_from_env",
+          "startLine": 99,
+          "endLine": 112,
+          "params": []
+        },
+        {
+          "name": "_require_device",
+          "startLine": 115,
+          "endLine": 137,
+          "params": []
+        },
+        {
+          "name": "_ids",
+          "startLine": 140,
+          "endLine": 151,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "jd_connect",
+          "startLine": 160,
+          "endLine": 177,
+          "params": [
+            "email",
+            "password",
+            "device_name"
+          ]
+        },
+        {
+          "name": "jd_disconnect",
+          "startLine": 180,
+          "endLine": 190,
+          "params": []
+        },
+        {
+          "name": "jd_reconnect",
+          "startLine": 193,
+          "endLine": 207,
+          "params": []
+        },
+        {
+          "name": "jd_list_devices",
+          "startLine": 210,
+          "endLine": 225,
+          "params": []
+        },
+        {
+          "name": "jd_connection_status",
+          "startLine": 228,
+          "endLine": 236,
+          "params": []
+        },
+        {
+          "name": "jd_add_links",
+          "startLine": 245,
+          "endLine": 260,
+          "params": [
+            "links",
+            "package_name",
+            "download_path",
+            "auto_start",
+            "extract_password"
+          ]
+        },
+        {
+          "name": "jd_query_links",
+          "startLine": 263,
+          "endLine": 271,
+          "params": [
+            "status",
+            "availability"
+          ]
+        },
+        {
+          "name": "jd_query_packages_linkgrabber",
+          "startLine": 274,
+          "endLine": 282,
+          "params": []
+        },
+        {
+          "name": "jd_move_to_downloads",
+          "startLine": 285,
+          "endLine": 292,
+          "params": [
+            "link_ids",
+            "package_ids"
+          ]
+        },
+        {
+          "name": "jd_remove_links_collector",
+          "startLine": 295,
+          "endLine": 302,
+          "params": [
+            "link_ids",
+            "package_ids"
+          ]
+        },
+        {
+          "name": "jd_clear_linkgrabber",
+          "startLine": 305,
+          "endLine": 312,
+          "params": []
+        },
+        {
+          "name": "jd_rename_link_collector",
+          "startLine": 315,
+          "endLine": 322,
+          "params": [
+            "link_id",
+            "new_name"
+          ]
+        },
+        {
+          "name": "jd_rename_package_collector",
+          "startLine": 325,
+          "endLine": 332,
+          "params": [
+            "package_id",
+            "new_name"
+          ]
+        },
+        {
+          "name": "jd_set_priority_collector",
+          "startLine": 335,
+          "endLine": 342,
+          "params": [
+            "link_ids",
+            "package_ids",
+            "priority"
+          ]
+        },
+        {
+          "name": "jd_add_container",
+          "startLine": 345,
+          "endLine": 352,
+          "params": [
+            "container_type",
+            "content"
+          ]
+        },
+        {
+          "name": "jd_start_downloads",
+          "startLine": 361,
+          "endLine": 368,
+          "params": []
+        },
+        {
+          "name": "jd_stop_downloads",
+          "startLine": 371,
+          "endLine": 378,
+          "params": []
+        },
+        {
+          "name": "jd_pause_downloads",
+          "startLine": 381,
+          "endLine": 388,
+          "params": [
+            "pause"
+          ]
+        },
+        {
+          "name": "jd_get_speed",
+          "startLine": 391,
+          "endLine": 398,
+          "params": []
+        },
+        {
+          "name": "jd_get_download_state",
+          "startLine": 401,
+          "endLine": 407,
+          "params": []
+        },
+        {
+          "name": "jd_set_speed_limit",
+          "startLine": 410,
+          "endLine": 428,
+          "params": [
+            "limit_bytes"
+          ]
+        },
+        {
+          "name": "jd_force_download",
+          "startLine": 431,
+          "endLine": 438,
+          "params": [
+            "link_ids",
+            "package_ids"
+          ]
+        },
+        {
+          "name": "jd_query_downloads",
+          "startLine": 447,
+          "endLine": 455,
+          "params": [
+            "status",
+            "speed",
+            "eta",
+            "finished"
+          ]
+        },
+        {
+          "name": "jd_query_packages_downloads",
+          "startLine": 458,
+          "endLine": 466,
+          "params": []
+        },
+        {
+          "name": "jd_remove_links_downloads",
+          "startLine": 469,
+          "endLine": 476,
+          "params": [
+            "link_ids",
+            "package_ids"
+          ]
+        },
+        {
+          "name": "jd_reset_links",
+          "startLine": 479,
+          "endLine": 486,
+          "params": [
+            "link_ids",
+            "package_ids"
+          ]
+        },
+        {
+          "name": "jd_enable_links",
+          "startLine": 489,
+          "endLine": 496,
+          "params": [
+            "enable",
+            "link_ids",
+            "package_ids"
+          ]
+        },
+        {
+          "name": "jd_move_links",
+          "startLine": 505,
+          "endLine": 515,
+          "params": [
+            "link_ids",
+            "after_link_id",
+            "dest_package_id"
+          ]
+        },
+        {
+          "name": "jd_move_packages",
+          "startLine": 518,
+          "endLine": 528,
+          "params": [
+            "package_ids",
+            "after_package_id"
+          ]
+        },
+        {
+          "name": "jd_rename_link_downloads",
+          "startLine": 531,
+          "endLine": 541,
+          "params": [
+            "link_id",
+            "new_name"
+          ]
+        },
+        {
+          "name": "jd_rename_package_downloads",
+          "startLine": 544,
+          "endLine": 554,
+          "params": [
+            "package_id",
+            "new_name"
+          ]
+        },
+        {
+          "name": "jd_set_priority_downloads",
+          "startLine": 557,
+          "endLine": 568,
+          "params": [
+            "link_ids",
+            "package_ids",
+            "priority"
+          ]
+        },
+        {
+          "name": "jd_set_download_directory",
+          "startLine": 571,
+          "endLine": 578,
+          "params": [
+            "package_ids",
+            "directory"
+          ]
+        },
+        {
+          "name": "jd_cleanup",
+          "startLine": 581,
+          "endLine": 588,
+          "params": [
+            "action",
+            "mode",
+            "selection"
+          ]
+        },
+        {
+          "name": "jd_list_captchas",
+          "startLine": 599,
+          "endLine": 606,
+          "params": []
+        },
+        {
+          "name": "jd_get_captcha",
+          "startLine": 609,
+          "endLine": 618,
+          "params": [
+            "captcha_id"
+          ]
+        },
+        {
+          "name": "jd_solve_captcha",
+          "startLine": 621,
+          "endLine": 628,
+          "params": [
+            "captcha_id",
+            "solution"
+          ]
+        },
+        {
+          "name": "jd_skip_captcha",
+          "startLine": 631,
+          "endLine": 643,
+          "params": [
+            "captcha_id"
+          ]
+        },
+        {
+          "name": "jd_auto_solve_captcha",
+          "startLine": 646,
+          "endLine": 663,
+          "params": [
+            "captcha_id"
+          ]
+        },
+        {
+          "name": "jd_captcha_daemon_start",
+          "startLine": 666,
+          "endLine": 680,
+          "params": []
+        },
+        {
+          "name": "jd_captcha_daemon_stop",
+          "startLine": 683,
+          "endLine": 687,
+          "params": []
+        },
+        {
+          "name": "jd_captcha_daemon_status",
+          "startLine": 690,
+          "endLine": 694,
+          "params": []
+        },
+        {
+          "name": "jd_captcha_solvers_list",
+          "startLine": 697,
+          "endLine": 699,
+          "params": []
+        },
+        {
+          "name": "jd_list_accounts",
+          "startLine": 708,
+          "endLine": 715,
+          "params": []
+        },
+        {
+          "name": "jd_add_account",
+          "startLine": 718,
+          "endLine": 725,
+          "params": [
+            "hoster",
+            "username",
+            "password"
+          ]
+        },
+        {
+          "name": "jd_remove_account",
+          "startLine": 728,
+          "endLine": 735,
+          "params": [
+            "account_ids"
+          ]
+        },
+        {
+          "name": "jd_enable_account",
+          "startLine": 738,
+          "endLine": 748,
+          "params": [
+            "account_id",
+            "enabled"
+          ]
+        },
+        {
+          "name": "jd_refresh_accounts",
+          "startLine": 751,
+          "endLine": 758,
+          "params": []
+        },
+        {
+          "name": "jd_list_premium_hosters",
+          "startLine": 761,
+          "endLine": 768,
+          "params": []
+        },
+        {
+          "name": "jd_system_info",
+          "startLine": 777,
+          "endLine": 787,
+          "params": []
+        },
+        {
+          "name": "jd_restart",
+          "startLine": 790,
+          "endLine": 797,
+          "params": []
+        },
+        {
+          "name": "jd_exit",
+          "startLine": 800,
+          "endLine": 807,
+          "params": []
+        },
+        {
+          "name": "jd_shutdown_os",
+          "startLine": 810,
+          "endLine": 821,
+          "params": [
+            "force"
+          ]
+        },
+        {
+          "name": "jd_hibernate",
+          "startLine": 824,
+          "endLine": 831,
+          "params": []
+        },
+        {
+          "name": "jd_standby",
+          "startLine": 834,
+          "endLine": 841,
+          "params": []
+        },
+        {
+          "name": "jd_get_storage_info",
+          "startLine": 844,
+          "endLine": 850,
+          "params": []
+        },
+        {
+          "name": "jd_list_config_entries",
+          "startLine": 859,
+          "endLine": 867,
+          "params": [
+            "pattern"
+          ]
+        },
+        {
+          "name": "jd_get_config_value",
+          "startLine": 870,
+          "endLine": 878,
+          "params": [
+            "interface_name",
+            "key"
+          ]
+        },
+        {
+          "name": "jd_set_config_value",
+          "startLine": 881,
+          "endLine": 889,
+          "params": [
+            "interface_name",
+            "key",
+            "value"
+          ]
+        },
+        {
+          "name": "jd_reset_config_value",
+          "startLine": 892,
+          "endLine": 900,
+          "params": [
+            "interface_name",
+            "key"
+          ]
+        },
+        {
+          "name": "jd_get_default_download_folder",
+          "startLine": 903,
+          "endLine": 912,
+          "params": []
+        },
+        {
+          "name": "jd_set_default_download_folder",
+          "startLine": 915,
+          "endLine": 924,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "jd_list_extensions",
+          "startLine": 933,
+          "endLine": 941,
+          "params": []
+        },
+        {
+          "name": "jd_enable_extension",
+          "startLine": 944,
+          "endLine": 951,
+          "params": [
+            "class_name",
+            "enabled"
+          ]
+        },
+        {
+          "name": "jd_list_dialogs",
+          "startLine": 962,
+          "endLine": 969,
+          "params": []
+        },
+        {
+          "name": "jd_get_dialog",
+          "startLine": 972,
+          "endLine": 978,
+          "params": [
+            "dialog_id"
+          ]
+        },
+        {
+          "name": "jd_answer_dialog",
+          "startLine": 981,
+          "endLine": 988,
+          "params": [
+            "dialog_id",
+            "response"
+          ]
+        },
+        {
+          "name": "jd_toolbar_status",
+          "startLine": 997,
+          "endLine": 1003,
+          "params": []
+        },
+        {
+          "name": "jd_speed_limit_toggle",
+          "startLine": 1006,
+          "endLine": 1020,
+          "params": [
+            "enabled"
+          ]
+        },
+        {
+          "name": "jd_check_update",
+          "startLine": 1029,
+          "endLine": 1035,
+          "params": []
+        },
+        {
+          "name": "jd_run_update_check",
+          "startLine": 1038,
+          "endLine": 1049,
+          "params": []
+        },
+        {
+          "name": "jd_restart_and_update",
+          "startLine": 1052,
+          "endLine": 1059,
+          "params": []
+        },
+        {
+          "name": "jd_call_action",
+          "startLine": 1068,
+          "endLine": 1075,
+          "params": [
+            "action",
+            "params"
+          ]
+        },
+        {
+          "name": "jd_get_session_info",
+          "startLine": 1078,
+          "endLine": 1084,
+          "params": []
+        },
+        {
+          "name": "jd_poll_events",
+          "startLine": 1087,
+          "endLine": 1097,
+          "params": [
+            "subscription_id"
+          ]
+        },
+        {
+          "name": "jd_subscribe_events",
+          "startLine": 1100,
+          "endLine": 1107,
+          "params": [
+            "subscriptions",
+            "exclusions"
+          ]
+        },
+        {
+          "name": "jd_add_youtube_smart",
+          "startLine": 1113,
+          "endLine": 1134,
+          "params": [
+            "url",
+            "package_name",
+            "auto_start",
+            "is_spanish"
+          ]
+        },
+        {
+          "name": "jd_filter_youtube_collector",
+          "startLine": 1138,
+          "endLine": 1161,
+          "params": [
+            "is_spanish",
+            "dry_run"
+          ]
+        },
+        {
+          "name": "jd_sync_youtube_channel",
+          "startLine": 1165,
+          "endLine": 1183,
+          "params": [
+            "channel_handle",
+            "max_videos",
+            "auto_start"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 1194,
+          "endLine": 1221,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "JDState",
+          "startLine": 30,
+          "endLine": 39,
+          "methods": [],
+          "properties": [
+            "jd",
+            "device",
+            "connected",
+            "email",
+            "password",
+            "device_name",
+            "captcha_router",
+            "captcha_daemon"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "JDState",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "_register_solvers",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "_has_env_credentials",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "_auto_connect_from_env",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "_require_device",
+          "line": 115,
+          "isDefault": false
+        },
+        {
+          "name": "_ids",
+          "line": 140,
+          "isDefault": false
+        },
+        {
+          "name": "jd_connect",
+          "line": 159,
+          "isDefault": false
+        },
+        {
+          "name": "jd_disconnect",
+          "line": 179,
+          "isDefault": false
+        },
+        {
+          "name": "jd_reconnect",
+          "line": 192,
+          "isDefault": false
+        },
+        {
+          "name": "jd_list_devices",
+          "line": 209,
+          "isDefault": false
+        },
+        {
+          "name": "jd_connection_status",
+          "line": 227,
+          "isDefault": false
+        },
+        {
+          "name": "jd_add_links",
+          "line": 244,
+          "isDefault": false
+        },
+        {
+          "name": "jd_query_links",
+          "line": 262,
+          "isDefault": false
+        },
+        {
+          "name": "jd_query_packages_linkgrabber",
+          "line": 273,
+          "isDefault": false
+        },
+        {
+          "name": "jd_move_to_downloads",
+          "line": 284,
+          "isDefault": false
+        },
+        {
+          "name": "jd_remove_links_collector",
+          "line": 294,
+          "isDefault": false
+        },
+        {
+          "name": "jd_clear_linkgrabber",
+          "line": 304,
+          "isDefault": false
+        },
+        {
+          "name": "jd_rename_link_collector",
+          "line": 314,
+          "isDefault": false
+        },
+        {
+          "name": "jd_rename_package_collector",
+          "line": 324,
+          "isDefault": false
+        },
+        {
+          "name": "jd_set_priority_collector",
+          "line": 334,
+          "isDefault": false
+        },
+        {
+          "name": "jd_add_container",
+          "line": 344,
+          "isDefault": false
+        },
+        {
+          "name": "jd_start_downloads",
+          "line": 360,
+          "isDefault": false
+        },
+        {
+          "name": "jd_stop_downloads",
+          "line": 370,
+          "isDefault": false
+        },
+        {
+          "name": "jd_pause_downloads",
+          "line": 380,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_speed",
+          "line": 390,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_download_state",
+          "line": 400,
+          "isDefault": false
+        },
+        {
+          "name": "jd_set_speed_limit",
+          "line": 409,
+          "isDefault": false
+        },
+        {
+          "name": "jd_force_download",
+          "line": 430,
+          "isDefault": false
+        },
+        {
+          "name": "jd_query_downloads",
+          "line": 446,
+          "isDefault": false
+        },
+        {
+          "name": "jd_query_packages_downloads",
+          "line": 457,
+          "isDefault": false
+        },
+        {
+          "name": "jd_remove_links_downloads",
+          "line": 468,
+          "isDefault": false
+        },
+        {
+          "name": "jd_reset_links",
+          "line": 478,
+          "isDefault": false
+        },
+        {
+          "name": "jd_enable_links",
+          "line": 488,
+          "isDefault": false
+        },
+        {
+          "name": "jd_move_links",
+          "line": 504,
+          "isDefault": false
+        },
+        {
+          "name": "jd_move_packages",
+          "line": 517,
+          "isDefault": false
+        },
+        {
+          "name": "jd_rename_link_downloads",
+          "line": 530,
+          "isDefault": false
+        },
+        {
+          "name": "jd_rename_package_downloads",
+          "line": 543,
+          "isDefault": false
+        },
+        {
+          "name": "jd_set_priority_downloads",
+          "line": 556,
+          "isDefault": false
+        },
+        {
+          "name": "jd_set_download_directory",
+          "line": 570,
+          "isDefault": false
+        },
+        {
+          "name": "jd_cleanup",
+          "line": 580,
+          "isDefault": false
+        },
+        {
+          "name": "jd_list_captchas",
+          "line": 598,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_captcha",
+          "line": 608,
+          "isDefault": false
+        },
+        {
+          "name": "jd_solve_captcha",
+          "line": 620,
+          "isDefault": false
+        },
+        {
+          "name": "jd_skip_captcha",
+          "line": 630,
+          "isDefault": false
+        },
+        {
+          "name": "jd_auto_solve_captcha",
+          "line": 645,
+          "isDefault": false
+        },
+        {
+          "name": "jd_captcha_daemon_start",
+          "line": 665,
+          "isDefault": false
+        },
+        {
+          "name": "jd_captcha_daemon_stop",
+          "line": 682,
+          "isDefault": false
+        },
+        {
+          "name": "jd_captcha_daemon_status",
+          "line": 689,
+          "isDefault": false
+        },
+        {
+          "name": "jd_captcha_solvers_list",
+          "line": 696,
+          "isDefault": false
+        },
+        {
+          "name": "jd_list_accounts",
+          "line": 707,
+          "isDefault": false
+        },
+        {
+          "name": "jd_add_account",
+          "line": 717,
+          "isDefault": false
+        },
+        {
+          "name": "jd_remove_account",
+          "line": 727,
+          "isDefault": false
+        },
+        {
+          "name": "jd_enable_account",
+          "line": 737,
+          "isDefault": false
+        },
+        {
+          "name": "jd_refresh_accounts",
+          "line": 750,
+          "isDefault": false
+        },
+        {
+          "name": "jd_list_premium_hosters",
+          "line": 760,
+          "isDefault": false
+        },
+        {
+          "name": "jd_system_info",
+          "line": 776,
+          "isDefault": false
+        },
+        {
+          "name": "jd_restart",
+          "line": 789,
+          "isDefault": false
+        },
+        {
+          "name": "jd_exit",
+          "line": 799,
+          "isDefault": false
+        },
+        {
+          "name": "jd_shutdown_os",
+          "line": 809,
+          "isDefault": false
+        },
+        {
+          "name": "jd_hibernate",
+          "line": 823,
+          "isDefault": false
+        },
+        {
+          "name": "jd_standby",
+          "line": 833,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_storage_info",
+          "line": 843,
+          "isDefault": false
+        },
+        {
+          "name": "jd_list_config_entries",
+          "line": 858,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_config_value",
+          "line": 869,
+          "isDefault": false
+        },
+        {
+          "name": "jd_set_config_value",
+          "line": 880,
+          "isDefault": false
+        },
+        {
+          "name": "jd_reset_config_value",
+          "line": 891,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_default_download_folder",
+          "line": 902,
+          "isDefault": false
+        },
+        {
+          "name": "jd_set_default_download_folder",
+          "line": 914,
+          "isDefault": false
+        },
+        {
+          "name": "jd_list_extensions",
+          "line": 932,
+          "isDefault": false
+        },
+        {
+          "name": "jd_enable_extension",
+          "line": 943,
+          "isDefault": false
+        },
+        {
+          "name": "jd_list_dialogs",
+          "line": 961,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_dialog",
+          "line": 971,
+          "isDefault": false
+        },
+        {
+          "name": "jd_answer_dialog",
+          "line": 980,
+          "isDefault": false
+        },
+        {
+          "name": "jd_toolbar_status",
+          "line": 996,
+          "isDefault": false
+        },
+        {
+          "name": "jd_speed_limit_toggle",
+          "line": 1005,
+          "isDefault": false
+        },
+        {
+          "name": "jd_check_update",
+          "line": 1028,
+          "isDefault": false
+        },
+        {
+          "name": "jd_run_update_check",
+          "line": 1037,
+          "isDefault": false
+        },
+        {
+          "name": "jd_restart_and_update",
+          "line": 1051,
+          "isDefault": false
+        },
+        {
+          "name": "jd_call_action",
+          "line": 1067,
+          "isDefault": false
+        },
+        {
+          "name": "jd_get_session_info",
+          "line": 1077,
+          "isDefault": false
+        },
+        {
+          "name": "jd_poll_events",
+          "line": 1086,
+          "isDefault": false
+        },
+        {
+          "name": "jd_subscribe_events",
+          "line": 1099,
+          "isDefault": false
+        },
+        {
+          "name": "jd_add_youtube_smart",
+          "line": 1112,
+          "isDefault": false
+        },
+        {
+          "name": "jd_filter_youtube_collector",
+          "line": 1137,
+          "isDefault": false
+        },
+        {
+          "name": "jd_sync_youtube_channel",
+          "line": 1164,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 1194,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_register_solvers",
+          "callee": "os.environ.get(\"NOPECHA_API_KEY\", \"\").strip",
+          "lineNumber": 63
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "os.environ.get",
+          "lineNumber": 63
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "os.environ.get(\"TWOCAPTCHA_API_KEY\", \"\").strip",
+          "lineNumber": 64
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "os.environ.get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "NopeCHASolver",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "state.captcha_router.register_solver",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "TwoCaptchaSolver",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "state.captcha_router.register_solver",
+          "lineNumber": 82
+        },
+        {
+          "caller": "_register_solvers",
+          "callee": "logger.info",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_has_env_credentials",
+          "callee": "os.environ.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "_has_env_credentials",
+          "callee": "os.environ.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "_has_env_credentials",
+          "callee": "os.environ.get",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_has_env_credentials",
+          "callee": "bool",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_auto_connect_from_env",
+          "callee": "os.environ.get",
+          "lineNumber": 106
+        },
+        {
+          "caller": "_auto_connect_from_env",
+          "callee": "os.environ.get",
+          "lineNumber": 107
+        },
+        {
+          "caller": "_auto_connect_from_env",
+          "callee": "os.environ.get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_auto_connect_from_env",
+          "callee": "jd_connect",
+          "lineNumber": 111
+        },
+        {
+          "caller": "_require_device",
+          "callee": "_auto_connect_from_env",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_require_device",
+          "callee": "_has_env_credentials",
+          "lineNumber": 128
+        },
+        {
+          "caller": "_require_device",
+          "callee": "RuntimeError",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_require_device",
+          "callee": "RuntimeError",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_ids",
+          "callee": "isinstance",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_ids",
+          "callee": "list",
+          "lineNumber": 150
+        },
+        {
+          "caller": "jd_connect",
+          "callee": "myjdapi.Myjdapi",
+          "lineNumber": 162
+        },
+        {
+          "caller": "jd_connect",
+          "callee": "jd.set_app_key",
+          "lineNumber": 163
+        },
+        {
+          "caller": "jd_connect",
+          "callee": "jd.connect",
+          "lineNumber": 165
+        },
+        {
+          "caller": "jd_connect",
+          "callee": "jd.update_devices",
+          "lineNumber": 166
+        },
+        {
+          "caller": "jd_connect",
+          "callee": "jd.get_device",
+          "lineNumber": 167
+        },
+        {
+          "caller": "jd_disconnect",
+          "callee": "state.jd.disconnect",
+          "lineNumber": 184
+        },
+        {
+          "caller": "jd_reconnect",
+          "callee": "state.jd.reconnect",
+          "lineNumber": 199
+        },
+        {
+          "caller": "jd_reconnect",
+          "callee": "state.jd.update_devices",
+          "lineNumber": 200
+        },
+        {
+          "caller": "jd_reconnect",
+          "callee": "state.jd.get_device",
+          "lineNumber": 201
+        },
+        {
+          "caller": "jd_list_devices",
+          "callee": "_auto_connect_from_env",
+          "lineNumber": 217
+        },
+        {
+          "caller": "jd_list_devices",
+          "callee": "state.jd.update_devices",
+          "lineNumber": 222
+        },
+        {
+          "caller": "jd_list_devices",
+          "callee": "json.dumps",
+          "lineNumber": 223
+        },
+        {
+          "caller": "jd_list_devices",
+          "callee": "state.jd.list_devices",
+          "lineNumber": 223
+        },
+        {
+          "caller": "jd_connection_status",
+          "callee": "_auto_connect_from_env",
+          "lineNumber": 235
+        },
+        {
+          "caller": "jd_connection_status",
+          "callee": "json.dumps",
+          "lineNumber": 236
+        },
+        {
+          "caller": "jd_add_links",
+          "callee": "_require_device",
+          "lineNumber": 248
+        },
+        {
+          "caller": "jd_add_links",
+          "callee": "device.linkgrabber.add_links",
+          "lineNumber": 257
+        },
+        {
+          "caller": "jd_add_links",
+          "callee": "json.dumps",
+          "lineNumber": 258
+        },
+        {
+          "caller": "jd_query_links",
+          "callee": "_require_device",
+          "lineNumber": 265
+        },
+        {
+          "caller": "jd_query_links",
+          "callee": "device.linkgrabber.query_links",
+          "lineNumber": 268
+        },
+        {
+          "caller": "jd_query_links",
+          "callee": "json.dumps",
+          "lineNumber": 269
+        },
+        {
+          "caller": "jd_query_packages_linkgrabber",
+          "callee": "_require_device",
+          "lineNumber": 276
+        },
+        {
+          "caller": "jd_query_packages_linkgrabber",
+          "callee": "device.linkgrabber.query_packages",
+          "lineNumber": 279
+        },
+        {
+          "caller": "jd_query_packages_linkgrabber",
+          "callee": "json.dumps",
+          "lineNumber": 280
+        },
+        {
+          "caller": "jd_move_to_downloads",
+          "callee": "_require_device",
+          "lineNumber": 287
+        },
+        {
+          "caller": "jd_move_to_downloads",
+          "callee": "device.linkgrabber.move_to_downloadlist",
+          "lineNumber": 289
+        },
+        {
+          "caller": "jd_move_to_downloads",
+          "callee": "_ids",
+          "lineNumber": 289
+        },
+        {
+          "caller": "jd_move_to_downloads",
+          "callee": "_ids",
+          "lineNumber": 289
+        },
+        {
+          "caller": "jd_remove_links_collector",
+          "callee": "_require_device",
+          "lineNumber": 297
+        },
+        {
+          "caller": "jd_remove_links_collector",
+          "callee": "device.linkgrabber.remove_links",
+          "lineNumber": 299
+        },
+        {
+          "caller": "jd_remove_links_collector",
+          "callee": "_ids",
+          "lineNumber": 299
+        },
+        {
+          "caller": "jd_remove_links_collector",
+          "callee": "_ids",
+          "lineNumber": 299
+        },
+        {
+          "caller": "jd_clear_linkgrabber",
+          "callee": "_require_device",
+          "lineNumber": 307
+        },
+        {
+          "caller": "jd_clear_linkgrabber",
+          "callee": "device.linkgrabber.clear_list",
+          "lineNumber": 309
+        },
+        {
+          "caller": "jd_rename_link_collector",
+          "callee": "_require_device",
+          "lineNumber": 317
+        },
+        {
+          "caller": "jd_rename_link_collector",
+          "callee": "device.linkgrabber.rename_link",
+          "lineNumber": 319
+        },
+        {
+          "caller": "jd_rename_package_collector",
+          "callee": "_require_device",
+          "lineNumber": 327
+        },
+        {
+          "caller": "jd_rename_package_collector",
+          "callee": "device.linkgrabber.rename_package",
+          "lineNumber": 329
+        },
+        {
+          "caller": "jd_set_priority_collector",
+          "callee": "_require_device",
+          "lineNumber": 337
+        },
+        {
+          "caller": "jd_set_priority_collector",
+          "callee": "device.linkgrabber.set_priority",
+          "lineNumber": 339
+        },
+        {
+          "caller": "jd_set_priority_collector",
+          "callee": "_ids",
+          "lineNumber": 339
+        },
+        {
+          "caller": "jd_set_priority_collector",
+          "callee": "_ids",
+          "lineNumber": 339
+        },
+        {
+          "caller": "jd_add_container",
+          "callee": "_require_device",
+          "lineNumber": 347
+        },
+        {
+          "caller": "jd_add_container",
+          "callee": "device.linkgrabber.add_container",
+          "lineNumber": 349
+        },
+        {
+          "caller": "jd_add_container",
+          "callee": "json.dumps",
+          "lineNumber": 350
+        },
+        {
+          "caller": "jd_start_downloads",
+          "callee": "_require_device",
+          "lineNumber": 363
+        },
+        {
+          "caller": "jd_start_downloads",
+          "callee": "device.downloadcontroller.start_downloads",
+          "lineNumber": 365
+        },
+        {
+          "caller": "jd_stop_downloads",
+          "callee": "_require_device",
+          "lineNumber": 373
+        },
+        {
+          "caller": "jd_stop_downloads",
+          "callee": "device.downloadcontroller.stop_downloads",
+          "lineNumber": 375
+        },
+        {
+          "caller": "jd_pause_downloads",
+          "callee": "_require_device",
+          "lineNumber": 383
+        },
+        {
+          "caller": "jd_pause_downloads",
+          "callee": "device.downloadcontroller.pause_downloads",
+          "lineNumber": 385
+        },
+        {
+          "caller": "jd_get_speed",
+          "callee": "_require_device",
+          "lineNumber": 393
+        },
+        {
+          "caller": "jd_get_speed",
+          "callee": "device.downloadcontroller.get_speed_in_bytes",
+          "lineNumber": 395
+        },
+        {
+          "caller": "jd_get_download_state",
+          "callee": "_require_device",
+          "lineNumber": 403
+        },
+        {
+          "caller": "jd_get_download_state",
+          "callee": "device.downloadcontroller.get_current_state",
+          "lineNumber": 405
+        },
+        {
+          "caller": "jd_set_speed_limit",
+          "callee": "_require_device",
+          "lineNumber": 417
+        },
+        {
+          "caller": "jd_set_speed_limit",
+          "callee": "device.config.set",
+          "lineNumber": 421
+        },
+        {
+          "caller": "jd_set_speed_limit",
+          "callee": "device.config.set",
+          "lineNumber": 422
+        },
+        {
+          "caller": "jd_set_speed_limit",
+          "callee": "device.config.set",
+          "lineNumber": 425
+        },
+        {
+          "caller": "jd_force_download",
+          "callee": "_require_device",
+          "lineNumber": 433
+        },
+        {
+          "caller": "jd_force_download",
+          "callee": "device.downloadcontroller.force_download",
+          "lineNumber": 435
+        },
+        {
+          "caller": "jd_force_download",
+          "callee": "_ids",
+          "lineNumber": 435
+        },
+        {
+          "caller": "jd_force_download",
+          "callee": "_ids",
+          "lineNumber": 435
+        },
+        {
+          "caller": "jd_query_downloads",
+          "callee": "_require_device",
+          "lineNumber": 449
+        },
+        {
+          "caller": "jd_query_downloads",
+          "callee": "device.downloads.query_links",
+          "lineNumber": 452
+        },
+        {
+          "caller": "jd_query_downloads",
+          "callee": "json.dumps",
+          "lineNumber": 453
+        },
+        {
+          "caller": "jd_query_packages_downloads",
+          "callee": "_require_device",
+          "lineNumber": 460
+        },
+        {
+          "caller": "jd_query_packages_downloads",
+          "callee": "device.downloads.query_packages",
+          "lineNumber": 463
+        },
+        {
+          "caller": "jd_query_packages_downloads",
+          "callee": "json.dumps",
+          "lineNumber": 464
+        },
+        {
+          "caller": "jd_remove_links_downloads",
+          "callee": "_require_device",
+          "lineNumber": 471
+        },
+        {
+          "caller": "jd_remove_links_downloads",
+          "callee": "device.downloads.remove_links",
+          "lineNumber": 473
+        },
+        {
+          "caller": "jd_remove_links_downloads",
+          "callee": "_ids",
+          "lineNumber": 473
+        },
+        {
+          "caller": "jd_remove_links_downloads",
+          "callee": "_ids",
+          "lineNumber": 473
+        },
+        {
+          "caller": "jd_reset_links",
+          "callee": "_require_device",
+          "lineNumber": 481
+        },
+        {
+          "caller": "jd_reset_links",
+          "callee": "device.downloads.reset_links",
+          "lineNumber": 483
+        },
+        {
+          "caller": "jd_reset_links",
+          "callee": "_ids",
+          "lineNumber": 483
+        },
+        {
+          "caller": "jd_reset_links",
+          "callee": "_ids",
+          "lineNumber": 483
+        },
+        {
+          "caller": "jd_enable_links",
+          "callee": "_require_device",
+          "lineNumber": 491
+        },
+        {
+          "caller": "jd_enable_links",
+          "callee": "device.downloads.set_enabled",
+          "lineNumber": 493
+        },
+        {
+          "caller": "jd_enable_links",
+          "callee": "_ids",
+          "lineNumber": 493
+        },
+        {
+          "caller": "jd_enable_links",
+          "callee": "_ids",
+          "lineNumber": 493
+        },
+        {
+          "caller": "jd_move_links",
+          "callee": "_require_device",
+          "lineNumber": 510
+        },
+        {
+          "caller": "jd_move_links",
+          "callee": "device.action",
+          "lineNumber": 512
+        },
+        {
+          "caller": "jd_move_links",
+          "callee": "_ids",
+          "lineNumber": 512
+        },
+        {
+          "caller": "jd_move_packages",
+          "callee": "_require_device",
+          "lineNumber": 523
+        },
+        {
+          "caller": "jd_move_packages",
+          "callee": "device.action",
+          "lineNumber": 525
+        },
+        {
+          "caller": "jd_move_packages",
+          "callee": "_ids",
+          "lineNumber": 525
+        },
+        {
+          "caller": "jd_rename_link_downloads",
+          "callee": "_require_device",
+          "lineNumber": 536
+        },
+        {
+          "caller": "jd_rename_link_downloads",
+          "callee": "device.action",
+          "lineNumber": 538
+        },
+        {
+          "caller": "jd_rename_package_downloads",
+          "callee": "_require_device",
+          "lineNumber": 549
+        },
+        {
+          "caller": "jd_rename_package_downloads",
+          "callee": "device.action",
+          "lineNumber": 551
+        },
+        {
+          "caller": "jd_set_priority_downloads",
+          "callee": "_require_device",
+          "lineNumber": 563
+        },
+        {
+          "caller": "jd_set_priority_downloads",
+          "callee": "device.action",
+          "lineNumber": 565
+        },
+        {
+          "caller": "jd_set_priority_downloads",
+          "callee": "_ids",
+          "lineNumber": 565
+        },
+        {
+          "caller": "jd_set_priority_downloads",
+          "callee": "_ids",
+          "lineNumber": 565
+        },
+        {
+          "caller": "jd_set_download_directory",
+          "callee": "_require_device",
+          "lineNumber": 573
+        },
+        {
+          "caller": "jd_set_download_directory",
+          "callee": "device.downloads.set_dl_location",
+          "lineNumber": 575
+        },
+        {
+          "caller": "jd_set_download_directory",
+          "callee": "_ids",
+          "lineNumber": 575
+        },
+        {
+          "caller": "jd_cleanup",
+          "callee": "_require_device",
+          "lineNumber": 583
+        },
+        {
+          "caller": "jd_cleanup",
+          "callee": "device.downloads.cleanup",
+          "lineNumber": 585
+        },
+        {
+          "caller": "jd_list_captchas",
+          "callee": "_require_device",
+          "lineNumber": 601
+        },
+        {
+          "caller": "jd_list_captchas",
+          "callee": "device.captcha.list",
+          "lineNumber": 603
+        },
+        {
+          "caller": "jd_list_captchas",
+          "callee": "json.dumps",
+          "lineNumber": 604
+        },
+        {
+          "caller": "jd_get_captcha",
+          "callee": "_require_device",
+          "lineNumber": 611
+        },
+        {
+          "caller": "jd_get_captcha",
+          "callee": "device.captcha.get",
+          "lineNumber": 613
+        },
+        {
+          "caller": "jd_get_captcha",
+          "callee": "json.dumps",
+          "lineNumber": 615
+        },
+        {
+          "caller": "jd_solve_captcha",
+          "callee": "_require_device",
+          "lineNumber": 623
+        },
+        {
+          "caller": "jd_solve_captcha",
+          "callee": "device.captcha.solve",
+          "lineNumber": 625
+        },
+        {
+          "caller": "jd_skip_captcha",
+          "callee": "_require_device",
+          "lineNumber": 638
+        },
+        {
+          "caller": "jd_skip_captcha",
+          "callee": "device.action",
+          "lineNumber": 640
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "_require_device",
+          "lineNumber": 648
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "device.captcha.get",
+          "lineNumber": 651
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "base64.b64decode",
+          "lineNumber": 654
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "CaptchaChallenge",
+          "lineNumber": 655
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "state.captcha_router.solve",
+          "lineNumber": 656
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "device.captcha.solve",
+          "lineNumber": 658
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "json.dumps",
+          "lineNumber": 659
+        },
+        {
+          "caller": "jd_auto_solve_captcha",
+          "callee": "json.dumps",
+          "lineNumber": 661
+        },
+        {
+          "caller": "jd_captcha_daemon_start",
+          "callee": "_require_device",
+          "lineNumber": 668
+        },
+        {
+          "caller": "jd_captcha_daemon_start",
+          "callee": "AutoSolverDaemon",
+          "lineNumber": 677
+        },
+        {
+          "caller": "jd_captcha_daemon_start",
+          "callee": "state.captcha_daemon.start",
+          "lineNumber": 680
+        },
+        {
+          "caller": "jd_captcha_daemon_stop",
+          "callee": "state.captcha_daemon.stop",
+          "lineNumber": 686
+        },
+        {
+          "caller": "jd_captcha_daemon_status",
+          "callee": "json.dumps",
+          "lineNumber": 693
+        },
+        {
+          "caller": "jd_captcha_daemon_status",
+          "callee": "state.captcha_daemon.status",
+          "lineNumber": 693
+        },
+        {
+          "caller": "jd_captcha_daemon_status",
+          "callee": "json.dumps",
+          "lineNumber": 694
+        },
+        {
+          "caller": "jd_captcha_solvers_list",
+          "callee": "json.dumps",
+          "lineNumber": 699
+        },
+        {
+          "caller": "jd_list_accounts",
+          "callee": "_require_device",
+          "lineNumber": 710
+        },
+        {
+          "caller": "jd_list_accounts",
+          "callee": "device.accounts.list_accounts",
+          "lineNumber": 712
+        },
+        {
+          "caller": "jd_list_accounts",
+          "callee": "json.dumps",
+          "lineNumber": 713
+        },
+        {
+          "caller": "jd_add_account",
+          "callee": "_require_device",
+          "lineNumber": 720
+        },
+        {
+          "caller": "jd_add_account",
+          "callee": "device.accounts.add_account",
+          "lineNumber": 722
+        },
+        {
+          "caller": "jd_remove_account",
+          "callee": "_require_device",
+          "lineNumber": 730
+        },
+        {
+          "caller": "jd_remove_account",
+          "callee": "device.accounts.remove_accounts",
+          "lineNumber": 732
+        },
+        {
+          "caller": "jd_enable_account",
+          "callee": "_require_device",
+          "lineNumber": 740
+        },
+        {
+          "caller": "jd_enable_account",
+          "callee": "device.accounts.enable_accounts",
+          "lineNumber": 743
+        },
+        {
+          "caller": "jd_enable_account",
+          "callee": "device.accounts.disable_accounts",
+          "lineNumber": 745
+        },
+        {
+          "caller": "jd_refresh_accounts",
+          "callee": "_require_device",
+          "lineNumber": 753
+        },
+        {
+          "caller": "jd_refresh_accounts",
+          "callee": "device.accounts.refresh_accounts",
+          "lineNumber": 755
+        },
+        {
+          "caller": "jd_list_premium_hosters",
+          "callee": "_require_device",
+          "lineNumber": 763
+        },
+        {
+          "caller": "jd_list_premium_hosters",
+          "callee": "device.accounts.list_premium_hoster_urls",
+          "lineNumber": 765
+        },
+        {
+          "caller": "jd_list_premium_hosters",
+          "callee": "json.dumps",
+          "lineNumber": 766
+        },
+        {
+          "caller": "jd_system_info",
+          "callee": "_require_device",
+          "lineNumber": 783
+        },
+        {
+          "caller": "jd_system_info",
+          "callee": "json.dumps",
+          "lineNumber": 785
+        },
+        {
+          "caller": "jd_system_info",
+          "callee": "device.system.get_storage_info",
+          "lineNumber": 785
+        },
+        {
+          "caller": "jd_restart",
+          "callee": "_require_device",
+          "lineNumber": 792
+        },
+        {
+          "caller": "jd_restart",
+          "callee": "device.system.restart_jd",
+          "lineNumber": 794
+        },
+        {
+          "caller": "jd_exit",
+          "callee": "_require_device",
+          "lineNumber": 802
+        },
+        {
+          "caller": "jd_exit",
+          "callee": "device.system.exit_jd",
+          "lineNumber": 804
+        },
+        {
+          "caller": "jd_shutdown_os",
+          "callee": "_require_device",
+          "lineNumber": 816
+        },
+        {
+          "caller": "jd_shutdown_os",
+          "callee": "device.system.shutdown_os",
+          "lineNumber": 818
+        },
+        {
+          "caller": "jd_hibernate",
+          "callee": "_require_device",
+          "lineNumber": 826
+        },
+        {
+          "caller": "jd_hibernate",
+          "callee": "device.system.hibernate_os",
+          "lineNumber": 828
+        },
+        {
+          "caller": "jd_standby",
+          "callee": "_require_device",
+          "lineNumber": 836
+        },
+        {
+          "caller": "jd_standby",
+          "callee": "device.system.standby_os",
+          "lineNumber": 838
+        },
+        {
+          "caller": "jd_get_storage_info",
+          "callee": "_require_device",
+          "lineNumber": 846
+        },
+        {
+          "caller": "jd_get_storage_info",
+          "callee": "json.dumps",
+          "lineNumber": 848
+        },
+        {
+          "caller": "jd_get_storage_info",
+          "callee": "device.system.get_storage_info",
+          "lineNumber": 848
+        },
+        {
+          "caller": "jd_list_config_entries",
+          "callee": "_require_device",
+          "lineNumber": 861
+        },
+        {
+          "caller": "jd_list_config_entries",
+          "callee": "device.config.list",
+          "lineNumber": 864
+        },
+        {
+          "caller": "jd_list_config_entries",
+          "callee": "json.dumps",
+          "lineNumber": 865
+        },
+        {
+          "caller": "jd_get_config_value",
+          "callee": "_require_device",
+          "lineNumber": 872
+        },
+        {
+          "caller": "jd_get_config_value",
+          "callee": "device.config.get",
+          "lineNumber": 875
+        },
+        {
+          "caller": "jd_get_config_value",
+          "callee": "json.dumps",
+          "lineNumber": 876
+        },
+        {
+          "caller": "jd_set_config_value",
+          "callee": "_require_device",
+          "lineNumber": 883
+        },
+        {
+          "caller": "jd_set_config_value",
+          "callee": "device.config.set",
+          "lineNumber": 886
+        },
+        {
+          "caller": "jd_reset_config_value",
+          "callee": "_require_device",
+          "lineNumber": 894
+        },
+        {
+          "caller": "jd_reset_config_value",
+          "callee": "device.config.reset",
+          "lineNumber": 897
+        },
+        {
+          "caller": "jd_get_default_download_folder",
+          "callee": "_require_device",
+          "lineNumber": 905
+        },
+        {
+          "caller": "jd_get_default_download_folder",
+          "callee": "device.config.get",
+          "lineNumber": 907
+        },
+        {
+          "caller": "jd_set_default_download_folder",
+          "callee": "_require_device",
+          "lineNumber": 917
+        },
+        {
+          "caller": "jd_set_default_download_folder",
+          "callee": "device.config.set",
+          "lineNumber": 919
+        },
+        {
+          "caller": "jd_list_extensions",
+          "callee": "_require_device",
+          "lineNumber": 935
+        },
+        {
+          "caller": "jd_list_extensions",
+          "callee": "device.extensions.list",
+          "lineNumber": 938
+        },
+        {
+          "caller": "jd_list_extensions",
+          "callee": "json.dumps",
+          "lineNumber": 939
+        },
+        {
+          "caller": "jd_enable_extension",
+          "callee": "_require_device",
+          "lineNumber": 946
+        },
+        {
+          "caller": "jd_enable_extension",
+          "callee": "device.extensions.setEnabled",
+          "lineNumber": 948
+        },
+        {
+          "caller": "jd_list_dialogs",
+          "callee": "_require_device",
+          "lineNumber": 964
+        },
+        {
+          "caller": "jd_list_dialogs",
+          "callee": "device.dialogs.list",
+          "lineNumber": 966
+        },
+        {
+          "caller": "jd_list_dialogs",
+          "callee": "json.dumps",
+          "lineNumber": 967
+        },
+        {
+          "caller": "jd_get_dialog",
+          "callee": "_require_device",
+          "lineNumber": 974
+        },
+        {
+          "caller": "jd_get_dialog",
+          "callee": "json.dumps",
+          "lineNumber": 976
+        },
+        {
+          "caller": "jd_get_dialog",
+          "callee": "device.dialogs.get",
+          "lineNumber": 976
+        },
+        {
+          "caller": "jd_answer_dialog",
+          "callee": "_require_device",
+          "lineNumber": 983
+        },
+        {
+          "caller": "jd_answer_dialog",
+          "callee": "device.dialogs.answer",
+          "lineNumber": 985
+        },
+        {
+          "caller": "jd_toolbar_status",
+          "callee": "_require_device",
+          "lineNumber": 999
+        },
+        {
+          "caller": "jd_toolbar_status",
+          "callee": "json.dumps",
+          "lineNumber": 1001
+        },
+        {
+          "caller": "jd_toolbar_status",
+          "callee": "device.toolbar.get_status",
+          "lineNumber": 1001
+        },
+        {
+          "caller": "jd_speed_limit_toggle",
+          "callee": "_require_device",
+          "lineNumber": 1012
+        },
+        {
+          "caller": "jd_speed_limit_toggle",
+          "callee": "device.toolbar.enable_downloadSpeedLimit",
+          "lineNumber": 1015
+        },
+        {
+          "caller": "jd_speed_limit_toggle",
+          "callee": "device.toolbar.disable_downloadSpeedLimit",
+          "lineNumber": 1017
+        },
+        {
+          "caller": "jd_check_update",
+          "callee": "_require_device",
+          "lineNumber": 1031
+        },
+        {
+          "caller": "jd_check_update",
+          "callee": "device.update.is_update_available",
+          "lineNumber": 1033
+        },
+        {
+          "caller": "jd_run_update_check",
+          "callee": "_require_device",
+          "lineNumber": 1044
+        },
+        {
+          "caller": "jd_run_update_check",
+          "callee": "device.update.run_update_check",
+          "lineNumber": 1046
+        },
+        {
+          "caller": "jd_restart_and_update",
+          "callee": "_require_device",
+          "lineNumber": 1054
+        },
+        {
+          "caller": "jd_restart_and_update",
+          "callee": "device.update.restart_and_update",
+          "lineNumber": 1056
+        },
+        {
+          "caller": "jd_call_action",
+          "callee": "_require_device",
+          "lineNumber": 1070
+        },
+        {
+          "caller": "jd_call_action",
+          "callee": "device.action",
+          "lineNumber": 1072
+        },
+        {
+          "caller": "jd_call_action",
+          "callee": "json.dumps",
+          "lineNumber": 1073
+        },
+        {
+          "caller": "jd_get_session_info",
+          "callee": "json.dumps",
+          "lineNumber": 1080
+        },
+        {
+          "caller": "jd_get_session_info",
+          "callee": "len",
+          "lineNumber": 1083
+        },
+        {
+          "caller": "jd_poll_events",
+          "callee": "_require_device",
+          "lineNumber": 1089
+        },
+        {
+          "caller": "jd_poll_events",
+          "callee": "device.events.poll",
+          "lineNumber": 1092
+        },
+        {
+          "caller": "jd_poll_events",
+          "callee": "device.events.list_publisher",
+          "lineNumber": 1094
+        },
+        {
+          "caller": "jd_poll_events",
+          "callee": "json.dumps",
+          "lineNumber": 1095
+        },
+        {
+          "caller": "jd_subscribe_events",
+          "callee": "_require_device",
+          "lineNumber": 1102
+        },
+        {
+          "caller": "jd_subscribe_events",
+          "callee": "device.events.add_subscription",
+          "lineNumber": 1104
+        },
+        {
+          "caller": "jd_subscribe_events",
+          "callee": "json.dumps",
+          "lineNumber": 1105
+        },
+        {
+          "caller": "jd_add_youtube_smart",
+          "callee": "_require_device",
+          "lineNumber": 1122
+        },
+        {
+          "caller": "jd_add_youtube_smart",
+          "callee": "add_youtube_video_smart",
+          "lineNumber": 1125
+        },
+        {
+          "caller": "jd_add_youtube_smart",
+          "callee": "json.dumps",
+          "lineNumber": 1132
+        },
+        {
+          "caller": "jd_filter_youtube_collector",
+          "callee": "_require_device",
+          "lineNumber": 1145
+        },
+        {
+          "caller": "jd_filter_youtube_collector",
+          "callee": "device.linkgrabber.query_links",
+          "lineNumber": 1157
+        },
+        {
+          "caller": "jd_filter_youtube_collector",
+          "callee": "filter_collector_links",
+          "lineNumber": 1158
+        },
+        {
+          "caller": "jd_filter_youtube_collector",
+          "callee": "json.dumps",
+          "lineNumber": 1159
+        },
+        {
+          "caller": "jd_sync_youtube_channel",
+          "callee": "_require_device",
+          "lineNumber": 1172
+        },
+        {
+          "caller": "jd_sync_youtube_channel",
+          "callee": "sync_youtube_channel_to_jd",
+          "lineNumber": 1175
+        },
+        {
+          "caller": "jd_sync_youtube_channel",
+          "callee": "json.dumps",
+          "lineNumber": 1181
+        },
+        {
+          "caller": "main",
+          "callee": "os.environ.get(\"JD_LOG_LEVEL\", \"INFO\").upper",
+          "lineNumber": 1196
+        },
+        {
+          "caller": "main",
+          "callee": "os.environ.get",
+          "lineNumber": 1196
+        },
+        {
+          "caller": "main",
+          "callee": "logging.basicConfig",
+          "lineNumber": 1197
+        },
+        {
+          "caller": "main",
+          "callee": "getattr",
+          "lineNumber": 1198
+        },
+        {
+          "caller": "main",
+          "callee": "_register_solvers",
+          "lineNumber": 1204
+        },
+        {
+          "caller": "main",
+          "callee": "os.environ.get",
+          "lineNumber": 1210
+        },
+        {
+          "caller": "main",
+          "callee": "os.environ.get",
+          "lineNumber": 1210
+        },
+        {
+          "caller": "main",
+          "callee": "os.environ.get",
+          "lineNumber": 1211
+        },
+        {
+          "caller": "main",
+          "callee": "logger.info",
+          "lineNumber": 1212
+        },
+        {
+          "caller": "main",
+          "callee": "_auto_connect_from_env",
+          "lineNumber": 1213
+        },
+        {
+          "caller": "main",
+          "callee": "logger.info",
+          "lineNumber": 1214
+        },
+        {
+          "caller": "main",
+          "callee": "logger.warning",
+          "lineNumber": 1216
+        },
+        {
+          "caller": "main",
+          "callee": "mcp.run",
+          "lineNumber": 1221
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 86,
+        "functionCount": 85,
+        "classCount": 1
+      }
+    }
+  ]
+}

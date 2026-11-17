@@ -1,0 +1,2821 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "4903d55c6950524352cb40d74e6271321cd757c2",
+  "generatedAt": "2026-11-15T16:12:55.734Z",
+  "files": {
+    ".dockerignore": {
+      "filePath": ".dockerignore",
+      "contentHash": "54e11a7282f67fbba0221f87d6c77239678b421a5ea060f439b0ff057bf1f1dc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": false
+    },
+    ".env.example": {
+      "filePath": ".env.example",
+      "contentHash": "760f4491290b16052b68db711bed5b1e73213f7a2287b867649230a99271a550",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    ".github/workflows/docker-publish.yml": {
+      "filePath": ".github/workflows/docker-publish.yml",
+      "contentHash": "5c6b00c0ec6b7a3eb026b7bc4c635bb98177a1258084eb8b8f7c9cec3cc614bf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 63,
+      "hasStructuralAnalysis": false
+    },
+    "Dockerfile": {
+      "filePath": "Dockerfile",
+      "contentHash": "7e1e517165a0033f33f539f4cc1cef2e61844e7b4a0ef431011ef6e5867bf5d4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": false
+    },
+    "INSTALL_PROMPT.md": {
+      "filePath": "INSTALL_PROMPT.md",
+      "contentHash": "ef7848a87d7bc44c3a72930192f374d9bb0340cdbcc71aa5186bcf31f7e9d6c2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 125,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "c28a383be83690467cf336af2374f634a865ea689f1d687d1734a4a8835b9cb9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 301,
+      "hasStructuralAnalysis": false
+    },
+    "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md": {
+      "filePath": "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "contentHash": "395ff5c0d57d3175826e9dfe7ee9be33a1c372e543b7c77eeaf666d356f746e2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 210,
+      "hasStructuralAnalysis": false
+    },
+    "cli_youtube.py": {
+      "filePath": "cli_youtube.py",
+      "contentHash": "24def8ff71b9277577e7167d458800a174ef1c110ec76322444ff92c2474f815",
+      "functions": [
+        {
+          "name": "get_jd_device",
+          "params": [],
+          "exported": true,
+          "lineCount": 42
+        },
+        {
+          "name": "cmd_add",
+          "params": [
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "cmd_filter",
+          "params": [
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "cmd_sync",
+          "params": [
+            "args"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 27
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        },
+        {
+          "source": "myjdapi",
+          "specifiers": [
+            "myjdapi"
+          ]
+        }
+      ],
+      "exports": [
+        "get_jd_device",
+        "cmd_add",
+        "cmd_filter",
+        "cmd_sync",
+        "main"
+      ],
+      "totalLines": 167,
+      "hasStructuralAnalysis": true
+    },
+    "mcp_config.docker.json": {
+      "filePath": "mcp_config.docker.json",
+      "contentHash": "9eda320faaf53c895f311a7d36caaa08b8b2b39f3fc284575d056df4f722b9dd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": false
+    },
+    "mcp_config.json": {
+      "filePath": "mcp_config.json",
+      "contentHash": "9e05684adde35a887735aa6f02adabdca10f32e96559f69a9e6e5b8022c7b52b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "mcp_config.uvx.json": {
+      "filePath": "mcp_config.uvx.json",
+      "contentHash": "d956dc167578dea492a71c948a61ac4d25ff5f10ef74fd6e754b978b2a7df213",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "pyproject.toml": {
+      "filePath": "pyproject.toml",
+      "contentHash": "96dd847f0584b3fc3b49e8d53892efb583d2fe4692d5999752581a9fae9bfefc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": false
+    },
+    "requirements.txt": {
+      "filePath": "requirements.txt",
+      "contentHash": "6f9297607805f3a4af640a661baf1fd63f420df91c2d49c40c55b2d642503860",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "skill/jdownloader-usage.md": {
+      "filePath": "skill/jdownloader-usage.md",
+      "contentHash": "52b214d0cb64b8cf89978bde720ddd66919dde03b88fca29cffa19a6e07e467b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 170,
+      "hasStructuralAnalysis": false
+    },
+    "skill/jdownloader.md": {
+      "filePath": "skill/jdownloader.md",
+      "contentHash": "11b2300c9dc9b71a344608c8a5264f891659076f518ef8611727ca35480f4668",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 878,
+      "hasStructuralAnalysis": false
+    },
+    "src/jdownloader_mcp/__init__.py": {
+      "filePath": "src/jdownloader_mcp/__init__.py",
+      "contentHash": "672f1d28b701c1798dbbe8dc2391001648087af36366d91d919d5693f47724d0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/__init__.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/__init__.py",
+      "contentHash": "fc218151ae62b4615f76d6fa8a2cd6e531ddc64f4a6c55827bb1baeca0f97ff6",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".base",
+          "specifiers": [
+            "BaseSolver",
+            "CaptchaChallenge",
+            "CaptchaSolution",
+            "CaptchaType"
+          ]
+        },
+        {
+          "source": ".router",
+          "specifiers": [
+            "CaptchaRouter"
+          ]
+        },
+        {
+          "source": ".daemon",
+          "specifiers": [
+            "AutoSolverDaemon"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/base.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/base.py",
+      "contentHash": "357d73af0ae40f828c3f3ac937fd3a9a23130ce22f1d8893591d62b7ed40bc41",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CaptchaType",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "CaptchaChallenge",
+          "methods": [],
+          "properties": [
+            "captcha_id",
+            "hoster",
+            "captcha_type",
+            "image_data",
+            "image_base64",
+            "site_key",
+            "page_url",
+            "extra"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "CaptchaSolution",
+          "methods": [],
+          "properties": [
+            "success",
+            "solution",
+            "solver_name",
+            "confidence",
+            "error"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "BaseSolver",
+          "methods": [
+            "__init__",
+            "solve",
+            "can_solve",
+            "success_rate",
+            "stats",
+            "_record_attempt"
+          ],
+          "properties": [
+            "name",
+            "supported_types"
+          ],
+          "exported": true,
+          "lineCount": 42
+        }
+      ],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "abc",
+          "specifiers": [
+            "ABC",
+            "abstractmethod"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        }
+      ],
+      "exports": [
+        "CaptchaType",
+        "CaptchaChallenge",
+        "CaptchaSolution",
+        "BaseSolver"
+      ],
+      "totalLines": 93,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/daemon.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/daemon.py",
+      "contentHash": "c3db663d6086846f87cf0e13004897ea032396eadd50911f1c05717d43c1830f",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AutoSolverDaemon",
+          "methods": [
+            "__init__",
+            "start",
+            "stop",
+            "is_running",
+            "status",
+            "_run_loop",
+            "_current_device",
+            "_check_and_solve",
+            "_build_challenge",
+            "reset_stats",
+            "clear_attempted"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 226
+        }
+      ],
+      "imports": [
+        {
+          "source": "base64",
+          "specifiers": [
+            "base64"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": ".base",
+          "specifiers": [
+            "CaptchaChallenge"
+          ]
+        },
+        {
+          "source": ".router",
+          "specifiers": [
+            "CaptchaRouter"
+          ]
+        }
+      ],
+      "exports": [
+        "AutoSolverDaemon"
+      ],
+      "totalLines": 252,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/models/__init__.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/models/__init__.py",
+      "contentHash": "8bb1b3a277e0cf7b34a5d0d4806c9468254de0f3ebdbb6438d6252b28a847ea9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/models/cnn_model.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "contentHash": "fb4f35b0f71a91784a181224520e005f1a2b804058a33f003cd5be4b1c1cd314",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CaptchaCNN",
+          "methods": [
+            "__init__",
+            "forward"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 88
+        },
+        {
+          "name": "CaptchaLoss",
+          "methods": [
+            "__init__",
+            "forward"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "imports": [
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "torch.nn",
+          "specifiers": [
+            "nn"
+          ]
+        }
+      ],
+      "exports": [
+        "CaptchaCNN",
+        "CaptchaLoss"
+      ],
+      "totalLines": 143,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py",
+      "contentHash": "27c866d7bf5b7d57b84b0d01fbf5eb5d244173d48d43609187ec60406b3204b5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".image_processor",
+          "specifiers": [
+            "ImageProcessor"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "contentHash": "93d68ed467f1557a8a057e549f3f3d817a1db2f98f6375f02c19e5a251160346",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ImageProcessor",
+          "methods": [
+            "__init__",
+            "process",
+            "process_bytes",
+            "_denoise",
+            "_sharpen",
+            "_threshold",
+            "_resize",
+            "_remove_border",
+            "remove_lines",
+            "auto_crop"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 153
+        }
+      ],
+      "imports": [
+        {
+          "source": "io",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional",
+            "Tuple"
+          ]
+        },
+        {
+          "source": "PIL",
+          "specifiers": [
+            "Image",
+            "ImageFilter",
+            "ImageOps"
+          ]
+        }
+      ],
+      "exports": [
+        "ImageProcessor"
+      ],
+      "totalLines": 173,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/router.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/router.py",
+      "contentHash": "db7b87ea54e9e44fb912483a3bb0d73713fff03f2a7648b4247f86b5e40ccb2d",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CaptchaRouter",
+          "methods": [
+            "__init__",
+            "register_solver",
+            "unregister_solver",
+            "detect_type",
+            "solve",
+            "solvers",
+            "get_solver"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 98
+        }
+      ],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": ".base",
+          "specifiers": [
+            "BaseSolver",
+            "CaptchaChallenge",
+            "CaptchaSolution",
+            "CaptchaType"
+          ]
+        }
+      ],
+      "exports": [
+        "CaptchaRouter"
+      ],
+      "totalLines": 134,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/solvers/__init__.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/solvers/__init__.py",
+      "contentHash": "3dc1aca663dc02194d2184777af93534f4f7241ecd55f2f2b8dd1c7c7a66e774",
+      "functions": [
+        {
+          "name": "__getattr__",
+          "params": [
+            "name"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "importlib",
+          "specifiers": [
+            "import_module"
+          ]
+        }
+      ],
+      "exports": [
+        "__getattr__"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/solvers/darknet_solver.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/solvers/darknet_solver.py",
+      "contentHash": "12811cbe13d4bca96e63cc6a86b70f93361255f0dfed51f01ccb220f11ba3119",
+      "functions": [],
+      "classes": [
+        {
+          "name": "DarkNetSolver",
+          "methods": [
+            "__init__",
+            "_load_model",
+            "solve",
+            "_load_image",
+            "_preprocess",
+            "_detect",
+            "_process_output",
+            "_nms",
+            "_compute_iou",
+            "_format_solution"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 291
+        }
+      ],
+      "imports": [
+        {
+          "source": "base64",
+          "specifiers": [
+            "base64"
+          ]
+        },
+        {
+          "source": "io",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "List",
+            "Optional",
+            "Tuple"
+          ]
+        },
+        {
+          "source": "..base",
+          "specifiers": [
+            "BaseSolver",
+            "CaptchaChallenge",
+            "CaptchaSolution",
+            "CaptchaType"
+          ]
+        }
+      ],
+      "exports": [
+        "DarkNetSolver"
+      ],
+      "totalLines": 344,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py",
+      "contentHash": "3930bd5224367c04937480e0de158c2eea1625ae0c6a37358acbb33bfa69d023",
+      "functions": [],
+      "classes": [
+        {
+          "name": "MLSolver",
+          "methods": [
+            "__init__",
+            "_load_model",
+            "solve",
+            "_load_image",
+            "_preprocess",
+            "_predict"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 164
+        }
+      ],
+      "imports": [
+        {
+          "source": "base64",
+          "specifiers": [
+            "base64"
+          ]
+        },
+        {
+          "source": "io",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": "..base",
+          "specifiers": [
+            "BaseSolver",
+            "CaptchaChallenge",
+            "CaptchaSolution",
+            "CaptchaType"
+          ]
+        }
+      ],
+      "exports": [
+        "MLSolver"
+      ],
+      "totalLines": 217,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/solvers/nopecha_solver.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/solvers/nopecha_solver.py",
+      "contentHash": "c4712057285ad87597ea5c16b150762cc4731c11d6bc6cd1a422823c0b02dcda",
+      "functions": [],
+      "classes": [
+        {
+          "name": "NopeCHASolver",
+          "methods": [
+            "__init__",
+            "solve",
+            "_solve_image",
+            "_solve_token",
+            "_poll_token_result"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 214
+        }
+      ],
+      "imports": [
+        {
+          "source": "base64",
+          "specifiers": [
+            "base64"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": "requests",
+          "specifiers": [
+            "requests"
+          ]
+        },
+        {
+          "source": "..base",
+          "specifiers": [
+            "BaseSolver",
+            "CaptchaChallenge",
+            "CaptchaSolution",
+            "CaptchaType"
+          ]
+        }
+      ],
+      "exports": [
+        "NopeCHASolver"
+      ],
+      "totalLines": 245,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py",
+      "contentHash": "9b8b616aa185634f59bf4c30294ef3d65749a58cd5f4d719f314c4bc940da473",
+      "functions": [],
+      "classes": [
+        {
+          "name": "OCRSolver",
+          "methods": [
+            "__init__",
+            "solve",
+            "_load_image",
+            "_preprocess",
+            "_ocr_tesseract",
+            "_ocr_easyocr",
+            "_clean_text",
+            "_estimate_confidence"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 186
+        }
+      ],
+      "imports": [
+        {
+          "source": "base64",
+          "specifiers": [
+            "base64"
+          ]
+        },
+        {
+          "source": "io",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": "..base",
+          "specifiers": [
+            "BaseSolver",
+            "CaptchaChallenge",
+            "CaptchaSolution",
+            "CaptchaType"
+          ]
+        }
+      ],
+      "exports": [
+        "OCRSolver"
+      ],
+      "totalLines": 229,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/captcha_solver/solvers/twocaptcha_solver.py": {
+      "filePath": "src/jdownloader_mcp/captcha_solver/solvers/twocaptcha_solver.py",
+      "contentHash": "2ee6a67f199b432d25707762c9723c8b610d153a80407313501b04540dbe14e1",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TwoCaptchaSolver",
+          "methods": [
+            "__init__",
+            "solve",
+            "_create_task",
+            "_poll_result",
+            "get_balance"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 170
+        }
+      ],
+      "imports": [
+        {
+          "source": "base64",
+          "specifiers": [
+            "base64"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": "requests",
+          "specifiers": [
+            "requests"
+          ]
+        },
+        {
+          "source": "..base",
+          "specifiers": [
+            "BaseSolver",
+            "CaptchaChallenge",
+            "CaptchaSolution",
+            "CaptchaType"
+          ]
+        }
+      ],
+      "exports": [
+        "TwoCaptchaSolver"
+      ],
+      "totalLines": 201,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/server.py": {
+      "filePath": "src/jdownloader_mcp/server.py",
+      "contentHash": "a587092c4e0d88cb4ac759e019234741af95044519303d5470dfa45d82678b43",
+      "functions": [
+        {
+          "name": "_register_solvers",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "_has_env_credentials",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_auto_connect_from_env",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_require_device",
+          "params": [],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "_ids",
+          "params": [
+            "value"
+          ],
+          "returnType": "list",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "jd_connect",
+          "params": [
+            "email",
+            "password",
+            "device_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "jd_disconnect",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_reconnect",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "jd_list_devices",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "jd_connection_status",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_add_links",
+          "params": [
+            "links",
+            "package_name",
+            "download_path",
+            "auto_start",
+            "extract_password"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "jd_query_links",
+          "params": [
+            "status",
+            "availability"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_query_packages_linkgrabber",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_move_to_downloads",
+          "params": [
+            "link_ids",
+            "package_ids"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_remove_links_collector",
+          "params": [
+            "link_ids",
+            "package_ids"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_clear_linkgrabber",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_rename_link_collector",
+          "params": [
+            "link_id",
+            "new_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_rename_package_collector",
+          "params": [
+            "package_id",
+            "new_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_set_priority_collector",
+          "params": [
+            "link_ids",
+            "package_ids",
+            "priority"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_add_container",
+          "params": [
+            "container_type",
+            "content"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_start_downloads",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_stop_downloads",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_pause_downloads",
+          "params": [
+            "pause"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_get_speed",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_get_download_state",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "jd_set_speed_limit",
+          "params": [
+            "limit_bytes"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "jd_force_download",
+          "params": [
+            "link_ids",
+            "package_ids"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_query_downloads",
+          "params": [
+            "status",
+            "speed",
+            "eta",
+            "finished"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_query_packages_downloads",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_remove_links_downloads",
+          "params": [
+            "link_ids",
+            "package_ids"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_reset_links",
+          "params": [
+            "link_ids",
+            "package_ids"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_enable_links",
+          "params": [
+            "enable",
+            "link_ids",
+            "package_ids"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_move_links",
+          "params": [
+            "link_ids",
+            "after_link_id",
+            "dest_package_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_move_packages",
+          "params": [
+            "package_ids",
+            "after_package_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_rename_link_downloads",
+          "params": [
+            "link_id",
+            "new_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_rename_package_downloads",
+          "params": [
+            "package_id",
+            "new_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_set_priority_downloads",
+          "params": [
+            "link_ids",
+            "package_ids",
+            "priority"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "jd_set_download_directory",
+          "params": [
+            "package_ids",
+            "directory"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_cleanup",
+          "params": [
+            "action",
+            "mode",
+            "selection"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_list_captchas",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_get_captcha",
+          "params": [
+            "captcha_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "jd_solve_captcha",
+          "params": [
+            "captcha_id",
+            "solution"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_skip_captcha",
+          "params": [
+            "captcha_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "jd_auto_solve_captcha",
+          "params": [
+            "captcha_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "jd_captcha_daemon_start",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "jd_captcha_daemon_stop",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "jd_captcha_daemon_status",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "jd_captcha_solvers_list",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "jd_list_accounts",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_add_account",
+          "params": [
+            "hoster",
+            "username",
+            "password"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_remove_account",
+          "params": [
+            "account_ids"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_enable_account",
+          "params": [
+            "account_id",
+            "enabled"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_refresh_accounts",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_list_premium_hosters",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_system_info",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_restart",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_exit",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_shutdown_os",
+          "params": [
+            "force"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "jd_hibernate",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_standby",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_get_storage_info",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "jd_list_config_entries",
+          "params": [
+            "pattern"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_get_config_value",
+          "params": [
+            "interface_name",
+            "key"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_set_config_value",
+          "params": [
+            "interface_name",
+            "key",
+            "value"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_reset_config_value",
+          "params": [
+            "interface_name",
+            "key"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_get_default_download_folder",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "jd_set_default_download_folder",
+          "params": [
+            "path"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "jd_list_extensions",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "jd_enable_extension",
+          "params": [
+            "class_name",
+            "enabled"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_list_dialogs",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_get_dialog",
+          "params": [
+            "dialog_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "jd_answer_dialog",
+          "params": [
+            "dialog_id",
+            "response"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_toolbar_status",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "jd_speed_limit_toggle",
+          "params": [
+            "enabled"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "jd_check_update",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "jd_run_update_check",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "jd_restart_and_update",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_call_action",
+          "params": [
+            "action",
+            "params"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_get_session_info",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "jd_poll_events",
+          "params": [
+            "subscription_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "jd_subscribe_events",
+          "params": [
+            "subscriptions",
+            "exclusions"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "jd_add_youtube_smart",
+          "params": [
+            "url",
+            "package_name",
+            "auto_start",
+            "is_spanish"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "jd_filter_youtube_collector",
+          "params": [
+            "is_spanish",
+            "dry_run"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "jd_sync_youtube_channel",
+          "params": [
+            "channel_handle",
+            "max_videos",
+            "auto_start"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "classes": [
+        {
+          "name": "JDState",
+          "methods": [],
+          "properties": [
+            "jd",
+            "device",
+            "connected",
+            "email",
+            "password",
+            "device_name",
+            "captcha_router",
+            "captcha_daemon"
+          ],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": "myjdapi",
+          "specifiers": [
+            "myjdapi"
+          ]
+        },
+        {
+          "source": "mcp.server.fastmcp",
+          "specifiers": [
+            "FastMCP"
+          ]
+        },
+        {
+          "source": "jdownloader_mcp.captcha_solver",
+          "specifiers": [
+            "AutoSolverDaemon",
+            "CaptchaRouter",
+            "CaptchaChallenge"
+          ]
+        }
+      ],
+      "exports": [
+        "JDState",
+        "_register_solvers",
+        "_has_env_credentials",
+        "_auto_connect_from_env",
+        "_require_device",
+        "_ids",
+        "jd_connect",
+        "jd_disconnect",
+        "jd_reconnect",
+        "jd_list_devices",
+        "jd_connection_status",
+        "jd_add_links",
+        "jd_query_links",
+        "jd_query_packages_linkgrabber",
+        "jd_move_to_downloads",
+        "jd_remove_links_collector",
+        "jd_clear_linkgrabber",
+        "jd_rename_link_collector",
+        "jd_rename_package_collector",
+        "jd_set_priority_collector",
+        "jd_add_container",
+        "jd_start_downloads",
+        "jd_stop_downloads",
+        "jd_pause_downloads",
+        "jd_get_speed",
+        "jd_get_download_state",
+        "jd_set_speed_limit",
+        "jd_force_download",
+        "jd_query_downloads",
+        "jd_query_packages_downloads",
+        "jd_remove_links_downloads",
+        "jd_reset_links",
+        "jd_enable_links",
+        "jd_move_links",
+        "jd_move_packages",
+        "jd_rename_link_downloads",
+        "jd_rename_package_downloads",
+        "jd_set_priority_downloads",
+        "jd_set_download_directory",
+        "jd_cleanup",
+        "jd_list_captchas",
+        "jd_get_captcha",
+        "jd_solve_captcha",
+        "jd_skip_captcha",
+        "jd_auto_solve_captcha",
+        "jd_captcha_daemon_start",
+        "jd_captcha_daemon_stop",
+        "jd_captcha_daemon_status",
+        "jd_captcha_solvers_list",
+        "jd_list_accounts",
+        "jd_add_account",
+        "jd_remove_account",
+        "jd_enable_account",
+        "jd_refresh_accounts",
+        "jd_list_premium_hosters",
+        "jd_system_info",
+        "jd_restart",
+        "jd_exit",
+        "jd_shutdown_os",
+        "jd_hibernate",
+        "jd_standby",
+        "jd_get_storage_info",
+        "jd_list_config_entries",
+        "jd_get_config_value",
+        "jd_set_config_value",
+        "jd_reset_config_value",
+        "jd_get_default_download_folder",
+        "jd_set_default_download_folder",
+        "jd_list_extensions",
+        "jd_enable_extension",
+        "jd_list_dialogs",
+        "jd_get_dialog",
+        "jd_answer_dialog",
+        "jd_toolbar_status",
+        "jd_speed_limit_toggle",
+        "jd_check_update",
+        "jd_run_update_check",
+        "jd_restart_and_update",
+        "jd_call_action",
+        "jd_get_session_info",
+        "jd_poll_events",
+        "jd_subscribe_events",
+        "jd_add_youtube_smart",
+        "jd_filter_youtube_collector",
+        "jd_sync_youtube_channel",
+        "main"
+      ],
+      "totalLines": 1226,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/__init__.py": {
+      "filePath": "src/jdownloader_mcp/youtube/__init__.py",
+      "contentHash": "e17753d32d7b8b932fe0436417da3324d7c2c8b64a950a26abd28bee826e48cc",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": ".filter",
+          "specifiers": [
+            "classify_youtube_link",
+            "filter_collector_links"
+          ]
+        },
+        {
+          "source": ".key_router",
+          "specifiers": [
+            "KeyRouter",
+            "QuotaExhaustedError"
+          ]
+        },
+        {
+          "source": ".language",
+          "specifiers": [
+            "detect_language_from_text",
+            "detect_video_language"
+          ]
+        },
+        {
+          "source": ".pipeline",
+          "specifiers": [
+            "add_youtube_video_smart",
+            "sync_youtube_channel_to_jd"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/api.py": {
+      "filePath": "src/jdownloader_mcp/youtube/api.py",
+      "contentHash": "165573d3eec7766efa925ce9fb1a31bcc3d3e3db3cbbfba3db1dbe2ce76645c2",
+      "functions": [
+        {
+          "name": "_razon_http_error",
+          "params": [
+            "e"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "with_retries",
+          "params": [
+            "build_request",
+            "operacion",
+            "router",
+            "youtube"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 47
+        },
+        {
+          "name": "get_channel_id",
+          "params": [
+            "youtube",
+            "channel_handle",
+            "router"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "get_uploads_playlist_id",
+          "params": [
+            "youtube",
+            "channel_id",
+            "router",
+            "only_videos_tab"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 35
+        },
+        {
+          "name": "get_playlist_items",
+          "params": [
+            "youtube",
+            "playlist_id",
+            "router"
+          ],
+          "returnType": "list[dict]",
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "filtrar_solo_videos",
+          "params": [
+            "youtube",
+            "items",
+            "router"
+          ],
+          "returnType": "list[dict]",
+          "exported": true,
+          "lineCount": 56
+        },
+        {
+          "name": "get_all_videos",
+          "params": [
+            "youtube",
+            "playlist_id",
+            "estado_previo",
+            "router"
+          ],
+          "returnType": "list[dict]",
+          "exported": true,
+          "lineCount": 47
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Callable"
+          ]
+        },
+        {
+          "source": "googleapiclient.errors",
+          "specifiers": [
+            "HttpError"
+          ]
+        },
+        {
+          "source": "tqdm",
+          "specifiers": [
+            "tqdm"
+          ]
+        },
+        {
+          "source": ".key_router",
+          "specifiers": [
+            "KeyRouter",
+            "QuotaExhaustedError"
+          ]
+        },
+        {
+          "source": ".language",
+          "specifiers": [
+            "detect_video_language"
+          ]
+        },
+        {
+          "source": ".quota",
+          "specifiers": [
+            "registrar_uso"
+          ]
+        },
+        {
+          "source": ".utils",
+          "specifiers": [
+            "parse_duration_iso8601",
+            "sanitize_filename"
+          ]
+        }
+      ],
+      "exports": [
+        "_razon_http_error",
+        "with_retries",
+        "get_channel_id",
+        "get_uploads_playlist_id",
+        "get_playlist_items",
+        "filtrar_solo_videos",
+        "get_all_videos"
+      ],
+      "totalLines": 280,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/diff.py": {
+      "filePath": "src/jdownloader_mcp/youtube/diff.py",
+      "contentHash": "702f1b689963deb8d2e28b821d25e5dd86e45287362c190022d92d4c9418d3b2",
+      "functions": [
+        {
+          "name": "comparar_videos",
+          "params": [
+            "videos_actuales",
+            "videos_anteriores"
+          ],
+          "returnType": "ResultadoDiff",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "formatear_resumen_diff",
+          "params": [
+            "diff"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [
+        {
+          "name": "ResultadoDiff",
+          "methods": [],
+          "properties": [
+            "nuevos",
+            "eliminados",
+            "total_anterior",
+            "total_actual"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "TypedDict"
+          ]
+        }
+      ],
+      "exports": [
+        "ResultadoDiff",
+        "comparar_videos",
+        "formatear_resumen_diff"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/export.py": {
+      "filePath": "src/jdownloader_mcp/youtube/export.py",
+      "contentHash": "d45ca3ee654e04a7dcaff61f9c4755445439b3764cfbdd12486642b35462df02",
+      "functions": [
+        {
+          "name": "carpeta_canal",
+          "params": [
+            "channel_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "_ruta_salida",
+          "params": [
+            "nombre_archivo",
+            "channel_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "ruta_json",
+          "params": [
+            "channel_name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "save_to_files",
+          "params": [
+            "videos",
+            "channel_name"
+          ],
+          "returnType": "dict[str, str]",
+          "exported": true,
+          "lineCount": 42
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "csv",
+          "specifiers": [
+            "csv"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": ".utils",
+          "specifiers": [
+            "formatear_duracion"
+          ]
+        }
+      ],
+      "exports": [
+        "carpeta_canal",
+        "_ruta_salida",
+        "ruta_json",
+        "save_to_files"
+      ],
+      "totalLines": 79,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/filter.py": {
+      "filePath": "src/jdownloader_mcp/youtube/filter.py",
+      "contentHash": "94d004e3484d6ecc790afbf0cb51adda6220a990bc4827d1dcf1d623ceabb6f1",
+      "functions": [
+        {
+          "name": "classify_youtube_link",
+          "params": [
+            "name",
+            "url"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "filter_collector_links",
+          "params": [
+            "device",
+            "links",
+            "is_spanish",
+            "dry_run"
+          ],
+          "returnType": "Dict[str, Any]",
+          "exported": true,
+          "lineCount": 68
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Dict",
+            "List"
+          ]
+        }
+      ],
+      "exports": [
+        "classify_youtube_link",
+        "filter_collector_links"
+      ],
+      "totalLines": 111,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/key_router.py": {
+      "filePath": "src/jdownloader_mcp/youtube/key_router.py",
+      "contentHash": "a8835338182e0175c4325cecae11d88b5634c0475de30d1cffa2cca1c866eb8a",
+      "functions": [
+        {
+          "name": "_pacific_today_str",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [
+        {
+          "name": "QuotaExhaustedError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "KeySlot",
+          "methods": [
+            "is_available",
+            "reset",
+            "get_client"
+          ],
+          "properties": [
+            "key",
+            "label",
+            "daily_limit",
+            "consumed",
+            "exhausted",
+            "_client"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "KeyRouter",
+          "methods": [
+            "__init__",
+            "from_env",
+            "_load_state",
+            "_save_state",
+            "_check_day_rollover_locked",
+            "get_slot",
+            "get_client",
+            "mark_exhausted",
+            "report_cost"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 131
+        }
+      ],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime",
+            "timezone"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "googleapiclient.discovery",
+          "specifiers": [
+            "build"
+          ]
+        },
+        {
+          "source": "googleapiclient.errors",
+          "specifiers": [
+            "HttpError"
+          ]
+        }
+      ],
+      "exports": [
+        "_pacific_today_str",
+        "QuotaExhaustedError",
+        "KeySlot",
+        "KeyRouter"
+      ],
+      "totalLines": 195,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/language.py": {
+      "filePath": "src/jdownloader_mcp/youtube/language.py",
+      "contentHash": "10631172f307f4cc9456a90c3dfa92dbac1ccb230216242e00e72b0b42f8f21d",
+      "functions": [
+        {
+          "name": "normalize_text",
+          "params": [
+            "text"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "detect_language_from_text",
+          "params": [
+            "title",
+            "description"
+          ],
+          "returnType": "LanguageDetectionResult",
+          "exported": true,
+          "lineCount": 62
+        },
+        {
+          "name": "detect_video_language",
+          "params": [
+            "title",
+            "description",
+            "default_audio_language",
+            "default_language"
+          ],
+          "returnType": "LanguageDetectionResult",
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "classes": [
+        {
+          "name": "LanguageDetectionResult",
+          "methods": [],
+          "properties": [
+            "language",
+            "is_spanish",
+            "method",
+            "confidence"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "unicodedata",
+          "specifiers": [
+            "unicodedata"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "TypedDict"
+          ]
+        }
+      ],
+      "exports": [
+        "LanguageDetectionResult",
+        "normalize_text",
+        "detect_language_from_text",
+        "detect_video_language"
+      ],
+      "totalLines": 154,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/pipeline.py": {
+      "filePath": "src/jdownloader_mcp/youtube/pipeline.py",
+      "contentHash": "5ad2600cbcb7a0fd1fa5e1c348a06200404d094a4170e18d9ec27c4c5703997d",
+      "functions": [
+        {
+          "name": "_esperar_links_en_linkgrabber",
+          "params": [
+            "device",
+            "video_id",
+            "max_espera_segundos",
+            "intervalo_segundos"
+          ],
+          "returnType": "List[Dict[str, Any]]",
+          "exported": true,
+          "lineCount": 41
+        },
+        {
+          "name": "add_youtube_video_smart",
+          "params": [
+            "device",
+            "url",
+            "package_name",
+            "auto_start",
+            "is_spanish",
+            "max_wait_seconds"
+          ],
+          "returnType": "Dict[str, Any]",
+          "exported": true,
+          "lineCount": 96
+        },
+        {
+          "name": "sync_youtube_channel_to_jd",
+          "params": [
+            "device",
+            "channel_handle",
+            "max_videos",
+            "auto_start",
+            "pause_seconds"
+          ],
+          "returnType": "Dict[str, Any]",
+          "exported": true,
+          "lineCount": 62
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Dict",
+            "List",
+            "Optional"
+          ]
+        },
+        {
+          "source": ".api",
+          "specifiers": [
+            "get_all_videos",
+            "get_channel_id",
+            "get_uploads_playlist_id"
+          ]
+        },
+        {
+          "source": ".diff",
+          "specifiers": [
+            "comparar_videos",
+            "formatear_resumen_diff"
+          ]
+        },
+        {
+          "source": ".export",
+          "specifiers": [
+            "ruta_json",
+            "save_to_files"
+          ]
+        },
+        {
+          "source": ".filter",
+          "specifiers": [
+            "filter_collector_links"
+          ]
+        },
+        {
+          "source": ".key_router",
+          "specifiers": [
+            "KeyRouter"
+          ]
+        },
+        {
+          "source": ".language",
+          "specifiers": [
+            "detect_language_from_text",
+            "detect_video_language"
+          ]
+        },
+        {
+          "source": ".utils",
+          "specifiers": [
+            "cargar_estado_previo",
+            "extraer_handle",
+            "extraer_video_id"
+          ]
+        }
+      ],
+      "exports": [
+        "_esperar_links_en_linkgrabber",
+        "add_youtube_video_smart",
+        "sync_youtube_channel_to_jd"
+      ],
+      "totalLines": 222,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/quota.py": {
+      "filePath": "src/jdownloader_mcp/youtube/quota.py",
+      "contentHash": "8496eb5723125531e396513ad442d27d7d5873f696822875a160dbdba93498b1",
+      "functions": [
+        {
+          "name": "_leer_cache",
+          "params": [],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_guardar_cache",
+          "params": [
+            "data"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "registrar_uso",
+          "params": [
+            "operacion",
+            "limite_diario"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "estado_cuota",
+          "params": [
+            "limite_diario"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "date"
+          ]
+        }
+      ],
+      "exports": [
+        "_leer_cache",
+        "_guardar_cache",
+        "registrar_uso",
+        "estado_cuota"
+      ],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "src/jdownloader_mcp/youtube/utils.py": {
+      "filePath": "src/jdownloader_mcp/youtube/utils.py",
+      "contentHash": "db31ebfe73132c4a39bee484eb68557e7d8a77cda7622b7a6a4663c6c9dcc358",
+      "functions": [
+        {
+          "name": "sanitize_filename",
+          "params": [
+            "name"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "parse_duration_iso8601",
+          "params": [
+            "duracion"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "formatear_duracion",
+          "params": [
+            "segundos"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "extraer_handle",
+          "params": [
+            "texto"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "extraer_video_id",
+          "params": [
+            "url_o_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "cargar_estado_previo",
+          "params": [
+            "archivo_json"
+          ],
+          "returnType": "dict[str, dict]",
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        }
+      ],
+      "exports": [
+        "sanitize_filename",
+        "parse_duration_iso8601",
+        "formatear_duracion",
+        "extraer_handle",
+        "extraer_video_id",
+        "cargar_estado_previo"
+      ],
+      "totalLines": 86,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

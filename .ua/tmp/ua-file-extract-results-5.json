@@ -1,0 +1,431 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [
+    "requirements.txt"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 8,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 8
+    }
+  },
+  "results": [
+    {
+      "path": ".env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "definitions": [
+        {
+          "name": "JD_EMAIL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 2,
+          "endLine": 2
+        },
+        {
+          "name": "JD_PASSWORD",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "JD_DEVICE_NAME",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 4,
+          "endLine": 4
+        },
+        {
+          "name": "JD_LOG_LEVEL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "NOPECHA_API_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 10,
+          "endLine": 10
+        },
+        {
+          "name": "TWOCAPTCHA_API_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 11,
+          "endLine": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "INSTALL_PROMPT.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 124,
+      "nonEmptyLines": 105,
+      "sections": [
+        {
+          "heading": "Prompt de instalación — JDownloader MCP (para cualquier LLM)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Alternativa sin Docker (Windows u otro SO) — con uv/uvx",
+          "level": 2,
+          "line": 70
+        },
+        {
+          "heading": "Notas",
+          "level": 2,
+          "line": 117
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 300,
+      "nonEmptyLines": 244,
+      "sections": [
+        {
+          "heading": "JDownloader MCP Server + Skill",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Que incluye",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Instalacion Rapida",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Uso con Docker (recomendado — solo configurar JSON)",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "Construir la imagen localmente (opcional)",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "Uso con uv / uvx (Windows u otro SO, sin Docker)",
+          "level": 2,
+          "line": 104
+        },
+        {
+          "heading": "Requisitos",
+          "level": 3,
+          "line": 110
+        },
+        {
+          "heading": "Config MCP",
+          "level": 3,
+          "line": 117
+        },
+        {
+          "heading": "Uso como MCP Server (Python, sin Docker)",
+          "level": 2,
+          "line": 146
+        },
+        {
+          "heading": "Con Kiro",
+          "level": 3,
+          "line": 148
+        },
+        {
+          "heading": "Con Claude Desktop",
+          "level": 3,
+          "line": 177
+        },
+        {
+          "heading": "Ejecutar manualmente (para testing)",
+          "level": 3,
+          "line": 199
+        },
+        {
+          "heading": "Uso como Kiro Skill",
+          "level": 2,
+          "line": 206
+        },
+        {
+          "heading": "Tools Disponibles (79)",
+          "level": 2,
+          "line": 216
+        },
+        {
+          "heading": "Captcha Auto-Solving",
+          "level": 2,
+          "line": 245
+        },
+        {
+          "heading": "Estado real de cada solver",
+          "level": 3,
+          "line": 251
+        },
+        {
+          "heading": "Cómo activar el auto-solver (API)",
+          "level": 3,
+          "line": 271
+        },
+        {
+          "heading": "Dependencias opcionales (sólo si quieres OCR/ML)",
+          "level": 3,
+          "line": 281
+        },
+        {
+          "heading": "Requisitos",
+          "level": 2,
+          "line": 291
+        },
+        {
+          "heading": "Licencia",
+          "level": 2,
+          "line": 298
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 20
+      }
+    },
+    {
+      "path": "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 209,
+      "nonEmptyLines": 164,
+      "sections": [
+        {
+          "heading": "Sistema de Memoria Audiovisual de YouTube con IA (Especificación Técnica y MVP)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Título de la propuesta",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "2. Descripción general",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "3. Problemas resueltos y decisiones de arquitectura",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "4. Alcance del Proyecto: Enfoque MVP por Fases",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Fase 1: MVP Inmediato (Núcleo Funcional)",
+          "level": 3,
+          "line": 33
+        },
+        {
+          "heading": "Fase 2: Automatización y Trazabilidad Local",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "Fase 3: Evaluación y Embeddings (Opcional / A Demanda)",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "5. Requisitos funcionales (MVP)",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "6. Arquitectura Técnica y Esquema de Datos",
+          "level": 2,
+          "line": 70
+        },
+        {
+          "heading": "6.1. Esquema de Base de Datos SQLite (`youtube_knowledge.db`)",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "7. Pipeline de Procesamiento de Subtítulos (Deduplicación)",
+          "level": 2,
+          "line": 118
+        },
+        {
+          "heading": "Algoritmo de Normalización:",
+          "level": 3,
+          "line": 129
+        },
+        {
+          "heading": "8. Diseño de la Herramienta MCP Única (`yt_knowledge`)",
+          "level": 2,
+          "line": 137
+        },
+        {
+          "heading": "Formato de respuesta para `action=\"search\"` (Ultra-compacto, ~150-200 tokens):",
+          "level": 3,
+          "line": 159
+        },
+        {
+          "heading": "9. Flujo Operativo del MVP",
+          "level": 2,
+          "line": 175
+        },
+        {
+          "heading": "10. Consideraciones Finales y Siguientes Pasos",
+          "level": 2,
+          "line": 206
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 17
+      }
+    },
+    {
+      "path": "mcp_config.docker.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 23,
+      "sections": [
+        {
+          "heading": "mcpServers",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "mcp_config.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "mcpServers",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "mcp_config.uvx.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 18,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "mcpServers",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 45,
+      "sections": [
+        {
+          "heading": "build-system",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "project.optional-dependencies",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "project.scripts",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "tool.hatch.build.targets.wheel",
+          "level": 5,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    }
+  ]
+}

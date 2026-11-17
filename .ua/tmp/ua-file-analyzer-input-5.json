@@ -1,0 +1,70 @@
+{
+  "projectRoot": "C:/Users/Alex/Desktop/1-Github/proyec_jdw2",
+  "batchFiles": [
+    {
+      "path": ".env.example",
+      "language": "config",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": "INSTALL_PROMPT.md",
+      "language": "markdown",
+      "sizeLines": 124,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 300,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md",
+      "language": "markdown",
+      "sizeLines": 209,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "mcp_config.docker.json",
+      "language": "json",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_config.json",
+      "language": "json",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": "mcp_config.uvx.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "requirements.txt",
+      "language": "txt",
+      "sizeLines": 22,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    ".env.example": [],
+    "INSTALL_PROMPT.md": [],
+    "README.md": [],
+    "SISTEMA_MEMORIA_AUDIOVISUAL_PROPUESTA.md": [],
+    "mcp_config.docker.json": [],
+    "mcp_config.json": [],
+    "mcp_config.uvx.json": [],
+    "pyproject.toml": [],
+    "requirements.txt": []
+  }
+}

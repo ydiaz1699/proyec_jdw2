@@ -1107,6 +1107,82 @@ def jd_subscribe_events(subscriptions: list, exclusions: list = None) -> str:
         return f"Error: {e}"
 
 
+# ─── YouTube Smart Integration Tools ──────────────────────────────────────────
+
+@mcp.tool()
+def jd_add_youtube_smart(
+    url: str,
+    package_name: str = "",
+    auto_start: bool = False,
+    is_spanish: Optional[bool] = None,
+) -> str:
+    """Add a YouTube video to JDownloader, wait for variants, detect language and filter files:
+    - Keeps Video, Thumbnail, Description, and Subtitles (.srt/.vtt for the knowledge base).
+    - Removes loose Audio (.m4a/.aac) and other non-essential files."""
+    device = _require_device()
+    try:
+        from jdownloader_mcp.youtube.pipeline import add_youtube_video_smart
+        result = add_youtube_video_smart(
+            device=device,
+            url=url,
+            package_name=package_name,
+            auto_start=auto_start,
+            is_spanish=is_spanish,
+        )
+        return json.dumps(result, indent=2, ensure_ascii=False)
+    except Exception as e:
+        return f"Error adding smart YouTube video: {e}"
+
+
+@mcp.tool()
+def jd_filter_youtube_collector(
+    is_spanish: bool = True,
+    dry_run: bool = False,
+) -> str:
+    """Filter all existing YouTube items currently in the LinkCollector:
+    - Keeps Video, Thumbnail, Description, and Subtitles (.srt/.vtt).
+    - Removes loose Audio (.m4a/.aac) and other non-essential files."""
+    device = _require_device()
+    try:
+        from jdownloader_mcp.youtube.filter import filter_collector_links
+        params = {
+            "bytesTotal": True,
+            "status": True,
+            "availability": True,
+            "url": True,
+            "name": True,
+            "packageUUID": True,
+            "uuid": True,
+        }
+        links = device.linkgrabber.query_links([params])
+        result = filter_collector_links(device, links, is_spanish=is_spanish, dry_run=dry_run)
+        return json.dumps(result, indent=2, ensure_ascii=False)
+    except Exception as e:
+        return f"Error filtering LinkCollector: {e}"
+
+
+@mcp.tool()
+def jd_sync_youtube_channel(
+    channel_handle: str,
+    max_videos: int = 0,
+    auto_start: bool = False,
+) -> str:
+    """Extract YouTube channel videos, calculate diff against previous run,
+    export catalog and send pending videos to JDownloader with language-based variant filtering."""
+    device = _require_device()
+    try:
+        from jdownloader_mcp.youtube.pipeline import sync_youtube_channel_to_jd
+        result = sync_youtube_channel_to_jd(
+            device=device,
+            channel_handle=channel_handle,
+            max_videos=max_videos,
+            auto_start=auto_start,
+        )
+        return json.dumps(result, indent=2, ensure_ascii=False)
+    except Exception as e:
+        return f"Error syncing YouTube channel: {e}"
+
+
 
 
 

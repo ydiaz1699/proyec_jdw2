@@ -1,0 +1,21 @@
+{
+  "projectRoot": "C:/Users/Alex/Desktop/1-Github/proyec_jdw2",
+  "batchFiles": [
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "sizeLines": 19,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 33,
+      "fileCategory": "infra"
+    }
+  ],
+  "batchImportData": {
+    ".dockerignore": [],
+    "Dockerfile": []
+  }
+}

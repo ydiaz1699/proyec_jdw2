@@ -1,0 +1,270 @@
+{
+  "nodes": [
+    {
+      "id": "file:cli_youtube.py",
+      "type": "file",
+      "name": "cli_youtube.py",
+      "filePath": "cli_youtube.py",
+      "summary": "Interfaz de línea de comandos para control directo de YouTube + JDownloader (subcomandos add, filter y sync).",
+      "tags": [
+        "cli",
+        "entry-point",
+        "automation",
+        "tool"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:cli_youtube.py:cmd_add",
+      "type": "function",
+      "name": "cmd_add",
+      "filePath": "cli_youtube.py",
+      "summary": "Manejador del comando 'add' para inyectar y filtrar un video de YouTube con auto-arranque opcional.",
+      "tags": [
+        "cli-handler",
+        "download"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        70,
+        90
+      ]
+    },
+    {
+      "id": "function:cli_youtube.py:cmd_filter",
+      "type": "function",
+      "name": "cmd_filter",
+      "filePath": "cli_youtube.py",
+      "summary": "Manejador del comando 'filter' para sanear el LinkGrabber eliminando pistas de audio sueltas.",
+      "tags": [
+        "cli-handler",
+        "filter"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        92,
+        115
+      ]
+    },
+    {
+      "id": "function:cli_youtube.py:cmd_sync",
+      "type": "function",
+      "name": "cmd_sync",
+      "filePath": "cli_youtube.py",
+      "summary": "Manejador del comando 'sync' para sincronizar catálogos completos de canales de YouTube mediante diff.",
+      "tags": [
+        "cli-handler",
+        "sync"
+      ],
+      "complexity": "simple",
+      "lineRange": [
+        117,
+        140
+      ]
+    },
+    {
+      "id": "document:skill/jdownloader-usage.md",
+      "type": "document",
+      "name": "jdownloader-usage.md",
+      "filePath": "skill/jdownloader-usage.md",
+      "summary": "Guía de uso práctico y ejemplos para el control de JDownloader mediante instrucciones en lenguaje natural.",
+      "tags": [
+        "documentation",
+        "user-guide",
+        "skill"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:skill/jdownloader.md",
+      "type": "document",
+      "name": "jdownloader.md",
+      "filePath": "skill/jdownloader.md",
+      "summary": "Especificación completa del skill de JDownloader con catálogo exhaustivo de herramientas, parámetros y patrones de uso.",
+      "tags": [
+        "documentation",
+        "skill-definition",
+        "reference"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/jdownloader_mcp/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/jdownloader_mcp/__init__.py",
+      "summary": "Inicializador raíz del paquete Python jdownloader_mcp.",
+      "tags": [
+        "package-root",
+        "init"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/jdownloader_mcp/captcha_solver/models/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/jdownloader_mcp/captcha_solver/models/__init__.py",
+      "summary": "Inicializador del submódulo de arquitecturas de modelos de redes neuronales.",
+      "tags": [
+        "init",
+        "models"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "type": "file",
+      "name": "cnn_model.py",
+      "filePath": "src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "summary": "Arquitectura PyTorch para red neuronal convolucional personalizada con función de pérdida multi-carácter para captchas.",
+      "tags": [
+        "pytorch",
+        "cnn",
+        "deep-learning",
+        "model-architecture"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/jdownloader_mcp/captcha_solver/models/cnn_model.py:CaptchaCNN",
+      "type": "class",
+      "name": "CaptchaCNN",
+      "filePath": "src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "summary": "Red neuronal convolucional profunda para reconocimiento óptico de caracteres distorsionados.",
+      "tags": [
+        "neural-network",
+        "cnn",
+        "pytorch"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        20,
+        110
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py",
+      "summary": "Inicializador del submódulo de preprocesamiento de imágenes.",
+      "tags": [
+        "init",
+        "preprocessing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "type": "file",
+      "name": "image_processor.py",
+      "filePath": "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "summary": "Pipeline de transformación de imágenes: binarización, eliminación de ruido de fondo, umbralizado Otsu y redimensionamiento.",
+      "tags": [
+        "image-processing",
+        "opencv",
+        "computer-vision"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py:ImageProcessor",
+      "type": "class",
+      "name": "ImageProcessor",
+      "filePath": "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "summary": "Procesador de imágenes con filtros morfológicos optimizados para mejorar la tasa de acierto de OCR y redes neuronales.",
+      "tags": [
+        "filter-pipeline",
+        "vision",
+        "processor"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        15,
+        165
+      ]
+    },
+    {
+      "id": "file:src/jdownloader_mcp/captcha_solver/solvers/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "src/jdownloader_mcp/captcha_solver/solvers/__init__.py",
+      "summary": "Carga dinámica con getattr lazy para importar resolutores sin penalización de arranque.",
+      "tags": [
+        "lazy-loading",
+        "solvers",
+        "init"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:cli_youtube.py",
+      "target": "function:cli_youtube.py:cmd_add",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:cli_youtube.py",
+      "target": "function:cli_youtube.py:cmd_filter",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:cli_youtube.py",
+      "target": "function:cli_youtube.py:cmd_sync",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:cli_youtube.py",
+      "target": "file:src/jdownloader_mcp/youtube/pipeline.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:cli_youtube.py",
+      "target": "file:src/jdownloader_mcp/youtube/filter.py",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "target": "class:src/jdownloader_mcp/captcha_solver/models/cnn_model.py:CaptchaCNN",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "target": "class:src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py:ImageProcessor",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/jdownloader_mcp/captcha_solver/solvers/ml_solver.py",
+      "target": "file:src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "type": "depends_on",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/jdownloader_mcp/captcha_solver/solvers/ocr_solver.py",
+      "target": "file:src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "type": "depends_on",
+      "weight": 0.8
+    },
+    {
+      "source": "document:skill/jdownloader.md",
+      "target": "file:src/jdownloader_mcp/server.py",
+      "type": "documents",
+      "weight": 0.8
+    },
+    {
+      "source": "document:skill/jdownloader-usage.md",
+      "target": "file:src/jdownloader_mcp/server.py",
+      "type": "documents",
+      "weight": 0.7
+    }
+  ]
+}

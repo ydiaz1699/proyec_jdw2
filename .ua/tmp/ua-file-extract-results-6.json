@@ -1,0 +1,1433 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 9,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 7,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "results": [
+    {
+      "path": "cli_youtube.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 166,
+      "nonEmptyLines": 139,
+      "functions": [
+        {
+          "name": "get_jd_device",
+          "startLine": 26,
+          "endLine": 67,
+          "params": []
+        },
+        {
+          "name": "cmd_add",
+          "startLine": 70,
+          "endLine": 89,
+          "params": [
+            "args"
+          ]
+        },
+        {
+          "name": "cmd_filter",
+          "startLine": 92,
+          "endLine": 114,
+          "params": [
+            "args"
+          ]
+        },
+        {
+          "name": "cmd_sync",
+          "startLine": 117,
+          "endLine": 133,
+          "params": [
+            "args"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 136,
+          "endLine": 162,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_jd_device",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "cmd_add",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "cmd_filter",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "cmd_sync",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 136,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_jd_device",
+          "callee": "os.getenv",
+          "lineNumber": 27
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "os.getenv",
+          "lineNumber": 28
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "os.getenv",
+          "lineNumber": 29
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "Path.home",
+          "lineNumber": 33
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "cfg_path.is_file",
+          "lineNumber": 34
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "open",
+          "lineNumber": 36
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "json.load",
+          "lineNumber": 37
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "cfg.get(\"mcpServers\", {}).get(\"jdownloader\", {}).get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "cfg.get(\"mcpServers\", {}).get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "cfg.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "env.get",
+          "lineNumber": 39
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "env.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "env.get",
+          "lineNumber": 41
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "print",
+          "lineNumber": 46
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "sys.exit",
+          "lineNumber": 47
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "myjdapi.Myjdapi",
+          "lineNumber": 49
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "jd.set_app_key",
+          "lineNumber": 50
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "print",
+          "lineNumber": 51
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "jd.connect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "jd.update_devices",
+          "lineNumber": 53
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "jd.list_devices",
+          "lineNumber": 54
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "print",
+          "lineNumber": 56
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "sys.exit",
+          "lineNumber": 57
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "jd.get_device",
+          "lineNumber": 60
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "jd.get_device",
+          "lineNumber": 62
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "jd.get_device",
+          "lineNumber": 64
+        },
+        {
+          "caller": "get_jd_device",
+          "callee": "print",
+          "lineNumber": 66
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "get_jd_device",
+          "lineNumber": 72
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "args.lang.lower",
+          "lineNumber": 76
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "print",
+          "lineNumber": 78
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "add_youtube_video_smart",
+          "lineNumber": 79
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "print",
+          "lineNumber": 86
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "print",
+          "lineNumber": 87
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "json.dumps",
+          "lineNumber": 87
+        },
+        {
+          "caller": "cmd_add",
+          "callee": "jd.disconnect",
+          "lineNumber": 89
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "get_jd_device",
+          "lineNumber": 94
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "args.lang.lower",
+          "lineNumber": 96
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "print",
+          "lineNumber": 97
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "device.linkgrabber.query_links",
+          "lineNumber": 107
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "filter_collector_links",
+          "lineNumber": 108
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "print",
+          "lineNumber": 109
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "print",
+          "lineNumber": 110
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "print",
+          "lineNumber": 111
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "print",
+          "lineNumber": 112
+        },
+        {
+          "caller": "cmd_filter",
+          "callee": "jd.disconnect",
+          "lineNumber": 114
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "get_jd_device",
+          "lineNumber": 119
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "print",
+          "lineNumber": 121
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "sync_youtube_channel_to_jd",
+          "lineNumber": 122
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "print",
+          "lineNumber": 128
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "print",
+          "lineNumber": 129
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "print",
+          "lineNumber": 130
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "print",
+          "lineNumber": 131
+        },
+        {
+          "caller": "cmd_sync",
+          "callee": "jd.disconnect",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_subparsers",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "subparsers.add_parser",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "p_add.add_argument",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "p_add.add_argument",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "p_add.add_argument",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "p_add.add_argument",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "p_add.set_defaults",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "subparsers.add_parser",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "p_filter.add_argument",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "p_filter.add_argument",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "p_filter.set_defaults",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "subparsers.add_parser",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "p_sync.add_argument",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "p_sync.add_argument",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "p_sync.add_argument",
+          "lineNumber": 158
+        },
+        {
+          "caller": "main",
+          "callee": "p_sync.set_defaults",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "args.func",
+          "lineNumber": 162
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "skill/jdownloader-usage.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 169,
+      "nonEmptyLines": 138,
+      "sections": [
+        {
+          "heading": "Skill: uso del MCP de JDownloader",
+          "level": 1,
+          "line": 26
+        },
+        {
+          "heading": "Modelo mental de JDownloader",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Comprobación inicial",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "Recetas por tarea",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "Añadir enlaces y descargar",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "Controlar la cola de descargas",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "Carpeta de destino",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "Límite de velocidad",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "Cuentas premium",
+          "level": 3,
+          "line": 103
+        },
+        {
+          "heading": "Captchas",
+          "level": 3,
+          "line": 108
+        },
+        {
+          "heading": "Sistema y mantenimiento",
+          "level": 3,
+          "line": 124
+        },
+        {
+          "heading": "Buenas prácticas para el agente",
+          "level": 2,
+          "line": 135
+        },
+        {
+          "heading": "Referencia completa de categorías",
+          "level": 2,
+          "line": 154
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "skill/jdownloader.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 877,
+      "nonEmptyLines": 659,
+      "sections": [
+        {
+          "heading": "JDownloader API - Kiro Skill",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Overview",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Prerequisites",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Connection Pattern",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "Module Reference",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "1. Linkgrabber (LinkCollector)",
+          "level": 3,
+          "line": 53
+        },
+        {
+          "heading": "add_links(params)",
+          "level": 4,
+          "line": 58
+        },
+        {
+          "heading": "query_packages(params)",
+          "level": 4,
+          "line": 74
+        },
+        {
+          "heading": "query_links(params)",
+          "level": 4,
+          "line": 93
+        },
+        {
+          "heading": "move_to_downloadlist(link_ids, package_ids)",
+          "level": 4,
+          "line": 117
+        },
+        {
+          "heading": "move_to_new_package(link_ids, package_ids, new_pkg_name, download_path)",
+          "level": 4,
+          "line": 127
+        },
+        {
+          "heading": "rename_package(package_id, new_name)",
+          "level": 4,
+          "line": 141
+        },
+        {
+          "heading": "rename_link(link_id, new_name)",
+          "level": 4,
+          "line": 148
+        },
+        {
+          "heading": "set_priority(priority, link_ids, package_ids)",
+          "level": 4,
+          "line": 156
+        },
+        {
+          "heading": "set_enabled(enable, link_ids, package_ids)",
+          "level": 4,
+          "line": 164
+        },
+        {
+          "heading": "get_variants(link_id_list)",
+          "level": 4,
+          "line": 171
+        },
+        {
+          "heading": "cleanup(action, mode, selection_type, link_ids, package_ids)",
+          "level": 4,
+          "line": 179
+        },
+        {
+          "heading": "clear_list()",
+          "level": 4,
+          "line": 194
+        },
+        {
+          "heading": "remove_links(link_ids, package_ids)",
+          "level": 4,
+          "line": 201
+        },
+        {
+          "heading": "add_container(type_, content)",
+          "level": 4,
+          "line": 208
+        },
+        {
+          "heading": "is_collecting()",
+          "level": 4,
+          "line": 215
+        },
+        {
+          "heading": "get_package_count()",
+          "level": 4,
+          "line": 222
+        },
+        {
+          "heading": "get_download_urls(link_ids, package_ids, url_display_type)",
+          "level": 4,
+          "line": 229
+        },
+        {
+          "heading": "2. Download Controller",
+          "level": 3,
+          "line": 239
+        },
+        {
+          "heading": "3. Downloads List",
+          "level": 3,
+          "line": 256
+        },
+        {
+          "heading": "query_packages(params)",
+          "level": 4,
+          "line": 260
+        },
+        {
+          "heading": "query_links(params)",
+          "level": 4,
+          "line": 282
+        },
+        {
+          "heading": "Other downloads methods",
+          "level": 4,
+          "line": 309
+        },
+        {
+          "heading": "4. Captcha",
+          "level": 3,
+          "line": 323
+        },
+        {
+          "heading": "5. Accounts (Premium Hosters)",
+          "level": 3,
+          "line": 347
+        },
+        {
+          "heading": "6. System",
+          "level": 3,
+          "line": 393
+        },
+        {
+          "heading": "7. Config (Advanced Settings)",
+          "level": 3,
+          "line": 410
+        },
+        {
+          "heading": "8. Extensions",
+          "level": 3,
+          "line": 458
+        },
+        {
+          "heading": "9. Dialogs",
+          "level": 3,
+          "line": 487
+        },
+        {
+          "heading": "10. Toolbar",
+          "level": 3,
+          "line": 507
+        },
+        {
+          "heading": "11. Update",
+          "level": 3,
+          "line": 522
+        },
+        {
+          "heading": "12. Reconnect",
+          "level": 3,
+          "line": 533
+        },
+        {
+          "heading": "13. JD Info",
+          "level": 3,
+          "line": 543
+        },
+        {
+          "heading": "Common Patterns & Gotchas",
+          "level": 2,
+          "line": 552
+        },
+        {
+          "heading": "Pattern: Add links and wait for them to be resolved",
+          "level": 3,
+          "line": 554
+        },
+        {
+          "heading": "Pattern: Rename packages by matching title",
+          "level": 3,
+          "line": 573
+        },
+        {
+          "heading": "Pattern: Download only specific variants (YouTube)",
+          "level": 3,
+          "line": 588
+        },
+        {
+          "heading": "Gotcha: Rate Limiting",
+          "level": 3,
+          "line": 597
+        },
+        {
+          "heading": "Gotcha: UUIDs are integers",
+          "level": 3,
+          "line": 607
+        },
+        {
+          "heading": "Gotcha: Parameter order matters",
+          "level": 3,
+          "line": 611
+        },
+        {
+          "heading": "Gotcha: query params are a list containing one dict",
+          "level": 3,
+          "line": 616
+        },
+        {
+          "heading": "Gotcha: add_links params are also a list containing one dict",
+          "level": 3,
+          "line": 626
+        },
+        {
+          "heading": "Captcha Auto-Solving Strategy",
+          "level": 2,
+          "line": 638
+        },
+        {
+          "heading": "MCP Server Usage",
+          "level": 2,
+          "line": 675
+        },
+        {
+          "heading": "With Kiro / Claude Desktop",
+          "level": 3,
+          "line": 679
+        },
+        {
+          "heading": "Available MCP Tools",
+          "level": 3,
+          "line": 699
+        },
+        {
+          "heading": "Extended API (not in myjdapi, use device.action() directly)",
+          "level": 2,
+          "line": 727
+        },
+        {
+          "heading": "14. Extraction",
+          "level": 3,
+          "line": 732
+        },
+        {
+          "heading": "15. CaptchaForward",
+          "level": 3,
+          "line": 763
+        },
+        {
+          "heading": "16. LinkCrawler",
+          "level": 3,
+          "line": 778
+        },
+        {
+          "heading": "17. DownloadsV2 Extra Methods",
+          "level": 3,
+          "line": 787
+        },
+        {
+          "heading": "18. LinkgrabberV2 Extra Methods",
+          "level": 3,
+          "line": 814
+        },
+        {
+          "heading": "19. JD Namespace Extra",
+          "level": 3,
+          "line": 829
+        },
+        {
+          "heading": "20. Raw API Call Pattern",
+          "level": 3,
+          "line": 844
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 59
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 2,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/models/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/models/cnn_model.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 142,
+      "nonEmptyLines": 115,
+      "classes": [
+        {
+          "name": "CaptchaCNN",
+          "startLine": 21,
+          "endLine": 108,
+          "methods": [
+            "__init__",
+            "forward"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CaptchaLoss",
+          "startLine": 111,
+          "endLine": 142,
+          "methods": [
+            "__init__",
+            "forward"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CaptchaCNN",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "CaptchaLoss",
+          "line": 111,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 34
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 34
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Sequential",
+          "lineNumber": 41
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Conv2d",
+          "lineNumber": 43
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.BatchNorm2d",
+          "lineNumber": 44
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.ReLU",
+          "lineNumber": 45
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.MaxPool2d",
+          "lineNumber": 46
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Conv2d",
+          "lineNumber": 49
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.BatchNorm2d",
+          "lineNumber": 50
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.ReLU",
+          "lineNumber": 51
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.MaxPool2d",
+          "lineNumber": 52
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Conv2d",
+          "lineNumber": 54
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.BatchNorm2d",
+          "lineNumber": 55
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.ReLU",
+          "lineNumber": 56
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.MaxPool2d",
+          "lineNumber": 57
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Conv2d",
+          "lineNumber": 59
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.BatchNorm2d",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.ReLU",
+          "lineNumber": 61
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.MaxPool2d",
+          "lineNumber": 62
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Dropout2d",
+          "lineNumber": 63
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Sequential",
+          "lineNumber": 72
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Linear",
+          "lineNumber": 73
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.ReLU",
+          "lineNumber": 74
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Dropout",
+          "lineNumber": 75
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.ModuleList",
+          "lineNumber": 79
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.Linear",
+          "lineNumber": 80
+        },
+        {
+          "caller": "__init__",
+          "callee": "range",
+          "lineNumber": 81
+        },
+        {
+          "caller": "forward",
+          "callee": "self.features",
+          "lineNumber": 96
+        },
+        {
+          "caller": "forward",
+          "callee": "x.view",
+          "lineNumber": 99
+        },
+        {
+          "caller": "forward",
+          "callee": "x.size",
+          "lineNumber": 99
+        },
+        {
+          "caller": "forward",
+          "callee": "self.classifier",
+          "lineNumber": 102
+        },
+        {
+          "caller": "forward",
+          "callee": "head",
+          "lineNumber": 105
+        },
+        {
+          "caller": "forward",
+          "callee": "torch.stack",
+          "lineNumber": 108
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 118
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 118
+        },
+        {
+          "caller": "__init__",
+          "callee": "nn.CrossEntropyLoss",
+          "lineNumber": 119
+        },
+        {
+          "caller": "forward",
+          "callee": "range",
+          "lineNumber": 137
+        },
+        {
+          "caller": "forward",
+          "callee": "self.criterion",
+          "lineNumber": 140
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/preprocessing/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 2,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/preprocessing/image_processor.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 172,
+      "nonEmptyLines": 138,
+      "classes": [
+        {
+          "name": "ImageProcessor",
+          "startLine": 20,
+          "endLine": 172,
+          "methods": [
+            "__init__",
+            "process",
+            "process_bytes",
+            "_denoise",
+            "_sharpen",
+            "_threshold",
+            "_resize",
+            "_remove_border",
+            "remove_lines",
+            "auto_crop"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ImageProcessor",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 28
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 33
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 34
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.config.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "process",
+          "callee": "Image.new",
+          "lineNumber": 51
+        },
+        {
+          "caller": "process",
+          "callee": "background.paste",
+          "lineNumber": 52
+        },
+        {
+          "caller": "process",
+          "callee": "image.split",
+          "lineNumber": 52
+        },
+        {
+          "caller": "process",
+          "callee": "image.convert",
+          "lineNumber": 55
+        },
+        {
+          "caller": "process",
+          "callee": "image.convert",
+          "lineNumber": 59
+        },
+        {
+          "caller": "process",
+          "callee": "self._remove_border",
+          "lineNumber": 63
+        },
+        {
+          "caller": "process",
+          "callee": "self._denoise",
+          "lineNumber": 67
+        },
+        {
+          "caller": "process",
+          "callee": "self._sharpen",
+          "lineNumber": 71
+        },
+        {
+          "caller": "process",
+          "callee": "self._threshold",
+          "lineNumber": 75
+        },
+        {
+          "caller": "process",
+          "callee": "ImageOps.invert",
+          "lineNumber": 79
+        },
+        {
+          "caller": "process",
+          "callee": "self._resize",
+          "lineNumber": 83
+        },
+        {
+          "caller": "process_bytes",
+          "callee": "Image.open",
+          "lineNumber": 89
+        },
+        {
+          "caller": "process_bytes",
+          "callee": "io.BytesIO",
+          "lineNumber": 89
+        },
+        {
+          "caller": "process_bytes",
+          "callee": "self.process",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_denoise",
+          "callee": "image.filter",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_denoise",
+          "callee": "ImageFilter.MedianFilter",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_sharpen",
+          "callee": "image.filter",
+          "lineNumber": 99
+        },
+        {
+          "caller": "_threshold",
+          "callee": "image.convert",
+          "lineNumber": 104
+        },
+        {
+          "caller": "_threshold",
+          "callee": "image.point",
+          "lineNumber": 105
+        },
+        {
+          "caller": "_resize",
+          "callee": "image.resize",
+          "lineNumber": 111
+        },
+        {
+          "caller": "_remove_border",
+          "callee": "image.crop",
+          "lineNumber": 120
+        },
+        {
+          "caller": "remove_lines",
+          "callee": "image.convert",
+          "lineNumber": 132
+        },
+        {
+          "caller": "remove_lines",
+          "callee": "ImageMorph.LutBuilder(\r\n                patterns=[\"1:(0,0,0,1,1,1,0,0,0)->0\"]\r\n            ).build_lut",
+          "lineNumber": 139
+        },
+        {
+          "caller": "remove_lines",
+          "callee": "ImageMorph.LutBuilder",
+          "lineNumber": 139
+        },
+        {
+          "caller": "remove_lines",
+          "callee": "ImageMorph.MorphOp(lut=lut).apply",
+          "lineNumber": 142
+        },
+        {
+          "caller": "remove_lines",
+          "callee": "ImageMorph.MorphOp",
+          "lineNumber": 142
+        },
+        {
+          "caller": "remove_lines",
+          "callee": "image.filter",
+          "lineNumber": 145
+        },
+        {
+          "caller": "remove_lines",
+          "callee": "ImageFilter.MinFilter",
+          "lineNumber": 145
+        },
+        {
+          "caller": "auto_crop",
+          "callee": "image.convert",
+          "lineNumber": 155
+        },
+        {
+          "caller": "auto_crop",
+          "callee": "gray.getbbox",
+          "lineNumber": 160
+        },
+        {
+          "caller": "auto_crop",
+          "callee": "max",
+          "lineNumber": 167
+        },
+        {
+          "caller": "auto_crop",
+          "callee": "max",
+          "lineNumber": 168
+        },
+        {
+          "caller": "auto_crop",
+          "callee": "min",
+          "lineNumber": 169
+        },
+        {
+          "caller": "auto_crop",
+          "callee": "min",
+          "lineNumber": 170
+        },
+        {
+          "caller": "auto_crop",
+          "callee": "image.crop",
+          "lineNumber": 172
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/jdownloader_mcp/captcha_solver/solvers/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "__getattr__",
+          "startLine": 34,
+          "endLine": 40,
+          "params": [
+            "name"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "__getattr__",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__getattr__",
+          "callee": "_LAZY.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "__getattr__",
+          "callee": "AttributeError",
+          "lineNumber": 38
+        },
+        {
+          "caller": "__getattr__",
+          "callee": "import_module",
+          "lineNumber": 39
+        },
+        {
+          "caller": "__getattr__",
+          "callee": "getattr",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

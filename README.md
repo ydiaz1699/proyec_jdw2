@@ -7,24 +7,20 @@ Control completo de JDownloader desde cualquier LLM usando el protocolo MCP
 
 ```
 proyec_jdw2/
-├── src/jdownloader_mcp/          # MCP Server (76 tools)
+├── src/jdownloader_mcp/          # MCP Server (79 tools)
 │   ├── __init__.py
 │   ├── server.py                 # Servidor MCP principal
+│   ├── youtube/                  # Módulo integrado de YouTube
+│   │   ├── api.py                # Extractor de canales con retries y filtrado
+│   │   ├── key_router.py         # Round-robin multi-API key y cuota
+│   │   ├── language.py           # Detección de idioma (español vs otro)
+│   │   ├── filter.py             # Reglas inteligentes de variantes
+│   │   ├── pipeline.py           # Orquestación YouTube -> LinkCollector
+│   │   ├── diff.py               # Detección diferencial de videos nuevos
+│   │   └── export.py             # Exportador CSV, JSON, Markdown, TXT
 │   └── captcha_solver/           # Módulo auto-solver
-│       ├── __init__.py
-│       ├── base.py               # Clases base (CaptchaType, BaseSolver)
-│       ├── router.py             # Enrutador por tipo de captcha
-│       ├── daemon.py             # Auto-solver background daemon
-│       ├── preprocessing/
-│       │   └── image_processor.py # Pipeline de procesamiento de imagen
-│       ├── solvers/
-│       │   ├── ocr_solver.py     # Tesseract + EasyOCR
-│       │   ├── ml_solver.py      # CNN PyTorch (opt-in, requiere modelo .pth)
-│       │   ├── nopecha_solver.py # NopeCHA API HTTP client
-│       │   ├── twocaptcha_solver.py # 2Captcha API HTTP client
-│       │   └── darknet_solver.py # YOLO/PyTorch (opt-in, requiere modelo .pt)
-│       └── models/
-│           └── cnn_model.py      # Arquitectura CNN para training
+├── cli_youtube.py                # CLI para terminal (add, filter, sync)
+├── outputs/                      # Catálogos exportados por canal
 ├── skill/
 │   └── jdownloader.md            # Kiro Skill (referencia completa)
 ├── mcp_config.json               # Config para clientes MCP
@@ -217,13 +213,14 @@ Esto le da a Kiro (o cualquier LLM que lea el archivo) toda la referencia
 necesaria para generar codigo que interactue con JDownloader sin necesidad
 de leer la documentacion original de myjdapi.
 
-## Tools Disponibles (76)
+## Tools Disponibles (79)
 
 > Los nombres de abajo son los **reales** registrados por el servidor (verificados
 > con `mcp.list_tools()` contra myjdapi 1.1.11). Todas empiezan por `jd_`.
 
 | Categoria | Tools |
 |-----------|-------|
+| YouTube Smart | `jd_add_youtube_smart`, `jd_filter_youtube_collector`, `jd_sync_youtube_channel` |
 | Conexion | `jd_connect`, `jd_disconnect`, `jd_reconnect`, `jd_connection_status`, `jd_list_devices` |
 | LinkCollector | `jd_add_links`, `jd_query_links`, `jd_query_packages_linkgrabber`, `jd_move_to_downloads`, `jd_remove_links_collector`, `jd_clear_linkgrabber`, `jd_rename_link_collector`, `jd_rename_package_collector`, `jd_set_priority_collector`, `jd_add_container` |
 | Descargas | `jd_start_downloads`, `jd_stop_downloads`, `jd_pause_downloads`, `jd_get_speed`, `jd_get_download_state`, `jd_force_download`, `jd_set_speed_limit`, `jd_query_downloads`, `jd_query_packages_downloads`, `jd_remove_links_downloads`, `jd_reset_links`, `jd_enable_links`, `jd_move_links`¹, `jd_move_packages`¹, `jd_rename_link_downloads`¹, `jd_rename_package_downloads`¹, `jd_set_priority_downloads`¹, `jd_set_download_directory`, `jd_cleanup` |

@@ -1,0 +1,36 @@
+{
+  "issues": [],
+  "warnings": [
+    "Node 'config:.env.example' has no edges (orphan)",
+    "Node 'config:mcp_config.docker.json' has no edges (orphan)",
+    "Node 'config:mcp_config.uvx.json' has no edges (orphan)",
+    "Node 'config:requirements.txt' has no edges (orphan)",
+    "Node 'file:src/jdownloader_mcp/__init__.py' has no edges (orphan)",
+    "Node 'file:src/jdownloader_mcp/captcha_solver/models/__init__.py' has no edges (orphan)",
+    "Node 'file:src/jdownloader_mcp/captcha_solver/solvers/__init__.py' has no edges (orphan)"
+  ],
+  "stats": {
+    "totalNodes": 74,
+    "totalEdges": 80,
+    "totalLayers": 5,
+    "tourSteps": 7,
+    "nodeTypes": {
+      "file": 27,
+      "class": 15,
+      "function": 18,
+      "service": 1,
+      "config": 7,
+      "pipeline": 1,
+      "document": 5
+    },
+    "edgeTypes": {
+      "contains": 33,
+      "imports": 31,
+      "inherits": 5,
+      "configures": 3,
+      "deploys": 1,
+      "documents": 5,
+      "depends_on": 2
+    }
+  }
+}
